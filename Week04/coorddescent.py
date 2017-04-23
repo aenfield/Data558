@@ -25,3 +25,15 @@ def minimize_beta_term(beta, x, y, j, lam):
     else:
         # c is between -lambda and +lambda
         return 0
+
+
+def cycliccoorddescent(x, y, lam, max_iter=500):
+    feature_count = x.shape[1]
+
+    # get a sequence of feature indices/j values
+    # we repeat enough times to have at least or more numbers,
+    # then filter to just the right amount
+    repeat_features_count = (max_iter / feature_count) + 1
+    sequence_of_js = np.repeat(y[np.newaxis], 2, 0).flatten()[:max_iter]
+
+    for j in sequence_of_js:
