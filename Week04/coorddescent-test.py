@@ -16,6 +16,11 @@ class MinimizationTest(unittest.TestCase):
         c = c_term(self.beta, self.x, self.y, 1, self.lam)
         np.testing.assert_allclose(46, c)
 
+    def test_c_term(self):
+        c = c_term(np.array([0.536, 0, 0]), self.x, self.y, 2, self.lam)
+        np.testing.assert_allclose(-4.416, c)
+
+
 
 if __name__ == '__main__':
     unittest.main()

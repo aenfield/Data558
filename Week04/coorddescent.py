@@ -8,4 +8,4 @@ def c_term(beta, x, y, j, lam):
     beta_minus_j = beta[idxs_to_keep]
     x_minus_j = x[:, idxs_to_keep]
 
-    return 2 * sum(x[:, 0] * y - x_minus_j.dot(beta_minus_j))
+    return 2 * sum(x[:, j-1] * (y - x_minus_j.dot(beta_minus_j)))
