@@ -2,9 +2,9 @@ import numpy as np
 import pandas as pd
 
 def lasso_objective(beta, x, y, lam):
-        obj = (1 / len(x)) * sum((y - x.dot(beta))**2)
-        obj = obj + (lam * (sum(abs(beta))))
-        return obj
+    obj = (1 / len(x)) * sum((y - x.dot(beta))**2)
+    obj = obj + (lam * (sum(abs(beta))))
+    return obj
 
 
 def c_term(beta, x, y, j, lam):
