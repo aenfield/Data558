@@ -14,25 +14,40 @@ beta = np.zeros(3)
 beta_iter_2 = np.array([0.5357142857142857, 0, 0])
 
 
-class CyclicCoordDescentTest(unittest.TestCase):
+class LassoRegressionTest(unittest.TestCase):
+    def test_obj_function_zero_beta(self):
+        self.assertEqual(lasso_objective(beta, x, y, 2), 3.5)
+
+    def test_obj_function_nonzero_beta(self):
+        self.assertEqual(lasso_objective(np.array([1,2,3]), x, y, 2), 105.5)
+
+    def test_obj_function_nonzero_negative_beta(self):
+        self.assertEqual(lasso_objective(np.array([1,-2,3]), x, y, 2), 127.5)
+
+
+class CoordDescentTest(unittest.TestCase):
 
     # TODO step size? where/how?
 
     def test_one_iteration_with_one_feature(self):
-        beta_updated = cycliccoorddescent(x, y, lam, max_iter=1)
-        np.testing.assert_allclose(beta_updated, np.array([0.536, 0, 0]), rtol=1e-3)
+        beta_vals = cycliccoorddescent(x, y, lam, max_iter=1)
+        np.testing.assert_allclose(get_final_coefs(beta_vals), np.array([0.536, 0, 0]), rtol=1e-3)
 
     def test_one_iteration_with_three_features(self):
-        beta_updated = cycliccoorddescent(x, y, lam, max_iter=3)
-        np.testing.assert_allclose(beta_updated, np.array([0.536, -0.1143, -0.1574]), rtol=1e-3)
+        beta_vals = cycliccoorddescent(x, y, lam, max_iter=3)
+        np.testing.assert_allclose(get_final_coefs(beta_vals), np.array([0.536, -0.1143, -0.1574]), rtol=1e-3)
 
     def test_one_iteration_with_five_iterations(self):
-        beta_updated = cycliccoorddescent(x, y, lam, max_iter=5)
-        np.testing.assert_allclose(beta_updated, np.array([0.540, -0.1191, -0.1574]), rtol=1e-3)
+        beta_vals = cycliccoorddescent(x, y, lam, max_iter=5)
+        np.testing.assert_allclose(get_final_coefs(beta_vals), np.array([0.540, -0.1191, -0.1574]), rtol=1e-3)
 
     def test_one_iteration_with_six_iterations(self):
-        beta_updated = cycliccoorddescent(x, y, lam, max_iter=6)
-        np.testing.assert_allclose(beta_updated, np.array([0.540, -0.1191, -0.1597]), rtol=1e-3)
+        beta_vals = cycliccoorddescent(x, y, lam, max_iter=6)
+        np.testing.assert_allclose(get_final_coefs(beta_vals), np.array([0.540, -0.1191, -0.1597]), rtol=1e-3)
+
+    def test_returns_all_visited_beta_vals(self):
+        beta_vals = cycliccoorddescent(x, y, lam, max_iter=6)
+        self.assertEqual(len(beta_vals), 7)
 
 
     def test_sequence_of_js_just_one(self):
@@ -47,6 +62,13 @@ class CyclicCoordDescentTest(unittest.TestCase):
         seq = get_sequence_of_js(3, 6)
         np.testing.assert_allclose(seq, np.append(np.arange(1,4), np.arange(1,4)))
 
+
+    def test_randcoorddescent(self):
+        np.random.seed(42)
+        beta_vals = randcoorddescent(x, y, lam, max_iter=10)
+        np.testing.assert_allclose(get_final_coefs(beta_vals), np.array([0.5870, -0.0512, -0.1844]), rtol=1e-3)
+
+    # TODO would be good to have a test for get_final_coefs
 
 
 class MinimizationTest(unittest.TestCase):
