@@ -59,8 +59,10 @@ def coorddescent(x, y, lam, j_sequence):
 
     for j in j_sequence:
         b_hat_for_j = minimize_beta_term(beta, x, y, j, lam)
-        beta[j-1] = b_hat_for_j # j indices are 1-based, so subtract one to set correct coef
-        saved_beta_vals = saved_beta_vals.append(pd.DataFrame(beta[np.newaxis]), ignore_index=True)
+        beta_new_val = beta.copy()  # modify copy so we don't retroactively modify rows because of by reference
+        beta_new_val[j-1] = b_hat_for_j # j indices are 1-based, so subtract one to set correct coef
+        saved_beta_vals = saved_beta_vals.append(pd.DataFrame(beta_new_val[np.newaxis]), ignore_index=True)
+        beta = beta_new_val
 
     return saved_beta_vals
 

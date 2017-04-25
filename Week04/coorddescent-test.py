@@ -47,6 +47,11 @@ class CoordDescentTest(unittest.TestCase):
         beta_vals = cycliccoorddescent(x, y, lam, max_iter=6)
         self.assertEqual(len(beta_vals), 7)
 
+    def test_first_row_has_all_zeros(self):
+        # orig code set row vals retroactively because of by reference
+        beta_vals = cycliccoorddescent(x, y, lam, max_iter=2)
+        np.testing.assert_allclose(beta_vals.ix[0].values, np.array([0, 0, 0]))
+
 
     def test_sequence_of_js_just_one(self):
         seq = get_sequence_of_js(3, 1)
