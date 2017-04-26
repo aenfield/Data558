@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 
+# this is the equivalent of my commputeobj function
 def lasso_objective(beta, x, y, lam):
     obj = (1 / len(x)) * sum((y - x.dot(beta))**2)
     obj = obj + (lam * (sum(abs(beta))))
@@ -33,7 +34,7 @@ def minimize_beta_term(beta, x, y, j, lam):
         # c is between -lambda and +lambda
         return 0
 
-
+# this is the equivalent of my pickcoord function
 def get_sequence_of_js(feature_count, iterations, random=False):
     if not random:
         # get a sequence of feature indices/j values of size max_iter
