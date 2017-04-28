@@ -1,10 +1,10 @@
 import numpy as np
 import pandas as pd
 
-# this is the equivalent of my commputeobj function
+# this is the equivalent of my computeobj function
 def lasso_objective(beta, x, y, lam):
-    obj = (1 / len(x)) * sum((y - x.dot(beta))**2)
-    obj = obj + (lam * (sum(abs(beta))))
+    obj = (1 / len(x)) * np.sum((y - x.dot(beta))**2)
+    obj = obj + (lam * (np.sum(np.abs(beta))))
     return obj
 
 
@@ -16,11 +16,11 @@ def c_term(beta, x, y, j, lam):
     beta_minus_j = beta[idxs_to_keep]
     x_minus_j = x[:, idxs_to_keep]
 
-    return 2 * sum(x[:, j-1] * (y - x_minus_j.dot(beta_minus_j)))
+    return 2 * np.sum(x[:, j-1] * (y - x_minus_j.dot(beta_minus_j)))
 
 
 def a_term(x, j):
-    return 2 * sum(x[:, j-1]**2)
+    return 2 * np.sum(x[:, j-1]**2)
 
 
 def minimize_beta_term(beta, x, y, j, lam):
@@ -33,6 +33,7 @@ def minimize_beta_term(beta, x, y, j, lam):
     else:
         # c is between -lambda and +lambda
         return 0
+
 
 # this is the equivalent of my pickcoord function
 def get_sequence_of_js(feature_count, iterations, random=False):
@@ -74,6 +75,6 @@ def cycliccoorddescent(x, y, lam, max_iter=500):
 def randcoorddescent(x, y, lam, max_iter=500):
     return coorddescent(x, y, lam, get_sequence_of_js(x.shape[1], max_iter, random=True))
 
-def get_final_coefs(vals):
+def get_final_coefs(vals_dataframe):
     """Return the last row of a set of coefficients (like those returned by graddescent)."""
-    return vals[-1:].values[0,:]  # the [0,:] turns a (1,2) into a (2,)
+    return vals_dataframe[-1:].values[0,:]  # the [0,:] turns a (1,2) into a (2,)
