@@ -22,7 +22,7 @@ def c_term(beta, x, y, j, lam):
 def a_term(x, j):
     return 2 * np.sum(x[:, j-1]**2)
 
-
+# computes the formula of the solution of the lasso minimization problem
 def minimize_beta_term(beta, x, y, j, lam):
     c = c_term(beta, x, y, j, lam)
 

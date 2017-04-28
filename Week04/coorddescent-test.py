@@ -27,9 +27,6 @@ class LassoRegressionTest(unittest.TestCase):
 
 class CoordDescentTest(unittest.TestCase):
 
-    def test_noasserts_just_to_run_code(self):
-        cycliccoorddescent(x, y, 10, max_iter=10)
-
     def test_one_iteration_with_one_feature(self):
         beta_vals = cycliccoorddescent(x, y, lam, max_iter=1)
         np.testing.assert_allclose(get_final_coefs(beta_vals), np.array([0.536, 0, 0]), rtol=1e-3)
@@ -73,6 +70,9 @@ class CoordDescentTest(unittest.TestCase):
         np.random.seed(42)
         beta_vals = randcoorddescent(x, y, lam, max_iter=10)
         np.testing.assert_allclose(get_final_coefs(beta_vals), np.array([0.5870, -0.0512, -0.1844]), rtol=1e-3)
+
+    def test_noasserts_just_to_run_code(self):
+        cycliccoorddescent(x, y, 10, max_iter=10)
 
     # TODO would be good to have a test for get_final_coefs
 
