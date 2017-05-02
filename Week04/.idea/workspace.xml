@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cf11b053-3995-47a9-904a-5b47ec23d937" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Week05/coorddescent.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Week05/.idea/misc.xml" afterPath="$PROJECT_DIR$/../Week05/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Week05/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Week05/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Week05/EnfieldAndrew-HW5.ipynb" afterPath="$PROJECT_DIR$/../Week05/EnfieldAndrew-HW5.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Week05/pca-test.py" afterPath="$PROJECT_DIR$/../Week05/pca-test.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Week05/pca.py" afterPath="$PROJECT_DIR$/../Week05/pca.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
