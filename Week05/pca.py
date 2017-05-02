@@ -74,12 +74,4 @@ def oja_fit(Z, component_count, eta_0, t_0, num_epochs):
 
     return(princ_comps)
 
-    # TODO assuming Z is centered, use oja and deflate to build up and return an array (or matrix?) with all princ comp vectors
-
     # TODO do we care about/need to return the eigenvalues? If so, perhaps return as an additional element in a tuple an array of the values
-
-    # a_0 = np.random.randn(np.size(Z, 1))  # Generate a starting point
-    # a_0 /= np.linalg.norm(a_0, axis=0)
-    # v1, lambdas1 = oja(copy.deepcopy(Z), a_0, .00001, 1, 50)  # Run the algorithm
-    #
-
