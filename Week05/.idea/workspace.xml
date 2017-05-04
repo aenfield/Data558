@@ -4,11 +4,7 @@
     <list default="true" id="e2382b9b-87f3-49e7-826e-3f4cd60d79f8" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Kaggle/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Kaggle/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Week04/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Week04/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EnfieldAndrew-HW5.ipynb" afterPath="$PROJECT_DIR$/EnfieldAndrew-HW5.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/coorddescent.py" afterPath="$PROJECT_DIR$/coorddescent.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pca-test.py" afterPath="$PROJECT_DIR$/pca-test.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pca.py" afterPath="$PROJECT_DIR$/pca.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -38,8 +34,8 @@
       <file leaf-file-name="coorddescent.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/coorddescent.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="16" lean-forward="true" selection-start-line="4" selection-start-column="16" selection-end-line="8" selection-end-column="29" />
+            <state relative-caret-position="-877">
+              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -668,8 +664,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/coorddescent.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="16" lean-forward="true" selection-start-line="4" selection-start-column="16" selection-end-line="8" selection-end-column="29" />
+        <state relative-caret-position="-877">
+          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
