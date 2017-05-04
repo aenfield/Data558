@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 import pickle
 
 model_dir = 'imagenet'
-images_dir = 'images/'
+images_dir = 'images/train/'
 list_images = [images_dir+f for f in os.listdir(images_dir) if re.search('jpg|JPG', f)]
 
 def create_graph():
