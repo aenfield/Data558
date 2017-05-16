@@ -12,7 +12,7 @@ x = np.array([4, -2, 1,
 lam = 1
 alpha = 0.9
 beta = np.zeros(3)
-beta_iter_2 = np.array([0.5357142857142857, 0, 0])
+beta_iter_2 = np.array([0.5357142857142857, 0, 0]) # from lasso, not the coef for this code but still good for testing input
 
 class ElasticNetRegressionTest(unittest.TestCase):
     def test_obj_function_zero_beta(self):
@@ -25,22 +25,35 @@ class ElasticNetRegressionTest(unittest.TestCase):
         np.testing.assert_approx_equal(elasticnet_objective(np.array([1,-2,3]), x, y, 2, alpha), 129.1)
 
 
+class ElasticNetMinimizationTest(unittest.TestCase):
+    def test_c_term_with_simple_data(self):
+        c = c_term(beta, x, y, 1)
+        np.testing.assert_approx_equal(c, 11.5)
+
+    def test_c_term_second_index(self):
+        c = c_term(beta_iter_2, x, y, 2)
+        np.testing.assert_approx_equal(c, -1.10714, 3)
+
+    def test_a_term_with_simple_data(self):
+        a = a_term(x, 1, lam, alpha)
+        np.testing.assert_approx_equal(a, 21.2)
+
+    def test_minimize_beta_term_positive_c(self):
+        b_hat = minimize_beta_term(beta, x, y, 1, lam, alpha)
+        np.testing.assert_approx_equal(b_hat, 0.5, 3)
+
+    def test_minimize_beta_term_negative_c(self):
+        b_hat = minimize_beta_term(beta_iter_2, x, y, 2, lam, alpha)
+        np.testing.assert_approx_equal(b_hat, -0.0269, 3)
+
+    def test_minimize_beta_term_midrange_c(self):
+        # big lambda so the c term is inside it
+        b_hat = minimize_beta_term(beta, x, y, 3, 10, alpha)
+        self.assertEqual(b_hat, 0)
 
 
 
 
-
-# class LassoRegressionTest(unittest.TestCase):
-#     def test_obj_function_zero_beta(self):
-#         self.assertEqual(lasso_objective(beta, x, y, 2), 3.5)
-#
-#     def test_obj_function_nonzero_beta(self):
-#         self.assertEqual(lasso_objective(np.array([1,2,3]), x, y, 2), 105.5)
-#
-#     def test_obj_function_nonzero_negative_beta(self):
-#         self.assertEqual(lasso_objective(np.array([1,-2,3]), x, y, 2), 127.5)
-#
-#
 # class CoordDescentTest(unittest.TestCase):
 #
 #     def test_one_iteration_with_one_feature(self):
@@ -91,34 +104,6 @@ class ElasticNetRegressionTest(unittest.TestCase):
 #         cycliccoorddescent(x, y, 10, max_iter=10)
 #
 #     # TODO would be good to have a test for get_final_coefs
-#
-#
-# class MinimizationTest(unittest.TestCase):
-#
-#     def test_c_term_with_simple_data(self):
-#         c = c_term(beta, x, y, 1, lam)
-#         np.testing.assert_allclose(c, 46)
-#
-#     def test_c_term_second_index(self):
-#         c = c_term(beta_iter_2, x, y, 2, lam)
-#         np.testing.assert_allclose(c, -4.429, rtol=1e-3)
-#
-#     def test_a_term_with_simple_data(self):
-#         a = a_term(x, 1)
-#         np.testing.assert_allclose(a, 84)
-#
-#     def test_minimize_beta_term_positive_c(self):
-#         b_hat = minimize_beta_term(beta, x, y, 1, lam)
-#         np.testing.assert_allclose(b_hat, 0.536, rtol=1e-03)
-#
-#     def test_minimize_beta_term_negative_c(self):
-#         b_hat = minimize_beta_term(beta_iter_2, x, y, 2, lam)
-#         np.testing.assert_allclose(b_hat, -0.1143, rtol=1e-03)
-#
-#     def test_minimize_beta_term_midrange_c(self):
-#         # big lambda so the c term is inside it
-#         b_hat = minimize_beta_term(beta, x, y, 3, 10)
-#         np.testing.assert_allclose(b_hat, 0)
 
 
 
