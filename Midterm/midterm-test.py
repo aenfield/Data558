@@ -54,56 +54,50 @@ class ElasticNetMinimizationTest(unittest.TestCase):
 
 
 
-# class CoordDescentTest(unittest.TestCase):
-#
-#     def test_one_iteration_with_one_feature(self):
-#         beta_vals = cycliccoorddescent(x, y, lam, max_iter=1)
-#         np.testing.assert_allclose(get_final_coefs(beta_vals), np.array([0.536, 0, 0]), rtol=1e-3)
-#
-#     def test_one_iteration_with_three_features(self):
-#         beta_vals = cycliccoorddescent(x, y, lam, max_iter=3)
-#         np.testing.assert_allclose(get_final_coefs(beta_vals), np.array([0.536, -0.1143, -0.1574]), rtol=1e-3)
-#
-#     def test_one_iteration_with_five_iterations(self):
-#         beta_vals = cycliccoorddescent(x, y, lam, max_iter=5)
-#         np.testing.assert_allclose(get_final_coefs(beta_vals), np.array([0.540, -0.1191, -0.1574]), rtol=1e-3)
-#
-#     def test_one_iteration_with_six_iterations(self):
-#         beta_vals = cycliccoorddescent(x, y, lam, max_iter=6)
-#         np.testing.assert_allclose(get_final_coefs(beta_vals), np.array([0.540, -0.1191, -0.1597]), rtol=1e-3)
-#
-#     def test_returns_all_visited_beta_vals(self):
-#         beta_vals = cycliccoorddescent(x, y, lam, max_iter=6)
-#         self.assertEqual(len(beta_vals), 7)
-#
-#     def test_first_row_has_all_zeros(self):
-#         # orig code set row vals retroactively because of by reference
-#         beta_vals = cycliccoorddescent(x, y, lam, max_iter=2)
-#         np.testing.assert_allclose(beta_vals.ix[0].values, np.array([0, 0, 0]))
-#
-#
-#     def test_sequence_of_js_just_one(self):
-#         seq = get_sequence_of_js(3, 1)
-#         np.testing.assert_allclose(seq, np.array([1]))
-#
-#     def test_sequence_of_js_with_three(self):
-#         seq = get_sequence_of_js(3, 3)
-#         np.testing.assert_allclose(seq, np.arange(1,4))
-#
-#     def test_sequence_of_js_with_two_sets(self):
-#         seq = get_sequence_of_js(3, 6)
-#         np.testing.assert_allclose(seq, np.append(np.arange(1,4), np.arange(1,4)))
-#
-#
-#     def test_randcoorddescent(self):
-#         np.random.seed(42)
-#         beta_vals = randcoorddescent(x, y, lam, max_iter=10)
-#         np.testing.assert_allclose(get_final_coefs(beta_vals), np.array([0.5870, -0.0512, -0.1844]), rtol=1e-3)
-#
-#     def test_noasserts_just_to_run_code(self):
-#         cycliccoorddescent(x, y, 10, max_iter=10)
-#
-#     # TODO would be good to have a test for get_final_coefs
+class CoordDescentTest(unittest.TestCase):
+
+    def test_one_iteration_with_one_feature(self):
+        beta_vals = cycliccoorddescent(x, y, lam, alpha, max_iter=1)
+        np.testing.assert_allclose(get_final_coefs(beta_vals), np.array([0.5, 0, 0]), rtol=1e-3)
+
+    def test_one_iteration_with_three_features(self):
+        beta_vals = cycliccoorddescent(x, y, lam, alpha, max_iter=3)
+        np.testing.assert_allclose(get_final_coefs(beta_vals), np.array([0.5, -0.077922, -0.091379]), rtol=1e-3)
+
+    def test_one_iteration_with_five_iterations(self):
+        beta_vals = cycliccoorddescent(x, y, lam, alpha, max_iter=5)
+        np.testing.assert_allclose(get_final_coefs(beta_vals), np.array([0.4962, -0.0893, -0.0914]), rtol=1e-3)
+
+    def test_returns_all_visited_beta_vals(self):
+        beta_vals = cycliccoorddescent(x, y, lam, alpha, max_iter=6)
+        self.assertEqual(len(beta_vals), 7)
+
+    def test_first_row_has_all_zeros(self):
+        # orig code set row vals retroactively because of by reference
+        beta_vals = cycliccoorddescent(x, y, lam, alpha, max_iter=2)
+        np.testing.assert_allclose(beta_vals.ix[0].values, np.array([0, 0, 0]))
+
+    def test_sequence_of_js_just_one(self):
+        seq = get_sequence_of_js(3, 1)
+        np.testing.assert_allclose(seq, np.array([1]))
+
+    def test_sequence_of_js_with_three(self):
+        seq = get_sequence_of_js(3, 3)
+        np.testing.assert_allclose(seq, np.arange(1,4))
+
+    def test_sequence_of_js_with_two_sets(self):
+        seq = get_sequence_of_js(3, 6)
+        np.testing.assert_allclose(seq, np.append(np.arange(1,4), np.arange(1,4)))
+
+    def test_randcoorddescent(self):
+        np.random.seed(42)
+        beta_vals = randcoorddescent(x, y, lam, alpha, max_iter=10)
+        np.testing.assert_allclose(get_final_coefs(beta_vals), np.array([0.5291, -0.04317, -0.1065]), rtol=1e-3)
+
+    def test_noasserts_just_to_run_code(self):
+        cycliccoorddescent(x, y, 10, alpha, max_iter=10)
+
+    # TODO would be good to have a test for get_final_coefs
 
 
 
