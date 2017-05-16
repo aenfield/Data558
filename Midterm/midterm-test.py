@@ -10,15 +10,19 @@ x = np.array([4, -2, 1,
               1, 1, 3,
               0, 1, 4]).reshape(4, 3)
 lam = 1
+alpha = 0.9
 beta = np.zeros(3)
-#beta_iter_2 = np.array([0.5357142857142857, 0, 0])
+beta_iter_2 = np.array([0.5357142857142857, 0, 0])
 
 class ElasticNetRegressionTest(unittest.TestCase):
     def test_obj_function_zero_beta(self):
-        self.fail()
+        self.assertEqual(elasticnet_objective(beta, x, y, lam, alpha), 3.5)
 
     def test_obj_function_nonzero_beta(self):
-        self.fail()
+        np.testing.assert_approx_equal(elasticnet_objective(np.array([2,3,1]), x, y, 2, alpha), 45.85)
+
+    def test_obj_function_nonzero_negative_beta(self):
+        np.testing.assert_approx_equal(elasticnet_objective(np.array([1,-2,3]), x, y, 2, alpha), 129.1)
 
 
 
