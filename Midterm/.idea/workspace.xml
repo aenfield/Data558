@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f0cd645f-0cfc-47ee-9a57-7a2fd1eb2cf5" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Hitters.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Kaggle/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Kaggle/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/midterm-test.py" afterPath="$PROJECT_DIR$/midterm-test.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/midterm.py" afterPath="$PROJECT_DIR$/midterm.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Week04/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Week04/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Week05/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Week05/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,11 +22,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="midterm-test.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="midterm-test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/midterm-test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="326">
-              <caret line="97" column="44" lean-forward="false" selection-start-line="97" selection-start-column="44" selection-end-line="97" selection-end-column="44" />
+            <state relative-caret-position="327">
+              <caret line="112" column="0" lean-forward="false" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -35,7 +34,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="midterm.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="midterm.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/midterm.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="337">
@@ -360,7 +359,14 @@
       <option name="project" value="LOCAL" />
       <updated>1494962285586</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Finished coordinate descent implementation and tests - entirely the same as it was before, since it uses the (already changed) minimization functions.">
+      <created>1494964247455</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1494964247455</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -401,7 +407,7 @@
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29975125" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -429,7 +435,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Finished objective function and tests." />
     <MESSAGE value="Finished minimization function (and supporting a and c term functions)." />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished minimization function (and supporting a and c term functions)." />
+    <MESSAGE value="Finished coordinate descent implementation and tests - entirely the same as it was before, since it uses the (already changed) minimization functions." />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished coordinate descent implementation and tests - entirely the same as it was before, since it uses the (already changed) minimization functions." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -462,22 +469,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/midterm-test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="112" column="0" lean-forward="false" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/midterm.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="337">
           <caret line="74" column="42" lean-forward="false" selection-start-line="74" selection-start-column="42" selection-end-line="74" selection-end-column="42" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/midterm-test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="97" column="44" lean-forward="false" selection-start-line="97" selection-start-column="44" selection-end-line="97" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
