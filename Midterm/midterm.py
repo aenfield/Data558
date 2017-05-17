@@ -95,20 +95,24 @@ def oja_fit(Z, component_count, eta_0, t_0, num_epochs):
     """
     a_0 = np.random.randn(np.size(Z, 1))  # starting point
     a_0 /= np.linalg.norm(a_0, axis=0)
-    v1, _ = oja(copy.deepcopy(Z), a_0, eta_0, t_0, num_epochs)  # Run the algorithm for first component vector
+    v1, lambdas = oja(copy.deepcopy(Z), a_0, eta_0, t_0, num_epochs)  # Run the algorithm for first component vector
 
-    princ_comps = v1[np.newaxis]
     # newaxis because right now we're only returning one and we want it to be element zero in an outer array
+    princ_comps = v1[np.newaxis]
+    eigenvalues = lambdas[-1][np.newaxis]
+    print(eigenvalues)
 
     Z_new = copy.deepcopy(Z)
     v_curr = v1
     for i in range(1, component_count):
         Z_new = deflate(Z_new, v_curr)
-        v_curr, _ = oja(copy.deepcopy(Z_new), a_0, eta_0, t_0, num_epochs)
+        v_curr, lambdas_curr = oja(copy.deepcopy(Z_new), a_0, eta_0, t_0, num_epochs)
+        print(lambdas_curr[-1])
 
         princ_comps = np.concatenate( [princ_comps, v_curr[np.newaxis]] )
+        eigenvalues = np.concatenate( [eigenvalues, lambdas_curr[-1][np.newaxis]] )
 
-    return(princ_comps)
+    return(princ_comps, eigenvalues)
 
 
 def oja(Z, a_0, eta_0, t_0, num_epochs):
