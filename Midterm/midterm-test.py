@@ -94,22 +94,19 @@ class CoordDescentTest(unittest.TestCase):
         beta_vals = randcoorddescent(x, y, lam, alpha, max_iter=10)
         np.testing.assert_allclose(get_final_coefs(beta_vals), np.array([0.5291, -0.04317, -0.1065]), rtol=1e-3)
 
+    # def test_both_coorddescents_use_default_beta0_param(self):
+    #     beta_vals = randcoorddescent()
+
     def test_noasserts_just_to_run_code(self):
         cycliccoorddescent(x, y, 10, alpha, max_iter=10)
 
     # TODO would be good to have a test for get_final_coefs
 
 
-# Ultimately we want take the X and y data, complete and scaled, along with a set of different lambda values and
-# then, for each value of lambda, do the following
-# 1. split the X and y data into k chunks (where k might be 10 and I can start w/ as hard-coded)
-# 2. get a set of coefs from randcoorddescent for each combination of k-1 chunks (so, 10 here) and then, using the
-#    held out chunk as test data, calculate the MSE
-# 3. take the mean of all k MSE values and return the average mean
-# Then, we choose the lambda that has the lowest MSE.
-
-class CrossValidationTest(unittest.TestCase):
-    def test_all_up_cv(self):
+# TODO ideally I'd pull out the cross-val code that's in the notebook and generalize it
+# and test it here; I won't do that now
+#class CrossValidationTest(unittest.TestCase):
+#    def test_all_up_cv(self):
 
 
 

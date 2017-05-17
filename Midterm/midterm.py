@@ -39,13 +39,22 @@ def minimize_beta_term(beta, x, y, j, lam, alpha):
         # c is between -lambda and +lambda
         return 0
 
-def coorddescent(x, y, lam, alpha, j_sequence):
+def coorddescent(x, y, lam, alpha, j_sequence, beta0):
     """
     Implements coordinate descent, using the provided sequence, which defines
-    whether the params are handled cyclically or randomly
+    whether the params are handled cyclically or randomly. The beta0 param is
+    here to support warm start per Hastie (Statistical Learning with Sparsity,
+    section 5.4.2) - if it's not specified we default to the old starting value
+    of all zeros; if it is specified we use it instead. It follows that the
+    beta0 param should be a vector of size d.
     """
     feature_count = x.shape[1]
-    beta = np.zeros(feature_count)
+
+    if beta0 is None:
+        beta = np.zeros(feature_count)
+    else:
+        beta = beta0
+
     saved_beta_vals = pd.DataFrame(beta[np.newaxis, :])
 
     for j in j_sequence:
@@ -72,11 +81,11 @@ def get_sequence_of_js(feature_count, iterations, random=False):
     return sequence_of_js
 
 
-def cycliccoorddescent(x, y, lam, alpha, max_iter=500):
-    return coorddescent(x, y, lam, alpha, get_sequence_of_js(x.shape[1], max_iter))
+def cycliccoorddescent(x, y, lam, alpha, max_iter=500, beta0=None):
+    return coorddescent(x, y, lam, alpha, get_sequence_of_js(x.shape[1], max_iter), beta0)
 
-def randcoorddescent(x, y, lam, alpha, max_iter=500):
-    return coorddescent(x, y, lam, alpha, get_sequence_of_js(x.shape[1], max_iter, random=True))
+def randcoorddescent(x, y, lam, alpha, max_iter=500, beta0=None):
+    return coorddescent(x, y, lam, alpha, get_sequence_of_js(x.shape[1], max_iter, random=True), beta0=beta0)
 
 def get_final_coefs(vals_dataframe):
     """Return the last row of a set of coefficients (like those returned by graddescent)."""
