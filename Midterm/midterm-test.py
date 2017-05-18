@@ -2,6 +2,13 @@ import unittest
 from midterm import *
 
 import numpy as np
+from sklearn import preprocessing # for scale
+
+
+# ----
+# Elastic net
+# ----
+
 
 # simple data, for testing
 y = np.array([2, 3, 0, - 1])
@@ -94,20 +101,35 @@ class CoordDescentTest(unittest.TestCase):
         beta_vals = randcoorddescent(x, y, lam, alpha, max_iter=10)
         np.testing.assert_allclose(get_final_coefs(beta_vals), np.array([0.5291, -0.04317, -0.1065]), rtol=1e-3)
 
-    # def test_both_coorddescents_use_default_beta0_param(self):
-    #     beta_vals = randcoorddescent()
-
     def test_noasserts_just_to_run_code(self):
         cycliccoorddescent(x, y, 10, alpha, max_iter=10)
 
     # TODO would be good to have a test for get_final_coefs
 
 
-# TODO ideally I'd pull out the cross-val code that's in the notebook and generalize it
-# and test it here; I won't do that now
-#class CrossValidationTest(unittest.TestCase):
-#    def test_all_up_cv(self):
+# ----
+# PCA via Oja
+# ----
 
+# simple data for PCA (should this be in a setup method?)
+num_examples = 50
+num_features = 50
+mean_vals = [0, 1.5, 3, 4.5, 6]
+np.random.seed(42)
+d = pd.DataFrame(np.vstack([np.random.normal(mean, size=(num_examples,num_features)) for mean in mean_vals]))
+d.insert(0, 'Class', np.repeat(['A','B','C','D','E'], num_examples))
+d_values = d.values[:, 1:num_features+1].astype('float')
+d_values_centered = preprocessing.scale(d_values, with_std=False)
+
+
+class CrossValidationTest(unittest.TestCase):
+    def test_oja_last10_average(self):
+        a_0 = np.random.randn(np.size(d_values_centered, 1))  # starting point
+        a_0 /= np.linalg.norm(a_0, axis=0)
+        v1, lambdas = oja(copy.deepcopy(d_values_centered), a_0, 0.001, 2, 100)  # Run the algorithm for first component vector
+
+
+    # TODO ideally I'd pull out the cross-val code that's in the notebook and generalize it and test here
 
 
 

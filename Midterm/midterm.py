@@ -100,7 +100,7 @@ def get_final_coefs(vals_dataframe):
 def oja_fit(Z, component_count, eta_0, t_0, num_epochs):
     """
     Return an array of arrays where each array is a principal component vector. Uses the Oja algorithm. I
-    put this convenience routine together based on Corinne's lab code.
+    put the original routine together based on the way the lab used Corinne's implementation.
     """
     a_0 = np.random.randn(np.size(Z, 1))  # starting point
     a_0 /= np.linalg.norm(a_0, axis=0)
@@ -126,14 +126,16 @@ def oja_fit(Z, component_count, eta_0, t_0, num_epochs):
 
 def oja(Z, a_0, eta_0, t_0, num_epochs):
     """
-    Implements the normalized Oja algorithm to produce the first PCA eigenvector (and then we use deflate to 
-    get the second and later eigenvectors). I worked through the code from Corinne below, based on the lab,
-    and understand how it operates.
+    Implements the normalized Oja algorithm to produce the first PCA eigenvector (and then we use this and deflate to 
+    get the second and later eigenvectors). The original code, which I've worked through to understand how it works,
+    came from Corinne in her lab work.
     """
     t = 0
     a = a_0
     n = np.size(Z, 0)
     lambdas = np.zeros(num_epochs)
+    a_s = a[np.newaxis] # start the array that'll hold all the vectors, as we iterate
+
     for epoch in range(0, num_epochs):
         # Shuffle the rows of the data after each epoch
         np.random.shuffle(Z)
@@ -147,9 +149,20 @@ def oja(Z, a_0, eta_0, t_0, num_epochs):
             mean_a_delta = np.mean(a_delta)
 
             t += 1
+
+        a_s = np.concatenate( [a_s, a[np.newaxis]])
         lambdas[epoch] = a.dot(Z.T).dot(Z).dot(a)/n
 
-    return a, lambdas
+    # Per the exam, we want 'to output the average of the final ten iterations'. I take this to mean that we
+    # don't want to return as our principal component vector the last value of a. Instead, we want to return as
+    # our vector the average of the last 10 values. Now that the code above stores each value of a, it's easy
+    # to just take the mean of the last 10. Note that I don't explicitly handle or test the case where there
+    # are less than 10 epochs - for now I think it could just work as I think Python's slice operation will return
+    # everything it can w/o erroring out if it's asked for a slice at the end that's bigger than the data.
+    last_n_count = 10
+    mean_a = np.mean(a_s[-last_n_count])
+
+    return mean_a, lambdas
 
 def deflate(Z, a):
     return Z - Z.dot(np.outer(a, a))
