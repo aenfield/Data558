@@ -160,7 +160,7 @@ def oja(Z, a_0, eta_0, t_0, num_epochs):
     # are less than 10 epochs - for now I think it could just work as I think Python's slice operation will return
     # everything it can w/o erroring out if it's asked for a slice at the end that's bigger than the data.
     last_n_count = 10
-    mean_a = np.mean(a_s[-last_n_count])
+    mean_a = np.mean(a_s[-last_n_count:], 0)
 
     return mean_a, lambdas
 

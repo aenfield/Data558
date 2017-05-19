@@ -128,6 +128,10 @@ class CrossValidationTest(unittest.TestCase):
         a_0 /= np.linalg.norm(a_0, axis=0)
         v1, lambdas = oja(copy.deepcopy(d_values_centered), a_0, 0.001, 2, 100)  # Run the algorithm for first component vector
 
+        self.assertEqual(len(v1), 50)
+        np.testing.assert_allclose(v1[:8], [-0.00920334, -0.05541699, -0.14416389, -0.06741305,
+                                            -0.1432813, -0.14297199, -0.09418356, -0.23829515], rtol=1e-3)
+
 
     # TODO ideally I'd pull out the cross-val code that's in the notebook and generalize it and test here
 
