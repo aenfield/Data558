@@ -124,13 +124,18 @@ d_values_centered = preprocessing.scale(d_values, with_std=False)
 
 class CrossValidationTest(unittest.TestCase):
     def test_oja_last10_average(self):
+        np.random.seed(42)
         a_0 = np.random.randn(np.size(d_values_centered, 1))  # starting point
         a_0 /= np.linalg.norm(a_0, axis=0)
         v1, lambdas = oja(copy.deepcopy(d_values_centered), a_0, 0.001, 2, 100)  # Run the algorithm for first component vector
 
         self.assertEqual(len(v1), 50)
-        np.testing.assert_allclose(v1[:8], [-0.00920334, -0.05541699, -0.14416389, -0.06741305,
-                                            -0.1432813, -0.14297199, -0.09418356, -0.23829515], rtol=1e-3)
+        np.testing.assert_allclose(v1[:8], [-0.075981, -0.113966, -0.0583,  0.010991, -0.127164,
+                                             -0.125076, 0.007268, -0.050866], rtol=1e-3)
+
+    def test_oja_fit_runs_without_crashing(self):
+        oja_fit(d_values_centered, 3, 0.001, 2, 10)
+
 
 
     # TODO ideally I'd pull out the cross-val code that's in the notebook and generalize it and test here
