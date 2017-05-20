@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="626a0728-2d4d-4224-8fbe-94b688cbf7a9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/features" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/labels" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images_to_features.py" afterPath="$PROJECT_DIR$/images_to_features.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Midterm/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Midterm/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Midterm/EnfieldAndrew-Midterm.ipynb" afterPath="$PROJECT_DIR$/../Midterm/EnfieldAndrew-Midterm.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Week04/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Week04/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Week05/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Week05/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="626a0728-2d4d-4224-8fbe-94b688cbf7a9" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
