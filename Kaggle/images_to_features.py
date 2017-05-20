@@ -12,10 +12,14 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.svm import SVC, LinearSVC
 import matplotlib.pyplot as plt
 import pickle
+import itertools
 
 model_dir = 'imagenet'
-images_dir = 'images/train/'
-list_images = [images_dir+f for f in os.listdir(images_dir) if re.search('jpg|JPG', f)]
+images_dir = 'images/train'
+
+image_dirs_train = list(os.walk(images_dir))[1:] # skip first because we don't want the parent dir
+image_paths_all = list(itertools.chain.from_iterable([[os.path.join(dirinfo[0], fileinfo) for fileinfo in dirinfo[2]] for dirinfo in image_dirs_train]))
+list_images = [image_path for image_path in image_paths_all if re.search('jpg|JPG', image_path)]
 
 def create_graph():
     with gfile.FastGFile(os.path.join(model_dir,
@@ -43,7 +47,7 @@ def extract_features(list_images):
             image_data = gfile.FastGFile(image, 'rb').read()
             predictions = sess.run(next_to_last_tensor, {'DecodeJpeg/contents:0': image_data})
             features[ind,:] = np.squeeze(predictions)
-            labels.append(re.split('_\d+',image.split('/')[1])[0])
+            labels.append(image.split('/')[2].split('.')[1])
 
     return features, labels
 
