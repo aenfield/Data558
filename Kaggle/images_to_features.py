@@ -64,9 +64,14 @@ def extract_features(list_images, which="train"):
     return features, labels
 
 
-which = "train"
-list_images = get_image_list(which)
-features,labels = extract_features(list_images, which)
+def main():
+    which = "train"
+    list_images = get_image_list(which)
+    features, labels = extract_features(list_images, which)
 
-pickle.dump(features, open('features_{}'.format(which), 'wb'))
-pickle.dump(labels, open('labels_{}'.format(which), 'wb'))
+    pickle.dump(features, open('features_{}'.format(which), 'wb'))
+    pickle.dump(labels, open('labels_{}'.format(which), 'wb'))
+
+if __name__ == "__main__":
+   main()
+
