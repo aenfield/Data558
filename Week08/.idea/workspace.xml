@@ -4,7 +4,6 @@
     <list default="true" id="01621a84-724f-41fc-8bdc-5ce1da435f0e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Kaggle/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Kaggle/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EnfieldAndrew-HW7.ipynb" afterPath="$PROJECT_DIR$/EnfieldAndrew-HW7.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/linearsvm.py" afterPath="$PROJECT_DIR$/linearsvm.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,10 +21,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="linearsvm.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="linearsvm.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/linearsvm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
+            <state relative-caret-position="1080">
               <caret line="72" column="11" lean-forward="false" selection-start-line="72" selection-start-column="11" selection-end-line="72" selection-end-column="11" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -34,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="linearsvm-test.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="linearsvm-test.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/linearsvm-test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+            <state relative-caret-position="345">
+              <caret line="23" column="83" lean-forward="true" selection-start-line="23" selection-start-column="83" selection-end-line="23" selection-end-column="83" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -423,22 +422,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/linearsvm-test.py">
+    <entry file="file://$PROJECT_DIR$/linearsvm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+        <state relative-caret-position="1080">
+          <caret line="72" column="11" lean-forward="false" selection-start-line="72" selection-start-column="11" selection-end-line="72" selection-end-column="11" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/linearsvm.py">
+    <entry file="file://$PROJECT_DIR$/linearsvm-test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="72" column="11" lean-forward="false" selection-start-line="72" selection-start-column="11" selection-end-line="72" selection-end-column="11" />
+        <state relative-caret-position="345">
+          <caret line="23" column="83" lean-forward="true" selection-start-line="23" selection-start-column="83" selection-end-line="23" selection-end-column="83" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
