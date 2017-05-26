@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-
+# new objective and gradient functions for linear SVM
 def compute_linearsvm_gradient(beta, x, y, lam):
     grad_beta_max_term = np.maximum(0, 1 - (y * (x.dot(np.array(beta)))))[np.newaxis].T
     grad_beta_sum_term = y[np.newaxis].T * x * grad_beta_max_term
@@ -15,7 +15,7 @@ def compute_linearsvm_objective(beta, x, y, lam):
     obj_penalty = lam * np.sum(beta**2)
     return obj_without_penalty + obj_penalty
 
-# TODO check this against Corinne's implementation
+# this is my implementation from homework three
 def backtracking(coefs, x, y, grad_func, obj_func, t=1,
                  alpha=0.5, beta=0.5, max_iter=100, lam=5):
     """
@@ -42,7 +42,7 @@ def backtracking(coefs, x, y, grad_func, obj_func, t=1,
     return t
     #return(t, iter)
 
-# TODO check this against Corinne's impl
+# my implementation from homework three
 def fastgradalgo(x, y, t_init, grad_func, obj_func,
                  max_iter=100, lam=5, t_func=None):
     """
@@ -69,5 +69,6 @@ def fastgradalgo(x, y, t_init, grad_func, obj_func,
 
     return beta_vals
 
+# my implementation from homework three
 def get_final_coefs(beta_vals):
     return beta_vals[-1:].values
