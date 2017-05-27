@@ -186,12 +186,15 @@ def cross_validate(num_folds, X, y, lambdas, max_iters=default_max_iters, random
 # One vs. rest
 # ---
 
-def get_balanced_set(class_label, X_full, y_full):
+def get_balanced_set(class_label, X_full, y_full, random_state=None):
     """
     Returns an X, y tuple containing a training set that has an equal number of observations with
     class_label and not class_label. Done as simple as possible, without generalizations that I'd
     normally include (I won't gold plate it since I know the data with which it's being used).
     """
+    if random_state is not None:
+        np.random.seed(random_state)
+
     n_each = sum(y_full == class_label)
     notclass_indices = np.random.choice(np.where(y_full != class_label)[0], n_each, replace=False)
 
