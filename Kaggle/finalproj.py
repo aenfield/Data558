@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.model_selection import KFold
 
 t_init = 0.01
@@ -100,13 +100,19 @@ def plot_misclassification_errors_by_iteration(results_df, X_train, X_test, y_tr
     ax.set_title('Misclassification error by iteration')
 
 # ---
-# Cross validation
+# Metrics
 # ---
-
-# Since we need to do this ourselves, per the assignments.
 
 def get_probability(logodds):
     return 1 / (1 + np.exp(-logodds))
+
+def get_y_pred(beta_coefs, X, y, prob_threshold=0.5):
+    y_pred = X.dot(beta_coefs.T).ravel()  # ravel to convert to vector
+
+    # for logistic regression convert to a prob and use a prob threshold
+    probs = get_probability(y_pred)
+    y_thresholded = np.where(probs > prob_threshold, 1, -1)
+    return y_thresholded
 
 def get_accuracy(beta_coefs, X, y_actual, prob_threshold=0.5):
     """
@@ -115,15 +121,25 @@ def get_accuracy(beta_coefs, X, y_actual, prob_threshold=0.5):
     in y_actual. The threshold parameter defines the value above which the
     predicted value is considered a positive example.
     """
-    y_pred = X.dot(beta_coefs.T).ravel()  # ravel to convert to vector
+    return accuracy_score(y_actual, get_y_pred(beta_coefs, X, y_actual, prob_threshold))
 
-    # for logistic regression convert to a prob and use a prob threshold
-    probs = get_probability(y_pred)
-    y_thresholded = np.where(probs > prob_threshold, 1, -1)
+def get_confusion_matrix(beta_coefs, X, y_actual, prob_threshold=0.5):
+    """
+    Return the confusion matrix given a set of coefficients, in 
+    beta_coefs, and observations, in X, compared to actual/known values 
+    in y_actual. The threshold parameter defines the value above which the
+    predicted value is considered a positive example.
+    """
+    return confusion_matrix(y_actual, get_y_pred(beta_coefs, X, y_actual, prob_threshold))
 
-    return accuracy_score(y_actual, y_thresholded)
+# ---
+# Cross validation
+# ---
 
-def train_and_test_single_fold(X_full, y_full, lam, train_index, test_index, max_iters=default_max_iters):
+# Since we need to do this ourselves, per the assignments.
+
+# using 'tst' so this function isn't incorrectly detected as a unit test (there's probably a way to fix this w/o changing the function's name)
+def train_and_tst_single_fold(X_full, y_full, lam, train_index, test_index, max_iters=default_max_iters):
     """
     Train using the data identified by the indices in train_index, and then test
     (and return accuracy) using the data identified by the indices in test_index.
@@ -138,11 +154,12 @@ def train_and_test_single_fold(X_full, y_full, lam, train_index, test_index, max
 
     return get_accuracy(final_coefs, X_full[test_index], y_full[test_index])
 
-def train_and_test_for_all_folds(num_folds, X_full, y_full, train_indices, test_indices, lam, max_iters=default_max_iters):
+# using 'tst' so this function isn't incorrectly detected as a unit test (there's probably a way to fix this w/o changing the function's name)
+def train_and_tst_for_all_folds(num_folds, X_full, y_full, train_indices, test_indices, lam, max_iters=default_max_iters):
     """
     Train and test for all folds. Return the mean of the set of accuracy scores from all folds.
     """
-    accuracy_scores = [train_and_test_single_fold(X_full, y_full, lam, train_indices[i], test_indices[i], max_iters) for i in range(num_folds)]
+    accuracy_scores = [train_and_tst_single_fold(X_full, y_full, lam, train_indices[i], test_indices[i], max_iters) for i in range(num_folds)]
     return(np.mean(accuracy_scores))
 
 def cross_validate(num_folds, X, y, lambdas, max_iters=default_max_iters, random_state=42):
@@ -160,6 +177,25 @@ def cross_validate(num_folds, X, y, lambdas, max_iters=default_max_iters, random
 
     # do num folds-fold cross validation for each value of lambda, and
     # save the mean of each set's classification accuracy
-    accuracy_values_by_lambda = [train_and_test_for_all_folds(num_folds, X, y, train_indices, test_indices, lam, max_iters) for lam in lambdas]
+    accuracy_values_by_lambda = [train_and_tst_for_all_folds(num_folds, X, y, train_indices, test_indices, lam, max_iters) for lam in lambdas]
 
     return lambdas, accuracy_values_by_lambda
+
+
+# ---
+# One vs. rest
+# ---
+
+def get_balanced_set(class_label, X_full, y_full):
+    """
+    Returns an X, y tuple containing a training set that has an equal number of observations with
+    class_label and not class_label. Done as simple as possible, without generalizations that I'd
+    normally include (I won't gold plate it since I know the data with which it's being used).
+    """
+    n_each = sum(y_full == class_label)
+    notclass_indices = np.random.choice(np.where(y_full != class_label)[0], n_each, replace=False)
+
+    all_indices = np.concatenate([np.where(y_full == class_label)[0],
+                                  np.random.choice(np.where(y_full != class_label)[0], n_each, replace=False)])
+
+    return X_full[all_indices], y_full[all_indices]

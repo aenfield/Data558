@@ -2,6 +2,8 @@ import unittest
 from finalproj import *
 
 import numpy as np
+from sklearn import preprocessing
+import pickle
 
 
 # simple data for some of the tests
@@ -12,7 +14,15 @@ beta_ones = np.array([1,1])
 beta_onezero = np.array([1,-1])
 lam = 1
 
+# we'll go ahead and load the actual data too, for some tests
+features_train = np.array(pickle.load(open('features_train', 'rb')))
+labels_train = np.array(pickle.load(open('labels_train', 'rb')))
+X_scaled = preprocessing.scale(features_train)
+
+
 # Corinne's implementations, to get the correct results to use to test my implementation
+# (keep these here as opposed to in the corinne.py file, as the production code doesn't depend on either,
+#  and the tests only depend on these)
 def corinne_computegrad_logistic(beta, x, y, lambduh):
     yx = y[:, np.newaxis]*x
     denom = 1 + np.exp(-yx.dot(beta))
@@ -52,6 +62,17 @@ class LinearSvmFunctionsTest(unittest.TestCase):
     def test_objective_with_nonzero_simpledata_and_diff_lambda(self):
         val = compute_objective_logistic_regression(beta_ones, x_simple, y_simple, 3)
         np.testing.assert_array_almost_equal(val, corinne_objective_logistic(beta_ones, x_simple, y_simple, 3), decimal=3)
+
+
+class OneVsRestTest(unittest.TestCase):
+
+    def test_get_balanced_observations(self):
+        class_label = '086.Pacific_Loon'
+        X, y = get_balanced_set(class_label, X_scaled, labels_train)
+        n_class = len(np.where(y == class_label))
+        n_notclass = len(np.where(y != class_label))
+        self.assertEqual(n_class, n_notclass)
+
 
 
 # TODO Would be nice to have tests for the cross-validation stuff

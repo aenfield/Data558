@@ -18,7 +18,7 @@
     <SUITE FILE_PATH="coverage/Kaggle$scratch__1_.coverage" NAME="scratch (1) Coverage Results" MODIFIED="1495308308290" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Kaggle$scratch.coverage" NAME="scratch Coverage Results" MODIFIED="1495303235667" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
     <SUITE FILE_PATH="coverage/Kaggle$images_to_features.coverage" NAME="images_to_features Coverage Results" MODIFIED="1495775268324" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Kaggle$Nosetests_in_finalproj_test_py.coverage" NAME="Nosetests in finalproj-test.py Coverage Results" MODIFIED="1495834999943" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Kaggle$Nosetests_in_finalproj_test_py.coverage" NAME="Nosetests in finalproj-test.py Coverage Results" MODIFIED="1495924040670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
@@ -38,8 +38,8 @@
       <file leaf-file-name="finalproj.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/finalproj.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="81">
-              <caret line="97" column="30" lean-forward="true" selection-start-line="97" selection-start-column="30" selection-end-line="97" selection-end-column="30" />
+            <state relative-caret-position="378">
+              <caret line="132" column="88" lean-forward="true" selection-start-line="132" selection-start-column="88" selection-end-line="132" selection-end-column="88" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -50,9 +50,11 @@
       <file leaf-file-name="corinne.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/corinne.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
-              <caret line="112" column="0" lean-forward="false" selection-start-line="112" selection-start-column="0" selection-end-line="129" selection-end-column="30" />
-              <folding />
+            <state relative-caret-position="1208">
+              <caret line="104" column="17" lean-forward="true" selection-start-line="104" selection-start-column="17" selection-end-line="104" selection-end-column="17" />
+              <folding>
+                <element signature="e#33#64#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -60,8 +62,8 @@
       <file leaf-file-name="finalproj-test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/finalproj-test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="57" column="69" lean-forward="false" selection-start-line="57" selection-start-column="69" selection-end-line="57" selection-end-column="69" />
+            <state relative-caret-position="263">
+              <caret line="73" column="45" lean-forward="true" selection-start-line="73" selection-start-column="45" selection-end-line="73" selection-end-column="45" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -84,6 +86,7 @@
       <find>fastgradal</find>
       <find>ob</find>
       <find>42</find>
+      <find>train_and_test_si</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -420,21 +423,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Nosetests_in_finalproj-test_py - 2017.05.25 at 22h 12m 46s.xml">
-      <configuration name="Nosetests in finalproj-test.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Nosetests_in_finalproj-test_py - 2017.05.26 at 09h 20m 56s.xml">
-      <configuration name="Nosetests in finalproj-test.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Nosetests_in_finalproj-test_py - 2017.05.26 at 09h 22m 45s.xml">
-      <configuration name="Nosetests in finalproj-test.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Nosetests_in_finalproj-test_py - 2017.05.26 at 09h 25m 32s.xml">
-      <configuration name="Nosetests in finalproj-test.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Nosetests_in_finalproj-test_py - 2017.05.26 at 09h 26m 01s.xml">
-      <configuration name="Nosetests in finalproj-test.py" configurationId="tests" />
-    </history-entry>
     <history-entry file="Nosetests_in_finalproj-test_py - 2017.05.26 at 09h 27m 49s.xml">
       <configuration name="Nosetests in finalproj-test.py" configurationId="tests" />
     </history-entry>
@@ -448,6 +436,21 @@
       <configuration name="Nosetests in finalproj-test.py" configurationId="tests" />
     </history-entry>
     <history-entry file="Nosetests_in_finalproj-test_py - 2017.05.26 at 14h 43m 21s.xml">
+      <configuration name="Nosetests in finalproj-test.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Nosetests_in_finalproj-test_py - 2017.05.27 at 15h 01m 16s.xml">
+      <configuration name="Nosetests in finalproj-test.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Nosetests_in_finalproj-test_py - 2017.05.27 at 15h 04m 45s.xml">
+      <configuration name="Nosetests in finalproj-test.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Nosetests_in_finalproj-test_py - 2017.05.27 at 15h 13m 36s.xml">
+      <configuration name="Nosetests in finalproj-test.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Nosetests_in_finalproj-test_py - 2017.05.27 at 15h 13m 52s.xml">
+      <configuration name="Nosetests in finalproj-test.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Nosetests_in_finalproj-test_py - 2017.05.27 at 15h 27m 23s.xml">
       <configuration name="Nosetests in finalproj-test.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -598,16 +601,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/corinne.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="112" column="0" lean-forward="false" selection-start-line="112" selection-start-column="0" selection-end-line="129" selection-end-column="30" />
-          <folding />
+        <state relative-caret-position="1208">
+          <caret line="104" column="17" lean-forward="true" selection-start-line="104" selection-start-column="17" selection-end-line="104" selection-end-column="17" />
+          <folding>
+            <element signature="e#33#64#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/finalproj-test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="57" column="69" lean-forward="false" selection-start-line="57" selection-start-column="69" selection-end-line="57" selection-end-column="69" />
+        <state relative-caret-position="263">
+          <caret line="73" column="45" lean-forward="true" selection-start-line="73" selection-start-column="45" selection-end-line="73" selection-end-column="45" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -616,8 +621,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/finalproj.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="97" column="30" lean-forward="true" selection-start-line="97" selection-start-column="30" selection-end-line="97" selection-end-column="30" />
+        <state relative-caret-position="378">
+          <caret line="132" column="88" lean-forward="true" selection-start-line="132" selection-start-column="88" selection-end-line="132" selection-end-column="88" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
