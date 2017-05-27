@@ -54,6 +54,9 @@ class LinearSvmFunctionsTest(unittest.TestCase):
         np.testing.assert_array_almost_equal(val, corinne_objective_logistic(beta_ones, x_simple, y_simple, 3), decimal=3)
 
 
+# TODO Would be nice to have tests for the cross-validation stuff
+# TODO Would be nice to have tests for the accuracy calculation stuff
+
 
 if __name__ == '__main__':
     unittest.main()
