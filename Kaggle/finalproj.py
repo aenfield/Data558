@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.model_selection import KFold
+import seaborn as sns
 
 t_init = 0.01
 default_max_iters = 300
@@ -195,19 +196,83 @@ def cross_validate(num_folds, X, y, lambdas, max_iters=default_max_iters, random
 # One vs. rest
 # ---
 
-def get_balanced_set(class_label, X_full, y_full, random_state=None):
+def get_train_tst_balanced_set(class_label, X_full, y_full, test_prop=0.3, random_state=None):
     """
-    Returns an X, y tuple containing a training set that has an equal number of observations with
-    class_label and not class_label. Done as simple as possible, without generalizations that I'd
-    normally include (I won't gold plate it since I know the data with which it's being used).
+    Returns an X_train, X_test, y_train, y_test tuple containing a training set that has an 
+    equal number of observations with class_label and not class_label. We want this, instead of just
+    the standard train_test_split method, so we can ensure that we have train and test sets that
+    use all of the class observations (and other observations) without duplicating them. The test
+    set has just those with the particular class (since we combine with other classifiers and don't
+    know how to classify, individually, non class stuff).
     """
-    if random_state is not None:
-        np.random.seed(random_state)
+    set_random_state_if_provided(random_state)
 
     n_each = sum(y_full == class_label)
-    notclass_indices = np.random.choice(np.where(y_full != class_label)[0], n_each, replace=False)
+    train_instances_each = int(np.floor((1 - test_prop) * n_each))
 
-    all_indices = np.concatenate([np.where(y_full == class_label)[0],
-                                  np.random.choice(np.where(y_full != class_label)[0], n_each, replace=False)])
+    # get indices of observations with specified class, splitting by by test_prop
+    all_class_indices = np.where(y_full == class_label)[0]
+    class_train_indices = np.random.choice(all_class_indices, train_instances_each, replace=False)
+    class_test_indices = np.setdiff1d(all_class_indices, class_train_indices)
 
-    return X_full[all_indices], y_full[all_indices]
+    # and get not this class indices
+    notclass_train_indices = np.random.choice(np.where(y_full != class_label)[0], train_instances_each, replace=False)
+    #notclass_train_indices = np.random.choice(notclass_all_indices, train_instances_each, replace=False)
+    #notclass_test_indices = np.setdiff1d(notclass_all_indices, notclass_train_indices)
+
+    train_indices = np.concatenate([class_train_indices, notclass_train_indices])
+    #test_indices = np.concatenate([class_test_indices, notclass_test_indices])
+
+    return X_full[train_indices], X_full[class_test_indices], y_full[train_indices], y_full[class_test_indices]
+
+
+def get_classifier_for_label(classifier_label, X, labels, lam, random_state=None, max_iters=default_max_iters):
+    set_random_state_if_provided(random_state)
+
+    X_train, X_test, labels_train, labels_test = get_train_tst_balanced_set(classifier_label, X, labels)
+    y_train = np.where(labels_train == classifier_label, 1, -1)
+
+    results_incl_label = fastgradalgo(
+        X_train, y_train, t_init=t_init,
+        grad_func=compute_gradient_logistic_regression,
+        obj_func=compute_objective_logistic_regression,
+        lam=lam, max_iter=max_iters, t_func=backtracking)
+
+    return get_final_coefs(results_incl_label).ravel(), X_test, labels_test
+
+
+def get_misclassificationerror_for_lambdas(classifier_labels, X, labels, lambdas, random_state=None):
+    """
+    Given a set of lambda values, one for each classifier label, build classifiers for each label, and
+    then predict results in a one-vs-rest fashion, and calculate and return the overall misclassification 
+    error.
+    """
+    set_random_state_if_provided(random_state)
+
+    classifiers_and_test_data = [get_classifier_for_label(classifier_label, X, labels, lam) for
+                                 classifier_label, lam in zip(classifier_labels, lambdas)]
+
+    # there's likely a better way to pull out each set of data rather than going through the list multiple times
+    # the list's small and this should be quick, I'm guessing, so I won't worry about it for now at least
+    classifiers = np.asarray([classifier for classifier, _, _ in classifiers_and_test_data])
+    X_test = np.concatenate([test_set for _, test_set, _ in classifiers_and_test_data])
+    labels_test = np.concatenate([train_set for _, _, train_set in classifiers_and_test_data])
+
+    predictions_by_classifier = classifiers.dot(X_test.T).T
+    label_index_of_highest_prediction = np.argmax(predictions_by_classifier, 1)
+    predicted_labels = np.array([classifier_labels[index] for index in label_index_of_highest_prediction])
+
+    return 1 - accuracy_score(labels_test, predicted_labels), confusion_matrix(labels_test, predicted_labels)
+
+def plot_multiclass_confusion_matrix(cm, classifier_labels):
+    ax = sns.heatmap(cm, annot=True, xticklabels=classifier_labels, yticklabels=classifier_labels)
+    ax.set_xlabel('Predicted')
+    ax.set_ylabel('Actual')
+
+
+# ---
+# Utils
+# ---
+def set_random_state_if_provided(random_state):
+    if random_state is not None:
+        np.random.seed(random_state)

@@ -19,6 +19,8 @@ features_train = np.array(pickle.load(open('features_train', 'rb')))
 labels_train = np.array(pickle.load(open('labels_train', 'rb')))
 X_scaled = preprocessing.scale(features_train)
 
+classifier_labels = ['086.Pacific_Loon','044.Frigatebird','095.Baltimore_Oriole',
+                     '154.Red_eyed_Vireo','188.Pileated_Woodpecker']
 
 # Corinne's implementations, to get the correct results to use to test my implementation
 # (keep these here as opposed to in the corinne.py file, as the production code doesn't depend on either,
@@ -66,12 +68,21 @@ class LinearSvmFunctionsTest(unittest.TestCase):
 
 class OneVsRestTest(unittest.TestCase):
 
-    def test_get_balanced_observations(self):
+    def test_get_train_test_balanced_set(self):
         class_label = '086.Pacific_Loon'
-        X, y = get_balanced_set(class_label, X_scaled, labels_train)
-        n_class = len(np.where(y == class_label))
-        n_notclass = len(np.where(y != class_label))
-        self.assertEqual(n_class, n_notclass)
+        X_train, X_test, y_train, y_test = get_train_tst_balanced_set(class_label, X_scaled, labels_train)
+        n_class_train = len(np.where(y_train == class_label))
+        n_class_test = len(np.where(y_test == class_label))
+        n_notclass_train = len(np.where(y_train != class_label))
+        n_notclass_test = len(np.where(y_test != class_label))
+        self.assertEqual(n_class_train, n_notclass_train)
+        self.assertEqual(n_class_test, n_notclass_test)
+        # this is the most basic test of this function - we could also do things like check that each split has the
+        # right amount of label/not labels, that there's no duplication, and more
+
+    def test_basic_get_misclassificationerror_for_lambdas(self):
+        error_rate, cm = get_misclassificationerror_for_lambdas(classifier_labels, X_scaled, labels_train, np.zeros(5))
+        self.assertAlmostEqual(error_rate, 0.156, places=3)
 
 
 
