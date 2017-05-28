@@ -100,6 +100,13 @@ def plot_misclassification_errors_by_iteration(results_df, X_train, X_test, y_tr
     ax.set_ylabel('Misclassification error')
     ax.set_title('Misclassification error by iteration')
 
+def plot_multiclass_confusion_matrix(cm, classifier_labels):
+    ax = sns.heatmap(cm, annot=True, xticklabels=classifier_labels, yticklabels=classifier_labels)
+    ax.set_xlabel('Predicted')
+    ax.set_ylabel('Actual')
+
+
+
 # ---
 # Metrics
 # ---
@@ -241,15 +248,16 @@ def get_classifier_for_label(classifier_label, X, labels, lam, random_state=None
     return get_final_coefs(results_incl_label).ravel(), X_test, labels_test
 
 
-def get_misclassificationerror_for_lambdas(classifier_labels, X, labels, lambdas, random_state=None):
+def get_misclassificationerror_for_lambdas(classifier_labels, X, labels, lambdas, random_state=None, max_iters=default_max_iters):
     """
     Given a set of lambda values, one for each classifier label, build classifiers for each label, and
     then predict results in a one-vs-rest fashion, and calculate and return the overall misclassification 
-    error.
+    error. Also return the confusion matrix, as other parts of the project need it; same for the
+    predicted labels.
     """
     set_random_state_if_provided(random_state)
 
-    classifiers_and_test_data = [get_classifier_for_label(classifier_label, X, labels, lam) for
+    classifiers_and_test_data = [get_classifier_for_label(classifier_label, X, labels, lam, max_iters=max_iters) for
                                  classifier_label, lam in zip(classifier_labels, lambdas)]
 
     # there's likely a better way to pull out each set of data rather than going through the list multiple times
@@ -262,12 +270,11 @@ def get_misclassificationerror_for_lambdas(classifier_labels, X, labels, lambdas
     label_index_of_highest_prediction = np.argmax(predictions_by_classifier, 1)
     predicted_labels = np.array([classifier_labels[index] for index in label_index_of_highest_prediction])
 
-    return 1 - accuracy_score(labels_test, predicted_labels), confusion_matrix(labels_test, predicted_labels)
+    misclassification_error = 1 - accuracy_score(labels_test, predicted_labels)
+    cm = confusion_matrix(labels_test, predicted_labels)
 
-def plot_multiclass_confusion_matrix(cm, classifier_labels):
-    ax = sns.heatmap(cm, annot=True, xticklabels=classifier_labels, yticklabels=classifier_labels)
-    ax.set_xlabel('Predicted')
-    ax.set_ylabel('Actual')
+    return misclassification_error, cm, labels_test, predicted_labels
+
 
 
 # ---
