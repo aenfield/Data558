@@ -128,9 +128,18 @@ def get_confusion_matrix(beta_coefs, X, y_actual, prob_threshold=0.5):
     Return the confusion matrix given a set of coefficients, in 
     beta_coefs, and observations, in X, compared to actual/known values 
     in y_actual. The threshold parameter defines the value above which the
-    predicted value is considered a positive example.
+    predicted value is considered a positive example. In this confusion
+    matrix, the y-axis is actual and the x-axis is predicted, so it looks like
+    the following (the labels param in the call makes this possible):
+    -----------
+    | TP | FN |
+    -----------
+    | FP | TN | 
+    -----------
+    (Note that switching the labels like this makes the sns.heatmap function 
+    assign incorrect tick marks.)
     """
-    return confusion_matrix(y_actual, get_y_pred(beta_coefs, X, y_actual, prob_threshold))
+    return confusion_matrix(y_actual, get_y_pred(beta_coefs, X, y_actual, prob_threshold), labels=[1,-1])
 
 # ---
 # Cross validation
