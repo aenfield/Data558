@@ -81,7 +81,7 @@ class OneVsRestTest(unittest.TestCase):
         # right amount of label/not labels, that there's no duplication, and more
 
     def test_basic_get_misclassificationerror_for_lambdas(self):
-        error_rate, cm, actual_labels, predicted_labels = get_misclassificationerror_for_lambdas(classifier_labels, X_scaled,
+        error_rate, cm, actual_labels, predicted_labels = get_results_for_lambdas(classifier_labels, X_scaled,
                                                                                   labels_train, np.ones(5), 100, max_iters=10)
         self.assertAlmostEqual(error_rate, 0.067, places=3)
 

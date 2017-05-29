@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="626a0728-2d4d-4224-8fbe-94b688cbf7a9" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BasicClassificationUsingInceptionFeatures.ipynb" afterPath="$PROJECT_DIR$/BasicClassificationUsingInceptionFeatures.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HWExerciseExploratory.ipynb" afterPath="$PROJECT_DIR$/HWExerciseExploratory.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/finalproj-test.py" afterPath="$PROJECT_DIR$/finalproj-test.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/finalproj.py" afterPath="$PROJECT_DIR$/finalproj.py" />
@@ -17,7 +18,7 @@
     <SUITE FILE_PATH="coverage/Kaggle$scratch__1_.coverage" NAME="scratch (1) Coverage Results" MODIFIED="1495308308290" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Kaggle$scratch.coverage" NAME="scratch Coverage Results" MODIFIED="1495303235667" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
     <SUITE FILE_PATH="coverage/Kaggle$images_to_features.coverage" NAME="images_to_features Coverage Results" MODIFIED="1495775268324" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Kaggle$Nosetests_in_finalproj_test_py.coverage" NAME="Nosetests in finalproj-test.py Coverage Results" MODIFIED="1496006741554" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Kaggle$Nosetests_in_finalproj_test_py.coverage" NAME="Nosetests in finalproj-test.py Coverage Results" MODIFIED="1496023006585" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
@@ -25,8 +26,8 @@
       <file leaf-file-name="images_to_features.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/images_to_features.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="990">
-              <caret line="73" column="0" lean-forward="false" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+            <state relative-caret-position="457">
+              <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -37,8 +38,8 @@
       <file leaf-file-name="finalproj.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/finalproj.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="430">
-              <caret line="275" column="53" lean-forward="false" selection-start-line="275" selection-start-column="53" selection-end-line="275" selection-end-column="53" />
+            <state relative-caret-position="157">
+              <caret line="258" column="0" lean-forward="false" selection-start-line="258" selection-start-column="0" selection-end-line="258" selection-end-column="0" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -49,8 +50,8 @@
       <file leaf-file-name="finalproj-test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/finalproj-test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="83" column="39" lean-forward="false" selection-start-line="83" selection-start-column="39" selection-end-line="83" selection-end-column="39" />
+            <state relative-caret-position="205">
+              <caret line="75" column="64" lean-forward="true" selection-start-line="75" selection-start-column="64" selection-end-line="75" selection-end-column="64" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -92,8 +93,8 @@
         <option value="$PROJECT_DIR$/scratch.py" />
         <option value="$PROJECT_DIR$/images_to_features.py" />
         <option value="$PROJECT_DIR$/FinalProj.py" />
-        <option value="$PROJECT_DIR$/finalproj.py" />
         <option value="$PROJECT_DIR$/finalproj-test.py" />
+        <option value="$PROJECT_DIR$/finalproj.py" />
       </list>
     </option>
   </component>
@@ -416,9 +417,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Nosetests_in_finalproj-test_py - 2017.05.28 at 14h 17m 08s.xml">
-      <configuration name="Nosetests in finalproj-test.py" configurationId="tests" />
-    </history-entry>
     <history-entry file="Nosetests_in_finalproj-test_py - 2017.05.28 at 14h 17m 48s.xml">
       <configuration name="Nosetests in finalproj-test.py" configurationId="tests" />
     </history-entry>
@@ -446,6 +444,9 @@
     <history-entry file="Nosetests_in_finalproj-test_py - 2017.05.28 at 14h 25m 45s.xml">
       <configuration name="Nosetests in finalproj-test.py" configurationId="tests" />
     </history-entry>
+    <history-entry file="Nosetests_in_finalproj-test_py - 2017.05.28 at 18h 56m 51s.xml">
+      <configuration name="Nosetests in finalproj-test.py" configurationId="tests" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="873" extended-state="6" />
@@ -457,7 +458,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32711443" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -582,16 +583,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scratch.py" />
-    <entry file="file://$PROJECT_DIR$/images_to_features.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
-          <caret line="73" column="0" lean-forward="false" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/miniconda3/envs/data558/lib/python3.6/site-packages/nose/util.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -613,7 +604,7 @@
         <state relative-caret-position="1208">
           <caret line="104" column="17" lean-forward="true" selection-start-line="104" selection-start-column="17" selection-end-line="104" selection-end-column="17" />
           <folding>
-            <element signature="e#33#64#0" expanded="true" />
+            <element signature="e#33#64#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -628,18 +619,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/finalproj-test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="83" column="39" lean-forward="false" selection-start-line="83" selection-start-column="39" selection-end-line="83" selection-end-column="39" />
+        <state relative-caret-position="205">
+          <caret line="75" column="64" lean-forward="true" selection-start-line="75" selection-start-column="64" selection-end-line="75" selection-end-column="64" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/images_to_features.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="457">
+          <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/finalproj.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="275" column="53" lean-forward="false" selection-start-line="275" selection-start-column="53" selection-end-line="275" selection-end-column="53" />
+        <state relative-caret-position="157">
+          <caret line="258" column="0" lean-forward="false" selection-start-line="258" selection-start-column="0" selection-end-line="258" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

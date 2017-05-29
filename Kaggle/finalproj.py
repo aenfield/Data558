@@ -248,7 +248,7 @@ def get_classifier_for_label(classifier_label, X, labels, lam, random_state=None
     return get_final_coefs(results_incl_label).ravel(), X_test, labels_test
 
 
-def get_misclassificationerror_for_lambdas(classifier_labels, X, labels, lambdas, random_state=None, max_iters=default_max_iters):
+def get_results_for_lambdas(classifier_labels, X, labels, lambdas, random_state=None, max_iters=default_max_iters):
     """
     Given a set of lambda values, one for each classifier label, build classifiers for each label, and
     then predict results in a one-vs-rest fashion, and calculate and return the overall misclassification 
