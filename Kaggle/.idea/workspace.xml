@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="626a0728-2d4d-4224-8fbe-94b688cbf7a9" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HWExerciseExploratory.ipynb" afterPath="$PROJECT_DIR$/HWExerciseExploratory.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/finalproj-test.py" afterPath="$PROJECT_DIR$/finalproj-test.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/finalproj.py" afterPath="$PROJECT_DIR$/finalproj.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -37,8 +35,8 @@
       <file leaf-file-name="finalproj.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/finalproj.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="264" column="125" lean-forward="false" selection-start-line="264" selection-start-column="26" selection-end-line="264" selection-end-column="125" />
+            <state relative-caret-position="158">
+              <caret line="88" column="6" lean-forward="false" selection-start-line="88" selection-start-column="2" selection-end-line="88" selection-end-column="6" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -49,21 +47,11 @@
       <file leaf-file-name="finalproj-test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/finalproj-test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="421">
-              <caret line="110" column="0" lean-forward="false" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
+            <state relative-caret-position="91">
+              <caret line="93" column="40" lean-forward="false" selection-start-line="93" selection-start-column="8" selection-end-line="93" selection-end-column="40" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="numeric.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/miniconda3/envs/data558/lib/python3.6/site-packages/numpy/core/numeric.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="193" column="0" lean-forward="false" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -491,13 +479,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/finalproj-test.py</url>
-          <line>106</line>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -618,16 +599,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/images_to_features.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="76" column="0" lean-forward="true" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/miniconda3/envs/data558/lib/python3.6/unittest/case.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -644,10 +615,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/finalproj-test.py">
+    <entry file="file://$PROJECT_DIR$/images_to_features.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="421">
-          <caret line="110" column="0" lean-forward="false" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
+          <caret line="76" column="0" lean-forward="true" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/finalproj-test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="91">
+          <caret line="93" column="40" lean-forward="false" selection-start-line="93" selection-start-column="8" selection-end-line="93" selection-end-column="40" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -656,8 +637,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/finalproj.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="264" column="125" lean-forward="false" selection-start-line="264" selection-start-column="26" selection-end-line="264" selection-end-column="125" />
+        <state relative-caret-position="158">
+          <caret line="88" column="6" lean-forward="false" selection-start-line="88" selection-start-column="2" selection-end-line="88" selection-end-column="6" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
