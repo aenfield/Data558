@@ -224,19 +224,21 @@ def get_train_tst_balanced_set(class_label, X_full, y_full, test_prop=0.3, rando
 
     # and get not this class indices
     notclass_train_indices = np.random.choice(np.where(y_full != class_label)[0], train_instances_each, replace=False)
-    #notclass_train_indices = np.random.choice(notclass_all_indices, train_instances_each, replace=False)
-    #notclass_test_indices = np.setdiff1d(notclass_all_indices, notclass_train_indices)
 
     train_indices = np.concatenate([class_train_indices, notclass_train_indices])
-    #test_indices = np.concatenate([class_test_indices, notclass_test_indices])
 
     return X_full[train_indices], X_full[class_test_indices], y_full[train_indices], y_full[class_test_indices]
 
 
-def get_classifier_for_label(classifier_label, X, labels, lam, random_state=None, max_iters=default_max_iters):
+def get_classifier_for_label(classifier_label, X, labels, lam, sets=None, random_state=None, max_iters=default_max_iters):
     set_random_state_if_provided(random_state)
 
-    X_train, X_test, labels_train, labels_test = get_train_tst_balanced_set(classifier_label, X, labels)
+    # if we don't get a 4-tuple with the train/test sets, then get our own here
+    if sets is None:
+        X_train, X_test, labels_train, labels_test = get_train_tst_balanced_set(classifier_label, X, labels)
+    else:
+        X_train, X_test, labels_train, labels_test = sets
+
     y_train = np.where(labels_train == classifier_label, 1, -1)
 
     results_incl_label = fastgradalgo(
@@ -248,17 +250,22 @@ def get_classifier_for_label(classifier_label, X, labels, lam, random_state=None
     return get_final_coefs(results_incl_label).ravel(), X_test, labels_test
 
 
-def get_results_for_lambdas(classifier_labels, X, labels, lambdas, random_state=None, max_iters=default_max_iters):
+def get_results_for_lambdas(classifier_labels, X, labels, lambdas, sets_for_labels=None, random_state=None, max_iters=default_max_iters):
     """
     Given a set of lambda values, one for each classifier label, build classifiers for each label, and
     then predict results in a one-vs-rest fashion, and calculate and return the overall misclassification 
     error. Also return the confusion matrix, as other parts of the project need it; same for the
-    predicted labels.
+    predicted labels. With sets_for_labels we also have the ability to accept a iterable with a train-test set (4-tuple)
+    for each label in classifier_labels, to enable the caller to pass in known (and unchanging) train-test sets.
     """
     set_random_state_if_provided(random_state)
 
-    classifiers_and_test_data = [get_classifier_for_label(classifier_label, X, labels, lam, max_iters=max_iters) for
-                                 classifier_label, lam in zip(classifier_labels, lambdas)]
+    # if we don't get a list of 4-tuples with the train/test sets, then we'll generate our own here, to pass in
+    if sets_for_labels is None:
+        sets_for_labels = [get_train_tst_balanced_set(classifier_label, X, labels) for classifier_label in classifier_labels]
+
+    classifiers_and_test_data = [get_classifier_for_label(classifier_label, X, labels, lam, sets_for_this_label, max_iters=max_iters) for
+                                 classifier_label, lam, sets_for_this_label in zip(classifier_labels, lambdas, sets_for_labels)]
 
     # there's likely a better way to pull out each set of data rather than going through the list multiple times
     # the list's small and this should be quick, I'm guessing, so I won't worry about it for now at least

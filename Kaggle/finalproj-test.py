@@ -80,11 +80,37 @@ class OneVsRestTest(unittest.TestCase):
         # this is the most basic test of this function - we could also do things like check that each split has the
         # right amount of label/not labels, that there's no duplication, and more
 
-    def test_basic_get_misclassificationerror_for_lambdas(self):
+    def test_basic_get_results_for_lambdas(self):
         error_rate, cm, actual_labels, predicted_labels = get_results_for_lambdas(classifier_labels, X_scaled,
-                                                                                  labels_train, np.ones(5), 100, max_iters=10)
+                                                                                  labels_train, np.ones(5),
+                                                                                  sets_for_labels=None,
+                                                                                  random_state=100, max_iters=10)
         self.assertAlmostEqual(error_rate, 0.067, places=3)
 
+    def test_can_pass_traintest_sets_to_get_classifier_for_label(self):
+        label = '086.Pacific_Loon'
+        sets = get_train_tst_balanced_set(label, X_scaled, labels_train, test_prop=0.3, random_state=100)
+
+        final_coefs, X_test, labels_test = get_classifier_for_label(label, X_scaled, labels_train, lam, sets=sets,
+                                                                    random_state=None, max_iters=10)
+
+        self.assertEqual(len(final_coefs), 2048)
+        # we know these because we know the set we generate and pass in; if the code's not using this set then
+        # we'll get different coefs
+        self.assertAlmostEqual(final_coefs[0], -0.00552, 5)
+        self.assertAlmostEqual(final_coefs[1], 0.00093, 5)
+        self.assertAlmostEqual(final_coefs[2], -0.01216, 5)
+        self.assertEqual(len(X_test), 9)
+        self.assertEqual(labels_test[0], '086.Pacific_Loon')
+
+    def test_can_pass_a_list_of_sets_to_get_results_for_lambdas(self):
+        list_of_sets = [get_train_tst_balanced_set(classifier_label, X_scaled, labels_train) for classifier_label in classifier_labels]
+        error_rate, cm, actual_labels, predicted_labels = get_results_for_lambdas(classifier_labels, X_scaled,
+                                                                                  labels_train, np.ones(5),
+                                                                                  sets_for_labels=list_of_sets,
+                                                                                  random_state=100, max_iters=10)
+
+        self.assertAlmostEqual(error_rate, 0.1333, 4)
 
 
 # TODO Would be nice to have tests for the cross-validation stuff
