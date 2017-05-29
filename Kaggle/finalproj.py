@@ -100,8 +100,8 @@ def plot_misclassification_errors_by_iteration(results_df, X_train, X_test, y_tr
     ax.set_ylabel('Misclassification error')
     ax.set_title('Misclassification error by iteration')
 
-def plot_multiclass_confusion_matrix(cm, classifier_labels):
-    ax = sns.heatmap(cm, annot=True, xticklabels=classifier_labels, yticklabels=classifier_labels)
+def plot_multiclass_confusion_matrix(cm, classifier_labels, show_annot=True):
+    ax = sns.heatmap(cm, annot=show_annot, xticklabels=classifier_labels, yticklabels=classifier_labels)
     ax.set_xlabel('Predicted')
     ax.set_ylabel('Actual')
 
