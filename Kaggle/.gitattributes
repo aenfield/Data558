@@ -4,3 +4,5 @@ features_train filter=lfs diff=lfs merge=lfs -text
 features_test filter=lfs diff=lfs merge=lfs -text
 labels_test filter=lfs diff=lfs merge=lfs -text
 labels_train filter=lfs diff=lfs merge=lfs -text
+features_train.csv filter=lfs diff=lfs merge=lfs -text
+features_test.csv filter=lfs diff=lfs merge=lfs -text
