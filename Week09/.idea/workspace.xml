@@ -2,18 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4881192-7fdf-4ed0-82cf-afcc19260554" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/Week09.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kernelsvm-test.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kernelsvm.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Kaggle/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Kaggle/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Kaggle/HWExerciseExploratory.ipynb" afterPath="$PROJECT_DIR$/../Kaggle/HWExerciseExploratory.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Week08/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Week08/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EnfieldAndrew-HW8.ipynb" afterPath="$PROJECT_DIR$/EnfieldAndrew-HW8.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kernelsvm-test.py" afterPath="$PROJECT_DIR$/kernelsvm-test.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kernelsvm.py" afterPath="$PROJECT_DIR$/kernelsvm.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,16 +17,16 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Week09$Nosetests_in_kernelsvm_test_py.coverage" NAME="Nosetests in kernelsvm-test.py Coverage Results" MODIFIED="1496188014498" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Week09$Nosetests_in_kernelsvm_test_py.coverage" NAME="Nosetests in kernelsvm-test.py Coverage Results" MODIFIED="1496191278889" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="kernelsvm.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="kernelsvm.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/kernelsvm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="39" lean-forward="true" selection-start-line="15" selection-start-column="39" selection-end-line="15" selection-end-column="39" />
+            <state relative-caret-position="390">
+              <caret line="26" column="12" lean-forward="false" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="12" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -40,11 +34,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="kernelsvm-test.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="kernelsvm-test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/kernelsvm-test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="7" lean-forward="true" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
+            <state relative-caret-position="440">
+              <caret line="50" column="72" lean-forward="false" selection-start-line="50" selection-start-column="72" selection-end-line="50" selection-end-column="72" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -67,8 +61,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/kernelsvm.py" />
         <option value="$PROJECT_DIR$/kernelsvm-test.py" />
+        <option value="$PROJECT_DIR$/kernelsvm.py" />
       </list>
     </option>
   </component>
@@ -318,15 +312,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Nosetests_in_kernelsvm-test_py - 2017.05.30 at 16h 35m 47s.xml">
-      <configuration name="Nosetests in kernelsvm-test.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Nosetests_in_kernelsvm-test_py - 2017.05.30 at 16h 40m 40s.xml">
-      <configuration name="Nosetests in kernelsvm-test.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Nosetests_in_kernelsvm-test_py - 2017.05.30 at 16h 42m 15s.xml">
-      <configuration name="Nosetests in kernelsvm-test.py" configurationId="tests" />
-    </history-entry>
     <history-entry file="Nosetests_in_kernelsvm-test_py - 2017.05.30 at 16h 42m 33s.xml">
       <configuration name="Nosetests in kernelsvm-test.py" configurationId="tests" />
     </history-entry>
@@ -340,6 +325,21 @@
       <configuration name="Nosetests in kernelsvm-test.py" configurationId="tests" />
     </history-entry>
     <history-entry file="Nosetests_in_kernelsvm-test_py - 2017.05.30 at 16h 46m 56s.xml">
+      <configuration name="Nosetests in kernelsvm-test.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Nosetests_in_kernelsvm-test_py - 2017.05.30 at 17h 21m 38s.xml">
+      <configuration name="Nosetests in kernelsvm-test.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Nosetests_in_kernelsvm-test_py - 2017.05.30 at 17h 22m 36s.xml">
+      <configuration name="Nosetests in kernelsvm-test.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Nosetests_in_kernelsvm-test_py - 2017.05.30 at 17h 23m 47s.xml">
+      <configuration name="Nosetests in kernelsvm-test.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Nosetests_in_kernelsvm-test_py - 2017.05.30 at 17h 24m 23s.xml">
+      <configuration name="Nosetests in kernelsvm-test.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Nosetests_in_kernelsvm-test_py - 2017.05.30 at 17h 41m 20s.xml">
       <configuration name="Nosetests in kernelsvm-test.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -379,22 +379,22 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/kernelsvm.py">
+    <entry file="file://$PROJECT_DIR$/kernelsvm-test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="39" lean-forward="true" selection-start-line="15" selection-start-column="39" selection-end-line="15" selection-end-column="39" />
+        <state relative-caret-position="440">
+          <caret line="50" column="72" lean-forward="false" selection-start-line="50" selection-start-column="72" selection-end-line="50" selection-end-column="72" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kernelsvm-test.py">
+    <entry file="file://$PROJECT_DIR$/kernelsvm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="7" lean-forward="true" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
+        <state relative-caret-position="390">
+          <caret line="26" column="12" lean-forward="false" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="12" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
