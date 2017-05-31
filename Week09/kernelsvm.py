@@ -23,8 +23,15 @@ def kerneleval_linear(X, new_observation):
     """
     return new_observation.dot(X.T)
 
-def compute_kernelsvm_gradient():
-    return 0
+def compute_kernelsvm_gradient(alphas, K, y, lam):
+    grad_beta_max_term = np.maximum(0, 1 - (y * (K.dot(np.array(alphas)))))[np.newaxis].T
+    grad_beta_sum_term = y[np.newaxis].T * K * grad_beta_max_term
+    grad_beta_without_penalty = (-2 / len(y)) * np.sum(grad_beta_sum_term, 0)
+    grad_beta_penalty = 2 * lam * (K.dot(alphas))
+    return grad_beta_without_penalty + grad_beta_penalty
 
-def compute_kernelsvm_objective():
-    return 0
+def compute_kernelsvm_objective(alphas, K, y, lam):
+    objective_max_term = np.maximum(0, 1 - (y * (K.dot(np.array(alphas)))))[np.newaxis].T
+    obj_without_penalty = (1 / len(y)) * np.sum(objective_max_term**2)
+    obj_penalty = lam * alphas * (K.dot(alphas))
+    return obj_without_penalty + obj_penalty
