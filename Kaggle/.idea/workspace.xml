@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="626a0728-2d4d-4224-8fbe-94b688cbf7a9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitattributes" afterPath="$PROJECT_DIR$/.gitattributes" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Week09/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Week09/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Week09/kernelsvm-test.py" afterPath="$PROJECT_DIR$/../Week09/kernelsvm-test.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Week09/kernelsvm.py" afterPath="$PROJECT_DIR$/../Week09/kernelsvm.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,7 +25,7 @@
       <file leaf-file-name="images_to_features.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/images_to_features.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1140">
+            <state relative-caret-position="710">
               <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
@@ -35,8 +37,8 @@
       <file leaf-file-name="finalproj.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/finalproj.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3355">
-              <caret line="14" column="60" lean-forward="false" selection-start-line="14" selection-start-column="60" selection-end-line="14" selection-end-column="60" />
+            <state relative-caret-position="242">
+              <caret line="219" column="61" lean-forward="false" selection-start-line="219" selection-start-column="56" selection-end-line="219" selection-end-column="61" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -47,7 +49,7 @@
       <file leaf-file-name="finalproj-test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/finalproj-test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1395">
+            <state relative-caret-position="722">
               <caret line="93" column="40" lean-forward="false" selection-start-line="93" selection-start-column="8" selection-end-line="93" selection-end-column="40" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
@@ -79,6 +81,8 @@
       <find>balan</find>
       <find>random</find>
       <find>get_classifier</find>
+      <find>heatmap</find>
+      <find>split</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -661,7 +665,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/images_to_features.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1140">
+        <state relative-caret-position="710">
           <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
@@ -671,7 +675,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/finalproj-test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1395">
+        <state relative-caret-position="722">
           <caret line="93" column="40" lean-forward="false" selection-start-line="93" selection-start-column="8" selection-end-line="93" selection-end-column="40" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
@@ -681,8 +685,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/finalproj.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3355">
-          <caret line="14" column="60" lean-forward="false" selection-start-line="14" selection-start-column="60" selection-end-line="14" selection-end-column="60" />
+        <state relative-caret-position="242">
+          <caret line="219" column="61" lean-forward="false" selection-start-line="219" selection-start-column="56" selection-end-line="219" selection-end-column="61" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

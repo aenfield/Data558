@@ -66,6 +66,10 @@ class KernelSvmFunctionsTest(unittest.TestCase):
         alphas = compute_kernelsvm_gradient(np.array([1,-1,1]), computegram_linear(x_simple), np.array([3,2,1]), 3)
         np.testing.assert_array_almost_equal(alphas, np.array([20.67, -8.67, 4.67]), 2)
 
+    def test_gradient_with_simpledata_and_new_by_hand(self):
+        alphas = compute_kernelsvm_gradient(np.array([-1,-1,-1]), computegram_linear(x_simple), np.array([1,-1,1]), 1)
+        np.testing.assert_array_almost_equal(alphas, np.array([-78.04, 12, 42.02]), 1)
+
 
     def test_objective_with_simpledata(self):
         self.assertEqual(compute_kernelsvm_objective(np.zeros(3), computegram_linear(x_simple), y_simple, 1), 1)

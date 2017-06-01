@@ -26,8 +26,19 @@ def kerneleval_linear(X, new_observation):
 
 def compute_kernelsvm_gradient(alphas, K, y, lam):
     grad_beta_max_term = np.maximum(0, 1 - (y * (K.dot(alphas))))[np.newaxis].T
-    grad_beta_sum_term = y[np.newaxis].T * K * grad_beta_max_term
-    grad_beta_without_penalty = (-2 / len(y)) * np.sum(grad_beta_sum_term, 0)
+
+    # it's either a scalar multiply or a dot... I think it's a dot
+    #grad_beta_sum_term = y[np.newaxis].T * K * grad_beta_max_term
+    grad_beta_sum_term = y[np.newaxis].T * K.dot(grad_beta_max_term)
+
+    # if it's a dot, then i think my sum needs to be over axis 1, not zero, to keep the vector of size n?
+    # this gives us a similar vector in the end - for ex, 78, 18, -50 (ish)
+    #grad_beta_without_penalty = (-2 / len(y)) * np.sum(grad_beta_sum_term, 0)
+    grad_beta_without_penalty = (-2 / len(y)) * np.sum(grad_beta_sum_term, 1)
+
+    # but maybe... we DO want to sum over axis zero to get something where element one is the sum of all the three
+    # non-zero terms, and the others are just sums of zeros, so we get something like [50, 0, 0]?
+
     grad_beta_penalty = 2 * lam * (K.dot(alphas))
     return grad_beta_without_penalty + grad_beta_penalty
 
