@@ -9,7 +9,7 @@ def main():
     files = ['features_train', 'labels_train', 'features_test', 'labels_test']
 
     for file in files:
-        print("Processing {}.".format(file))
+        print("Processing {}...".format(file))
         data_from_pickle = np.array(pickle.load(open(file, 'rb')))
         output_file_path = '{}.csv'.format(file)
         pd.DataFrame(data_from_pickle).to_csv(output_file_path, header=False, index=False)
