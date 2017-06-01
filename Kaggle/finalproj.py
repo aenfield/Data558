@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.model_selection import KFold
+
+import matplotlib.pyplot as plt
 import seaborn as sns
 
 t_init = 0.01
@@ -89,6 +91,13 @@ def backtracking(coefs, x, y, grad_func, obj_func, t=1, alpha=0.5, beta=0.5, max
 # Plotting
 # ---
 
+def save_file_if_specified(filename):
+    """
+    Saves the plot to a file, if a file's specified.
+    """
+    if filename is not None:
+        plt.savefig(filename)
+
 def get_misclassification_errors_by_iteration(beta_results_df, X, y):
     return beta_results_df.apply(lambda r: 1 - get_accuracy(r.values, X, y), axis=1)
 
@@ -100,10 +109,13 @@ def plot_misclassification_errors_by_iteration(results_df, X_train, X_test, y_tr
     ax.set_ylabel('Misclassification error')
     ax.set_title('Misclassification error by iteration')
 
-def plot_multiclass_confusion_matrix(cm, classifier_labels, show_annot=True):
+def plot_multiclass_confusion_matrix(cm, classifier_labels, show_annot=True, filename=None):
     ax = sns.heatmap(cm, annot=show_annot, xticklabels=classifier_labels, yticklabels=classifier_labels)
     ax.set_xlabel('Predicted')
     ax.set_ylabel('Actual')
+    save_file_if_specified(filename)
+
+
 
 
 
