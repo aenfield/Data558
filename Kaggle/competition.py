@@ -3,10 +3,8 @@ import pandas as pd
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import seaborn as sns
 import pickle
 import datetime
-
 plt.rcParams["figure.figsize"] = (25,25)
 
 from sklearn import model_selection
@@ -16,11 +14,10 @@ from sklearn.decomposition import PCA
 from sklearn.svm import LinearSVC, SVC
 from sklearn.multiclass import OneVsRestClassifier, OneVsOneClassifier
 
-import importlib
-
 import finalproj as fp
 
 section_print_delimiter = "\n---"
+
 
 def fit_test_and_save_model(model_desc, model, data, unique_labels):
     """
@@ -60,6 +57,16 @@ def fit_test_and_save_model(model_desc, model, data, unique_labels):
 
     return metrics
 
+def get_pca_data(X_train, X_test, y_train, y_test, num_components):
+    pca = PCA(n_components=num_components).fit(X_train)
+    X_train_pca = pca.transform(X_train)
+    X_test_pca = pca.transform(X_test)
+
+    print("Split sizes, PCA {}: {}, {}, {}, {}.".format(num_components, X_train_pca.shape, X_test_pca.shape, y_train.shape, y_test.shape))
+
+    data_pca = (X_train_pca, X_test_pca, y_train, y_test)
+    return data_pca
+
 
 # output, plotting
 def output_text_with_time(text):
@@ -94,10 +101,6 @@ def main():
     print("Loaded {} features and {} labels at {}.".format(features_train.shape, labels_train.shape, datetime.datetime.now()))
     unique_labels = np.unique(labels_train)
 
-    # make it small to test
-    # features_train = features_train[:1000]
-    # labels_train = labels_train[:1000]
-
     X_train, X_test, y_train, y_test = model_selection.train_test_split(features_train, labels_train, test_size=0.1)
     data = (X_train, X_test, y_train, y_test)
     print("Split sizes, non-PCA: {}, {}, {}, {}.".format(X_train.shape, X_test.shape, y_train.shape, y_test.shape))
@@ -109,39 +112,28 @@ def main():
     X_train_scaled = scaler.transform(X_train)
     X_test_scaled = scaler.transform(X_test)
 
-    num_of_pca_components = 64
-    pca = PCA(n_components=num_of_pca_components).fit(X_train_scaled)
-    X_train_pca = pca.transform(X_train_scaled)
-    X_test_pca = pca.transform(X_test_scaled)
-
-    data_pca = (X_train_pca, X_test_pca, y_train, y_test)
-    print("Split sizes, PCA: {}, {}, {}, {}.".format(X_train_pca.shape, X_test_pca.shape, y_train.shape, y_test.shape))
-
+    data_pca_64 = get_pca_data(X_train_scaled, X_test_scaled, y_train, y_test, num_components=64)
+    data_pca_256 = get_pca_data(X_train_scaled, X_test_scaled, y_train, y_test, num_components=256)
 
     # note: in model_desc use 'p' instead of a '.' (for ex, 0p01 instead of 0.01) to avoid matplotlib figure save issue with periods
-    models = [("MyLogisticRegression-C=1-max_iter=100-OvR-PCA",
-               OneVsRestClassifier(fp.MyLogisticRegression(max_iter=100)),
-               data_pca),
-              ("MyLogisticRegression-C=1-max_iter=300-OvR-PCA",
-               OneVsRestClassifier(fp.MyLogisticRegression(max_iter=300)),
-               data_pca),
-              # this takes ~3-5m to train and gives 1% accuracy - something's wrong, I wont' run it for now
-              # ("MyLogisticRegression-C=1-max_iter=100-OvO-PCA",
-              #  OneVsOneClassifier(fp.MyLogisticRegression(max_iter=100), n_jobs=-1),
-              #  data_pca),
-              ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA_on_features",
-               LinearSVC(C=1.0, loss='squared_hinge', penalty='l2', multi_class='ovr'),
-               data),
-              ("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA_on_features",
-               LinearSVC(C=0.01, loss='squared_hinge', penalty='l2', multi_class='ovr'),
-               data),
-              ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-PCA",
-               LinearSVC(C=1.0, loss='squared_hinge', penalty='l2', multi_class='ovr'),
-               data_pca),
-              ("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-PCA",
-               LinearSVC(C=0.01, loss='squared_hinge', penalty='l2', multi_class='ovr'),
-               data_pca)
+    models = [("MyLogisticRegression-C=1-max_iter=100-OvR-PCA_64", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=100)), data_pca_64),
+              ("MyLogisticRegression-C=1-max_iter=300-OvR-PCA_64", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=300)), data_pca_64),
+              ("MyLogisticRegression-C=1-max_iter=100-OvR-PCA_256", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=100)), data_pca_256),
+              ("MyLogisticRegression-C=1-max_iter=300-OvR-PCA_256", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=300)), data_pca_256),
+              ("MyLogisticRegression-C=1-max_iter=100-OvR-no_PCA", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=100)), data),
+              ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(), data),
+              ("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(C=0.01), data),
+              ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-PCA_64", LinearSVC(), data_pca_64),
+              ("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-PCA_64", LinearSVC(C=0.01), data_pca_64),
+              ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-PCA_256", LinearSVC(), data_pca_256),
+              ("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-PCA_256", LinearSVC(C=0.01), data_pca_256)
               ]
+
+    # removed tests
+
+    # this takes ~3-5m to train and gives 1% accuracy - something's wrong, I wont' run it for now
+    # ("MyLogisticRegression-C=1-max_iter=100-OvO-PCA", OneVsOneClassifier(fp.MyLogisticRegression(max_iter=100), n_jobs=-1), data_pca),
+
 
     model_metrics = [fit_test_and_save_model(model_desc, model, data, unique_labels) for model_desc, model, data in models]
 
