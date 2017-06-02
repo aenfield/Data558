@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="626a0728-2d4d-4224-8fbe-94b688cbf7a9" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HWExerciseExploratory.ipynb" afterPath="$PROJECT_DIR$/HWExerciseExploratory.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/finalproj.py" afterPath="$PROJECT_DIR$/finalproj.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/competition.py" afterPath="$PROJECT_DIR$/competition.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,7 +18,7 @@
     <SUITE FILE_PATH="coverage/Kaggle$augment_images.coverage" NAME="augment_images Coverage Results" MODIFIED="1496333426298" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Kaggle$scratch.coverage" NAME="scratch Coverage Results" MODIFIED="1495303235667" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
     <SUITE FILE_PATH="coverage/Kaggle$images_to_features.coverage" NAME="images_to_features Coverage Results" MODIFIED="1496334517055" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Kaggle$competition.coverage" NAME="competition Coverage Results" MODIFIED="1496368770817" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Kaggle$competition.coverage" NAME="competition Coverage Results" MODIFIED="1496380832469" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Kaggle$Nosetests_in_finalproj_test_py.coverage" NAME="Nosetests in finalproj-test.py Coverage Results" MODIFIED="1496075896310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
@@ -48,7 +48,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="finalproj.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="finalproj.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/finalproj.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="171">
@@ -60,11 +60,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="competition.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="competition.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/competition.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="34" column="4" lean-forward="false" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
+            <state relative-caret-position="304">
+              <caret line="125" column="69" lean-forward="false" selection-start-line="125" selection-start-column="69" selection-end-line="125" selection-end-column="69" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -134,8 +134,8 @@
         <option value="$PROJECT_DIR$/images_to_features.py" />
         <option value="$PROJECT_DIR$/augment_images.py" />
         <option value="$PROJECT_DIR$/pickled_files_to_csv.py" />
-        <option value="$PROJECT_DIR$/competition.py" />
         <option value="$PROJECT_DIR$/finalproj.py" />
+        <option value="$PROJECT_DIR$/competition.py" />
       </list>
     </option>
   </component>
@@ -551,7 +551,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/competition.py</url>
-          <line>89</line>
+          <line>90</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
@@ -1006,16 +1006,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/competition.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="34" column="4" lean-forward="false" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/shared_routines.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -1030,6 +1020,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
           <caret line="121" column="92" lean-forward="false" selection-start-line="121" selection-start-column="92" selection-end-line="121" selection-end-column="92" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/competition.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="125" column="69" lean-forward="false" selection-start-line="125" selection-start-column="69" selection-end-line="125" selection-end-column="69" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

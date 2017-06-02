@@ -11,9 +11,10 @@ plt.rcParams["figure.figsize"] = (25,25)
 
 from sklearn import model_selection
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
-from sklearn import preprocessing
-from sklearn.svm import LinearSVC, SVC
+from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
+from sklearn.svm import LinearSVC, SVC
+from sklearn.multiclass import OneVsRestClassifier, OneVsOneClassifier
 
 import importlib
 
@@ -99,10 +100,35 @@ def main():
 
     X_train, X_test, y_train, y_test = model_selection.train_test_split(features_train, labels_train, test_size=0.1)
     data = (X_train, X_test, y_train, y_test)
-    print("Split sizes: {}, {}, {}, {}.".format(X_train.shape, X_test.shape, y_train.shape, y_test.shape))
+    print("Split sizes, non-PCA: {}, {}, {}, {}.".format(X_train.shape, X_test.shape, y_train.shape, y_test.shape))
+
+    # use a scaler so we can scale only based on training data and then scale the validation test data using the same
+    # transform; i don't think i need to reuse this for the Kaggle test data though because I don't need to worry about stuff
+    # leaking through there? do I?
+    scaler = StandardScaler().fit(X_train)
+    X_train_scaled = scaler.transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
+
+    num_of_pca_components = 64
+    pca = PCA(n_components=num_of_pca_components).fit(X_train_scaled)
+    X_train_pca = pca.transform(X_train_scaled)
+    X_test_pca = pca.transform(X_test_scaled)
+
+    data_pca = (X_train_pca, X_test_pca, y_train, y_test)
+    print("Split sizes, PCA: {}, {}, {}, {}.".format(X_train_pca.shape, X_test_pca.shape, y_train.shape, y_test.shape))
+
 
     # note: in model_desc use 'p' instead of a '.' (for ex, 0p01 instead of 0.01) to avoid matplotlib figure save issue with periods
-    models = [("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA_on_features",
+    models = [("MyLogisticRegression-C=1-max_iter=100-OvR-PCA",
+               OneVsRestClassifier(fp.MyLogisticRegression(max_iter=100)),
+               data_pca),
+              ("MyLogisticRegression-C=1-max_iter=300-OvR-PCA",
+               OneVsRestClassifier(fp.MyLogisticRegression(max_iter=300)),
+               data_pca),
+              ("MyLogisticRegression-C=1-max_iter=100-OvO-PCA",
+               OneVsOneClassifier(fp.MyLogisticRegression(max_iter=100), n_jobs=-1),
+               data_pca),
+              ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA_on_features",
                LinearSVC(C=1.0, loss='squared_hinge', penalty='l2', multi_class='ovr'),
                data),
               ("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA_on_features",
