@@ -5,3 +5,4 @@
 kaggle_test*.csv
 model_metrics*.csv
 pca_transform*.pickle
+BackupCleanup

@@ -129,8 +129,10 @@ def train_models():
               ("LogisticRegression-C=1-L2_regularization-multinomial-PCA_256", LogisticRegression(fit_intercept=False, multi_class='multinomial', solver='newton-cg'), data_pca_256)
               ("SVC-C=1-poly_kernel-degree=3-no_PCA", SVC(kernel='poly', degree=3), data),
               ("SVC-C=1-poly_kernel-degree=3-PCA_256", SVC(kernel='poly', degree=3), data_pca_256),
+              ("SVC-C=1-rbf_kernel-degree=2-no_PCA", SVC(kernel='rbf', degree=2), data),
               ("SVC-C=1-rbf_kernel-degree=3-no_PCA", SVC(kernel='rbf', degree=3), data),
-              ("SVC-C=1-rbf_kernel-degree=3-PCA_256", SVC(kernel='rbf', degree=3), data_pca_256),
+              ("SVC-C=1-rbf_kernel-degree=4-no_PCA", SVC(kernel='rbf', degree=4), data),
+              ("SVC-C=1-rbf_kernel-degree=5-no_PCA", SVC(kernel='rbf', degree=5), data),
               ]
 
     # add these back for a final/complete run - removing now because they're less good than (or duplicative
@@ -149,6 +151,10 @@ def train_models():
     # this takes ~3-5m to train and gives 1% accuracy - something's wrong, I wont' run it for now
     # ("MyLogisticRegression-C=1-max_iter=100-OvO-PCA", OneVsOneClassifier(fp.MyLogisticRegression(max_iter=100), n_jobs=-1), data_pca),
 
+    # RBF worked well - it looked great in the CM, but with either PCA I got one class that was totally wrong - just a line up and down
+    # this was most pronounced with 64 components, still there but less with 256, and not there at all from what i could tell with
+    # no PCA. So I'll just use no_PCA for the radial kernel
+    # ("SVC-C=1-rbf_kernel-degree=3-PCA_256", SVC(kernel='rbf', degree=3), data_pca_256),
 
     model_metrics = [fit_test_and_save_model(model_desc, model, data, unique_labels) for model_desc, model, data in models]
 
