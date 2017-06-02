@@ -125,15 +125,23 @@ def main():
               ("MyLogisticRegression-C=1-max_iter=300-OvR-PCA",
                OneVsRestClassifier(fp.MyLogisticRegression(max_iter=300)),
                data_pca),
-              ("MyLogisticRegression-C=1-max_iter=100-OvO-PCA",
-               OneVsOneClassifier(fp.MyLogisticRegression(max_iter=100), n_jobs=-1),
-               data_pca),
+              # this takes ~3-5m to train and gives 1% accuracy - something's wrong, I wont' run it for now
+              # ("MyLogisticRegression-C=1-max_iter=100-OvO-PCA",
+              #  OneVsOneClassifier(fp.MyLogisticRegression(max_iter=100), n_jobs=-1),
+              #  data_pca),
               ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA_on_features",
                LinearSVC(C=1.0, loss='squared_hinge', penalty='l2', multi_class='ovr'),
                data),
               ("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA_on_features",
                LinearSVC(C=0.01, loss='squared_hinge', penalty='l2', multi_class='ovr'),
-               data)]
+               data),
+              ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-PCA",
+               LinearSVC(C=1.0, loss='squared_hinge', penalty='l2', multi_class='ovr'),
+               data_pca),
+              ("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-PCA",
+               LinearSVC(C=0.01, loss='squared_hinge', penalty='l2', multi_class='ovr'),
+               data_pca)
+              ]
 
     model_metrics = [fit_test_and_save_model(model_desc, model, data, unique_labels) for model_desc, model, data in models]
 
