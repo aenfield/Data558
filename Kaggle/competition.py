@@ -5,7 +5,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pickle
-from datetime import datetime
+import datetime
 
 plt.rcParams["figure.figsize"] = (25,25)
 
@@ -20,21 +20,56 @@ import importlib
 import finalproj as fp
 
 
-# fit and train convenience functions
-def fit_model(model, X_train, y_train):
-    output_text_with_time("Starting model fit at {}...")
-    model.fit(X_train, y_train)
-    output_text_with_time("Finished model fit at {}.")
+def fit_test_and_save_model(model_desc, model, data, unique_labels):
+    """
+    Do it all: fit, test, save the fit model, and return metrics.
+    """
+    print("----")
+    print("Processing '{}'.".format(model_desc))
+    start_overall = output_text_with_time("Started at {}.")
 
-def test_model_and_output_stats(model, X_test, y_actual, unique_labels, model_desc=None):
+    X_train, X_test, y_train, y_test = data
+
+    start_fit = output_text_with_time("Starting model fit at {}...")
+    model.fit(X_train, y_train)
+    end_fit = output_text_with_time("Finished model fit at {}.")
+
     output_text_with_time("Starting prediction at {}...")
     y_pred = model.predict(X_test)
-    output_error_and_cm_for_classifier(model, y_actual, y_pred, unique_labels, "{}-cm.png".format(model_desc))
     output_text_with_time("Finished prediction at {}.")
+
+    accuracy = accuracy_score(y_test, y_pred)
+    print("Misclassification error: {0:.1%}.".format(1 - accuracy))
+    fp.plot_multiclass_confusion_matrix(confusion_matrix(y_test, y_pred), unique_labels,
+                                        show_annot=False, filename="{}-cm".format(model_desc))
+    open("{}-report.txt".format(model_desc), 'w').write(classification_report(y_test, y_pred))
+
+    output_text_with_time("Starting model save at {}...")
+    pickle.dump(model, open('{}_model.pickle'.format(model_desc), 'wb'))
+    output_text_with_time("Finished model save at {}.")
+
+    end_overall = output_text_with_time("Finished at {}.")
+
+    metrics = {'Desc': model_desc,
+               'Accuracy': "{0:.1%}".format(accuracy),
+               'Train time': get_formatted_time_difference(start_fit, end_fit),
+               'Overall time': get_formatted_time_difference(start_overall, end_overall)
+               }
+
+    return metrics
+
+
+
+
 
 # output, plotting
 def output_text_with_time(text):
-    print(text.format(datetime.now()))
+    time = datetime.datetime.now()
+    print(text.format(time))
+    return time
+
+def get_formatted_time_difference(start_time, end_time):
+    return datetime.time(0, 0, (end_time - start_time).seconds).strftime("%H:%M:%S")
 
 def output_error_and_cm_for_classifier(fit_model, y_actual, y_pred, unique_labels, filename=None):
     print("Misclassification error: {}.".format(1-accuracy_score(y_actual, y_pred)))
@@ -45,19 +80,26 @@ def main():
     output_text_with_time("Loading training features at {}...")
     features_train = pd.read_csv('features_train.csv', header=None).values
     labels_train = pd.read_csv('labels_train.csv', header=None).values.ravel()
-    print("Loaded {} features and {} labels at {}.".format(features_train.shape, labels_train.shape, datetime.now()))
+    print("Loaded {} features and {} labels at {}.".format(features_train.shape, labels_train.shape, datetime.datetime.now()))
     unique_labels = np.unique(labels_train)
 
+    # make it small to test
+    features_train = features_train[:1000]
+    labels_train = labels_train[:1000]
+
     X_train, X_test, y_train, y_test = model_selection.train_test_split(features_train, labels_train, test_size=0.1)
+    data = (X_train, X_test, y_train, y_test)
     print("Split sizes: {}, {}, {}, {}.".format(X_train.shape, X_test.shape, y_train.shape, y_test.shape))
 
     model_desc = "LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA_on_features"
-    print(model_desc)
     clf = LinearSVC(C=1.0, loss='squared_hinge', penalty='l2', multi_class='ovr')
-    fit_model(clf, X_train, y_train)
-    test_model_and_output_stats(clf, X_test, y_test, unique_labels, model_desc)
+    metrics_for_model = fit_test_and_save_model(model_desc, clf, data, unique_labels)
 
-    output_text_with_time("Finished at {}.")
+    print(metrics_for_model)
+
+    # fit_model(clf, X_train, y_train)
+    # test_model_and_output_stats(clf, X_test, y_test, unique_labels, model_desc)
+
 
     # features_test = pd.read_csv('features_test.csv', header=None).values
     # labels_test = pd.read_csv('labels_test.csv', header=None).values.ravel()
