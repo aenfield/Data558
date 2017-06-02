@@ -27,9 +27,6 @@ def compute_objective_logistic_regression(beta, x, y, lam=5):
     return obj
 
 
-
-
-
 # ---
 # Fast gradient descent
 # ---
@@ -85,6 +82,61 @@ def backtracking(coefs, x, y, grad_func, obj_func, t=1, alpha=0.5, beta=0.5, max
 
     return t
     #return(t, iter)
+
+# ---
+# Wrap fastgradalgo and obj/grad functions in a class w/ fit and predict methods
+# ? Will this work ? (No tests, for now :-( )
+# ---
+
+# i implemented fit and predict and it didn't work, so I added a bit from
+# http://danielhnyk.cz/creating-your-own-estimator-scikit-learn/
+
+from sklearn.base import BaseEstimator, ClassifierMixin
+
+class MyLogisticRegression(BaseEstimator, ClassifierMixin):
+    default_max_iters = 300
+    default_t_init = 0.01
+
+    def __init__(self, C=1, max_iter=default_max_iters):
+        self.C = C
+        self.max_iter = max_iter
+
+    def fit(self, X, y, t_init=default_t_init):
+        self.all_coefs_ = fastgradalgo(X, y, t_init,
+            grad_func = compute_gradient_logistic_regression,
+            obj_func = compute_objective_logistic_regression,
+            lam=self.C, max_iter=self.max_iter)
+
+        return self
+
+    def predict(self, X, prob_threshold=0.5):
+        self.raise_if_not_fit()
+
+        probs = get_probability(self.decision_function(X))
+        y_thresholded = np.where(probs > prob_threshold, 1, -1)
+        return y_thresholded
+
+    # seems like the convention w/ sklearn models is that decision_function returns the score, while
+    # predict returns a class label - for now, I'll return the log odds (per additional investigation -
+    # the docs for the OneVsRestClassifier metaclassifier - it looks like that classifier uses either
+    # decision_function or predict_proba (the latter which gives the probabilities, I think)
+    def decision_function(self, X):
+        y_pred = X.dot(get_final_coefs(self.all_coefs_).T).ravel()  # ravel to convert to vector
+        return y_pred
+
+    def get_coefs(self):
+        self.raise_if_not_fit()
+        return get_final_coefs(self.all_coefs_)
+
+    def raise_if_not_fit(self):
+        if self.all_coefs_ is None:
+            raise RuntimeError("Model has not yet been fit.")
+
+    # I think i should get this by inheritance, but it looks like it's not working correctly
+    # (comment this out to see) so I'll do it myself
+    # def get_params(self, deep=False):
+    #     return {'C': self.l,
+    #             'max_iter': self.max_iter}
 
 
 # ---

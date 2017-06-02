@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="626a0728-2d4d-4224-8fbe-94b688cbf7a9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompetitionExploratory.ipynb" afterPath="$PROJECT_DIR$/CompetitionExploratory.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/competition.py" afterPath="$PROJECT_DIR$/competition.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HWExerciseExploratory.ipynb" afterPath="$PROJECT_DIR$/HWExerciseExploratory.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/finalproj.py" afterPath="$PROJECT_DIR$/finalproj.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -41,7 +39,7 @@
       <file leaf-file-name="shared_routines.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shared_routines.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
+            <state relative-caret-position="315">
               <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
@@ -50,11 +48,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="finalproj.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="finalproj.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/finalproj.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+            <state relative-caret-position="171">
+              <caret line="121" column="92" lean-forward="false" selection-start-line="121" selection-start-column="92" selection-end-line="121" selection-end-column="92" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -62,24 +60,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="competition.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="competition.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/competition.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
+            <state relative-caret-position="510">
               <caret line="34" column="4" lean-forward="false" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="codecs.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/miniconda3/envs/data558/lib/python3.6/codecs.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="310" column="0" lean-forward="false" selection-start-line="310" selection-start-column="0" selection-end-line="310" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -129,6 +117,7 @@
       <find>datetime</find>
       <find>report</find>
       <find>---</find>
+      <find>get_prob</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -145,8 +134,8 @@
         <option value="$PROJECT_DIR$/images_to_features.py" />
         <option value="$PROJECT_DIR$/augment_images.py" />
         <option value="$PROJECT_DIR$/pickled_files_to_csv.py" />
-        <option value="$PROJECT_DIR$/finalproj.py" />
         <option value="$PROJECT_DIR$/competition.py" />
+        <option value="$PROJECT_DIR$/finalproj.py" />
       </list>
     </option>
   </component>
@@ -979,26 +968,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shared_routines.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/finalproj.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/augment_images.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="233">
@@ -1039,8 +1008,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/competition.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
+        <state relative-caret-position="510">
           <caret line="34" column="4" lean-forward="false" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shared_routines.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/finalproj.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="121" column="92" lean-forward="false" selection-start-line="121" selection-start-column="92" selection-end-line="121" selection-end-column="92" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
