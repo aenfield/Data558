@@ -1,3 +1,7 @@
 *-cm.png
 *-report.txt
 *-model.pickle
+*-test_hist.png
+kaggle_test*.csv
+model_metrics*.csv
+pca_transform*.pickle

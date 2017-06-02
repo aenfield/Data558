@@ -132,11 +132,6 @@ class MyLogisticRegression(BaseEstimator, ClassifierMixin):
         if self.all_coefs_ is None:
             raise RuntimeError("Model has not yet been fit.")
 
-    # I think i should get this by inheritance, but it looks like it's not working correctly
-    # (comment this out to see) so I'll do it myself
-    # def get_params(self, deep=False):
-    #     return {'C': self.l,
-    #             'max_iter': self.max_iter}
 
 
 # ---

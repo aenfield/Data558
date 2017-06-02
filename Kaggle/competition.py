@@ -5,7 +5,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pickle
 import datetime
-plt.rcParams["figure.figsize"] = (25,25)
+plt.rcParams["figure.figsize"] = (20,20)
 
 from sklearn import model_selection
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
@@ -57,13 +57,14 @@ def fit_test_and_save_model(model_desc, model, data, unique_labels):
 
     return metrics
 
-def get_pca_data(X_train, X_test, y_train, y_test, num_components):
+def get_pca_data_and_save_transformer(X_train, X_test, y_train, y_test, num_components):
     pca = PCA(n_components=num_components).fit(X_train)
     X_train_pca = pca.transform(X_train)
     X_test_pca = pca.transform(X_test)
 
-    print("Split sizes, PCA {}: {}, {}, {}, {}.".format(num_components, X_train_pca.shape, X_test_pca.shape, y_train.shape, y_test.shape))
+    pickle.dump(pca, open('pca_transform_{}_components-{}.pickle'.format(num_components, file_datetime_now()), 'wb'))
 
+    print("Split sizes, PCA {}: {}, {}, {}, {}.".format(num_components, X_train_pca.shape, X_test_pca.shape, y_train.shape, y_test.shape))
     data_pca = (X_train_pca, X_test_pca, y_train, y_test)
     return data_pca
 
@@ -93,8 +94,7 @@ def output_error_and_cm_for_classifier(fit_model, y_actual, y_pred, unique_label
     fp.plot_multiclass_confusion_matrix(confusion_matrix(y_actual, y_pred), unique_labels, show_annot=False, filename=filename)
 
 
-def main():
-    print(section_print_delimiter)
+def train_models():
     output_text_with_time("Loading training features at {}...")
     features_train = pd.read_csv('features_train.csv', header=None).values
     labels_train = pd.read_csv('labels_train.csv', header=None).values.ravel()
@@ -112,24 +112,29 @@ def main():
     X_train_scaled = scaler.transform(X_train)
     X_test_scaled = scaler.transform(X_test)
 
-    data_pca_64 = get_pca_data(X_train_scaled, X_test_scaled, y_train, y_test, num_components=64)
-    data_pca_256 = get_pca_data(X_train_scaled, X_test_scaled, y_train, y_test, num_components=256)
+    data_pca_64 = get_pca_data_and_save_transformer(X_train_scaled, X_test_scaled, y_train, y_test, num_components=64)
+    data_pca_256 = get_pca_data_and_save_transformer(X_train_scaled, X_test_scaled, y_train, y_test, num_components=256)
 
     # note: in model_desc use 'p' instead of a '.' (for ex, 0p01 instead of 0.01) to avoid matplotlib figure save issue with periods
     models = [("MyLogisticRegression-C=1-max_iter=100-OvR-PCA_64", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=100)), data_pca_64),
-              ("MyLogisticRegression-C=1-max_iter=300-OvR-PCA_64", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=300)), data_pca_64),
               ("MyLogisticRegression-C=1-max_iter=100-OvR-PCA_256", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=100)), data_pca_256),
-              ("MyLogisticRegression-C=1-max_iter=300-OvR-PCA_256", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=300)), data_pca_256),
-              ("MyLogisticRegression-C=1-max_iter=100-OvR-no_PCA", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=100)), data),
               ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(), data),
               ("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(C=0.01), data),
-              ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-PCA_64", LinearSVC(), data_pca_64),
-              ("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-PCA_64", LinearSVC(C=0.01), data_pca_64),
-              ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-PCA_256", LinearSVC(), data_pca_256),
-              ("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-PCA_256", LinearSVC(C=0.01), data_pca_256)
+              ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-PCA_256", LinearSVC(), data_pca_256)
               ]
 
-    # removed tests
+    # add these back for a final/complete run - removing now because they're less good than (or duplicative
+    # compared to) others, or they take a long while to run - DO add them back because we want to for ex be able to
+    # talk about our impl w/o PCA data, and C=2
+    #("MyLogisticRegression-C=1-max_iter=300-OvR-PCA_256", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=300)), data_pca_256),
+    #("MyLogisticRegression-C=1-max_iter=100-OvR-no_PCA", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=100)), data),
+    #("LinearSVC-C=2-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(C=2.0), data),
+    #("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-PCA_64", LinearSVC(), data_pca_64),
+    #("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-PCA_64", LinearSVC(C=0.01), data_pca_64),
+    #("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-PCA_256", LinearSVC(C=0.01), data_pca_256)
+
+    # saving but likely not worth adding back at the end as they're duplicative
+    #("MyLogisticRegression-C=1-max_iter=300-OvR-PCA_64", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=300)), data_pca_64),
 
     # this takes ~3-5m to train and gives 1% accuracy - something's wrong, I wont' run it for now
     # ("MyLogisticRegression-C=1-max_iter=100-OvO-PCA", OneVsOneClassifier(fp.MyLogisticRegression(max_iter=100), n_jobs=-1), data_pca),
@@ -141,35 +146,82 @@ def main():
     print(section_print_delimiter)
     print("Metrics")
     print(model_metrics_df)
-    model_metrics_df.to_csv('model_metrics-{}.csv'.format(file_datetime_now()))
+    metric_filename = 'model_metrics-{}.csv'.format(file_datetime_now())
+    model_metrics_df.to_csv(metric_filename)
+    print("Wrote {}.".format(metric_filename))
 
 
+def generate_kaggle_predictions():
+    """
+    Generate Kaggle predictions for the specified models, by loading the pickled model and predicting. Note that
+    I think I'll only run this a few times, with certain selected models, so I've left in a places where I need to
+    just modify the data to use by modifying the source vs. making it more general/easier to use.
+    """
+    output_text_with_time("Loading test features at {}...")
+    features_test = pd.read_csv('features_test.csv', header=None).values
+    labels_test = pd.read_csv('labels_test.csv', header=None).values.ravel()
+    print("Loaded {} features and {} labels at {}.".format(features_test.shape, labels_test.shape, datetime.datetime.now()))
+
+    # For each run, update with pickle filenames, so we transform using the same rules as we used w/ the training set
+    pca_64_filename = 'pca_transform_64_components-20170602-134251.pickle'
+    pca_256_filename = 'pca_transform_256_components-20170602-134253.pickle'
+    pca_64 = pickle.load(open(pca_64_filename, 'rb'))
+    pca_256 = pickle.load(open(pca_256_filename, 'rb'))
+
+    # scale and PCA transform the data
+    X_scaled = StandardScaler().fit_transform(features_test)
+    X_scaled_64 = pca_64.transform(X_scaled)
+    X_scaled_256 = pca_256.transform(X_scaled)
+
+    # Specify the models to use, and the corresponding data
+    model_files = [('MyLogisticRegression-C=1-max_iter=100-OvR-PCA_256-20170602-134355-model.pickle', X_scaled_256),
+                   ('LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA-20170602-134714-model.pickle', X_scaled),
+                   ('LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA-20170602-134620-model.pickle', X_scaled)]
 
 
-    # features_test = pd.read_csv('features_test.csv', header=None).values
-    # labels_test = pd.read_csv('labels_test.csv', header=None).values.ravel()
-    # print(features_test.shape, labels_test.shape)
-    #
-    # clf_all = LinearSVC(C=1.0, loss='squared_hinge', penalty='l2', multi_class='ovr')
-    # clf_all.fit(features_train, labels_train)
-    #
-    # test_pred = clf_all.predict(features_test)
-    # print(test_pred.shape)
-    #
-    # test_results_for_output = pd.DataFrame({
-    #     'Id': pd.Series(labels_test).astype(int),  # use labels as they go 1, 10, 100, etc.
-    #     'Prediction': pd.Series(test_pred).apply(lambda pred: pred.split('.')[0].lstrip('0'))
-    # })
-    # print(test_results_for_output.shape)
-    #
-    # print(len(set(labels_train)), len(test_results_for_output['Prediction'].unique()))
-    #
-    # test_results_for_output.sort_values('Id', inplace=True)
-    #
-    # filename = 'pyfile_test_simple_linearsvc_from_ipynb_mirrored'
-    # test_results_for_output.to_csv('{}.csv'.format(filename), index=False)
-    # pickle.dump(clf_all, open('{}_model.pickle'.format(filename), 'wb'))
+    for model_file, X in model_files:
+        model_desc = model_file.rstrip('-model.pickle')
 
+        print(section_print_delimiter)
+        print("Predicting using '{}' and data with shape {}.".format(model_desc, X.shape))
+        output_text_with_time("Started at {}.")
+
+        model = pickle.load(open(model_file, 'rb'))
+
+        test_pred = model.predict(X)
+        print("Generated predictions with shape {}.".format(test_pred.shape))
+
+        test_results_for_output = pd.DataFrame({
+            'Id': pd.Series(labels_test).astype(int),  # use labels as they go 1, 10, 100, etc.
+            'Prediction': pd.Series(test_pred).apply(lambda pred: pred.split('.')[0].lstrip('0'))
+        })
+
+        print("Generated predictions with {} unique labels.".format(len(test_results_for_output['Prediction'].unique())))
+
+        test_results_for_output.sort_values('Id', inplace=True)
+
+        # save histogram for quick visual validation that we're not super-biased toward some labels
+        test_results_for_output['Prediction'].astype(int).hist(bins=200)
+        plt.savefig("{}-{}-test_hist".format(model_desc, file_datetime_now()))
+        plt.close()
+
+        filename = 'kaggle_test-{}.csv'.format(model_desc)
+        test_results_for_output.to_csv('{}'.format(filename), index=False)
+
+        print("Wrote {}.".format(filename))
+        output_text_with_time("Finished at {}.")
+
+
+def main():
+    print(section_print_delimiter)
+
+    # comment/uncomment to train models or predict the Kaggle set - ok to keep this as a comment (vs for ex
+    # extending to respond to command line args) since I'll only be running the predict a few times and since
+    # i'll already need to modify the source to specify which models I'm using to do the predictions
+
+    #train_models()
+
+    generate_kaggle_predictions()
 
 
 if __name__ == '__main__':
