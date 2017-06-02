@@ -12,6 +12,7 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.svm import LinearSVC, SVC
+from sklearn.linear_model import LogisticRegression
 from sklearn.multiclass import OneVsRestClassifier, OneVsOneClassifier
 
 import finalproj as fp
@@ -116,11 +117,20 @@ def train_models():
     data_pca_256 = get_pca_data_and_save_transformer(X_train_scaled, X_test_scaled, y_train, y_test, num_components=256)
 
     # note: in model_desc use 'p' instead of a '.' (for ex, 0p01 instead of 0.01) to avoid matplotlib figure save issue with periods
-    models = [("MyLogisticRegression-C=1-max_iter=100-OvR-PCA_64", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=100)), data_pca_64),
-              ("MyLogisticRegression-C=1-max_iter=100-OvR-PCA_256", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=100)), data_pca_256),
-              ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(), data),
-              ("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(C=0.01), data),
-              ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-PCA_256", LinearSVC(), data_pca_256)
+    models = [#("MyLogisticRegression-C=1-max_iter=100-OvR-PCA_64", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=100)), data_pca_64),
+              #("MyLogisticRegression-C=1-max_iter=100-OvR-PCA_256", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=100)), data_pca_256),
+              ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(fit_intercept=False), data),
+              ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-CS-no_PCA", LinearSVC(fit_intercept=False, multi_class='crammer_singer'), data),
+              #("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(C=0.01), data),
+              #("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-PCA_256", LinearSVC(), data_pca_256)
+              ("LogisticRegression-C=1-L2_regularization-OvR-no_PCA", LogisticRegression(fit_intercept=False), data)
+              ("LogisticRegression-C=1-L2_regularization-OvR-PCA_256", LogisticRegression(fit_intercept=False), data_pca_256)
+              ("LogisticRegression-C=1-L2_regularization-multinomial-no_PCA", LogisticRegression(fit_intercept=False, multi_class='multinomial', solver='newton-cg'), data)
+              ("LogisticRegression-C=1-L2_regularization-multinomial-PCA_256", LogisticRegression(fit_intercept=False, multi_class='multinomial', solver='newton-cg'), data_pca_256)
+              ("SVC-C=1-poly_kernel-degree=3-no_PCA", SVC(kernel='poly', degree=3), data),
+              ("SVC-C=1-poly_kernel-degree=3-PCA_256", SVC(kernel='poly', degree=3), data_pca_256),
+              ("SVC-C=1-rbf_kernel-degree=3-no_PCA", SVC(kernel='rbf', degree=3), data),
+              ("SVC-C=1-rbf_kernel-degree=3-PCA_256", SVC(kernel='rbf', degree=3), data_pca_256),
               ]
 
     # add these back for a final/complete run - removing now because they're less good than (or duplicative
@@ -219,9 +229,8 @@ def main():
     # extending to respond to command line args) since I'll only be running the predict a few times and since
     # i'll already need to modify the source to specify which models I'm using to do the predictions
 
-    #train_models()
-
-    generate_kaggle_predictions()
+    train_models()
+    #generate_kaggle_predictions()
 
 
 if __name__ == '__main__':
