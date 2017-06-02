@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="626a0728-2d4d-4224-8fbe-94b688cbf7a9" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CompetitionExploratory.ipynb" afterPath="$PROJECT_DIR$/CompetitionExploratory.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/competition.py" afterPath="$PROJECT_DIR$/competition.py" />
@@ -19,7 +20,7 @@
     <SUITE FILE_PATH="coverage/Kaggle$augment_images.coverage" NAME="augment_images Coverage Results" MODIFIED="1496333426298" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Kaggle$scratch.coverage" NAME="scratch Coverage Results" MODIFIED="1495303235667" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
     <SUITE FILE_PATH="coverage/Kaggle$images_to_features.coverage" NAME="images_to_features Coverage Results" MODIFIED="1496334517055" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Kaggle$competition.coverage" NAME="competition Coverage Results" MODIFIED="1496365504819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Kaggle$competition.coverage" NAME="competition Coverage Results" MODIFIED="1496368770817" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Kaggle$Nosetests_in_finalproj_test_py.coverage" NAME="Nosetests in finalproj-test.py Coverage Results" MODIFIED="1496075896310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
@@ -28,32 +29,8 @@
       <file leaf-file-name="images_to_features.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/images_to_features.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="690">
+            <state relative-caret-position="458">
               <caret line="46" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#29#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pickled_files_to_csv.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pickled_files_to_csv.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="11" column="31" lean-forward="false" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="augment_images.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/augment_images.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -76,8 +53,8 @@
       <file leaf-file-name="finalproj.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/finalproj.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="291" column="12" lean-forward="false" selection-start-line="291" selection-start-column="7" selection-end-line="291" selection-end-column="12" />
+            <state relative-caret-position="162">
+              <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -88,8 +65,8 @@
       <file leaf-file-name="competition.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/competition.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="130" column="0" lean-forward="false" selection-start-line="130" selection-start-column="0" selection-end-line="130" selection-end-column="0" />
+            <state relative-caret-position="130">
+              <caret line="34" column="4" lean-forward="false" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -100,8 +77,8 @@
       <file leaf-file-name="codecs.py" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/miniconda3/envs/data558/lib/python3.6/codecs.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+            <state relative-caret-position="205">
+              <caret line="310" column="0" lean-forward="false" selection-start-line="310" selection-start-column="0" selection-end-line="310" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -150,6 +127,8 @@
       <find>stats</find>
       <find>class</find>
       <find>datetime</find>
+      <find>report</find>
+      <find>---</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -544,18 +523,19 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="873" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13611111" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31094527" sideWeight="0.5138889" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31094527" sideWeight="0.51944447" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32711443" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.49722221" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.7097222" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31094527" sideWeight="0.4861111" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31094527" sideWeight="0.48055556" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298611" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -582,7 +562,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/competition.py</url>
-          <line>79</line>
+          <line>89</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
@@ -603,7 +583,7 @@
         <state relative-caret-position="135">
           <caret line="11" column="31" lean-forward="false" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -613,7 +593,7 @@
         <state relative-caret-position="225">
           <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -673,7 +653,7 @@
         <state relative-caret-position="135">
           <caret line="11" column="31" lean-forward="false" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -683,7 +663,7 @@
         <state relative-caret-position="225">
           <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -743,7 +723,7 @@
         <state relative-caret-position="60">
           <caret line="5" column="107" lean-forward="true" selection-start-line="5" selection-start-column="107" selection-end-line="5" selection-end-column="107" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -793,7 +773,7 @@
         <state relative-caret-position="165">
           <caret line="11" column="41" lean-forward="true" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -989,36 +969,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/images_to_features.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="46" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pickled_files_to_csv.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="11" column="31" lean-forward="false" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/augment_images.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/finalproj-test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1320">
@@ -1041,26 +991,56 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/finalproj.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="291" column="12" lean-forward="false" selection-start-line="291" selection-start-column="7" selection-end-line="291" selection-end-column="12" />
+        <state relative-caret-position="162">
+          <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/augment_images.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#29#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pickled_files_to_csv.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="31" lean-forward="false" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#18#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images_to_features.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="458">
+          <caret line="46" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$USER_HOME$/miniconda3/envs/data558/lib/python3.6/codecs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+        <state relative-caret-position="205">
+          <caret line="310" column="0" lean-forward="false" selection-start-line="310" selection-start-column="0" selection-end-line="310" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/competition.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="130" column="0" lean-forward="false" selection-start-line="130" selection-start-column="0" selection-end-line="130" selection-end-column="0" />
+        <state relative-caret-position="130">
+          <caret line="34" column="4" lean-forward="false" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

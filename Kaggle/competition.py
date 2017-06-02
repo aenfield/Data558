@@ -19,12 +19,13 @@ import importlib
 
 import finalproj as fp
 
+section_print_delimiter = "\n---"
 
 def fit_test_and_save_model(model_desc, model, data, unique_labels):
     """
     Do it all: fit, test, save the fit model, and return metrics.
     """
-    print("----")
+    print(section_print_delimiter)
     print("Processing '{}'.".format(model_desc))
     start_overall = output_text_with_time("Started at {}.")
 
@@ -41,11 +42,11 @@ def fit_test_and_save_model(model_desc, model, data, unique_labels):
     accuracy = accuracy_score(y_test, y_pred)
     print("Misclassification error: {0:.1%}.".format(1 - accuracy))
     fp.plot_multiclass_confusion_matrix(confusion_matrix(y_test, y_pred), unique_labels,
-                                        show_annot=False, filename="{}-cm".format(model_desc))
-    open("{}-report.txt".format(model_desc), 'w').write(classification_report(y_test, y_pred))
+                                        show_annot=False, filename="{}-{}-cm".format(model_desc, file_datetime_now()))
+    open("{}-{}-report.txt".format(model_desc, file_datetime_now()), 'w').write(classification_report(y_test, y_pred))
 
     output_text_with_time("Starting model save at {}...")
-    pickle.dump(model, open('{}_model.pickle'.format(model_desc), 'wb'))
+    pickle.dump(model, open('{}-{}-model.pickle'.format(model_desc, file_datetime_now()), 'wb'))
     output_text_with_time("Finished model save at {}.")
 
     end_overall = output_text_with_time("Finished at {}.")
@@ -59,17 +60,25 @@ def fit_test_and_save_model(model_desc, model, data, unique_labels):
     return metrics
 
 
-
-
-
 # output, plotting
 def output_text_with_time(text):
     time = datetime.datetime.now()
     print(text.format(time))
     return time
 
+def file_datetime_now():
+    return "{:%Y%m%d-%H%M%S}".format(datetime.datetime.now())
+
+# seems a bit odd that Python doesn't support timedelta formatting better out of the box, but oh well
+# modified from https://stackoverflow.com/questions/8906926/formatting-python-timedelta-objects/8907269#8907269
+def strfdelta(tdelta, string_to_format):
+    d = {"days": tdelta.days}
+    d["hours"], rem = divmod(tdelta.seconds, 3600)
+    d["minutes"], d["seconds"] = divmod(rem, 60)
+    return string_to_format.format(**d)
+
 def get_formatted_time_difference(start_time, end_time):
-    return datetime.time(0, 0, (end_time - start_time).seconds).strftime("%H:%M:%S")
+    return strfdelta((end_time - start_time), "{hours:02d}:{minutes:02d}:{seconds:02d}")
 
 def output_error_and_cm_for_classifier(fit_model, y_actual, y_pred, unique_labels, filename=None):
     print("Misclassification error: {}.".format(1-accuracy_score(y_actual, y_pred)))
@@ -77,6 +86,7 @@ def output_error_and_cm_for_classifier(fit_model, y_actual, y_pred, unique_label
 
 
 def main():
+    print(section_print_delimiter)
     output_text_with_time("Loading training features at {}...")
     features_train = pd.read_csv('features_train.csv', header=None).values
     labels_train = pd.read_csv('labels_train.csv', header=None).values.ravel()
@@ -84,21 +94,30 @@ def main():
     unique_labels = np.unique(labels_train)
 
     # make it small to test
-    features_train = features_train[:1000]
-    labels_train = labels_train[:1000]
+    # features_train = features_train[:1000]
+    # labels_train = labels_train[:1000]
 
     X_train, X_test, y_train, y_test = model_selection.train_test_split(features_train, labels_train, test_size=0.1)
     data = (X_train, X_test, y_train, y_test)
     print("Split sizes: {}, {}, {}, {}.".format(X_train.shape, X_test.shape, y_train.shape, y_test.shape))
 
-    model_desc = "LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA_on_features"
-    clf = LinearSVC(C=1.0, loss='squared_hinge', penalty='l2', multi_class='ovr')
-    metrics_for_model = fit_test_and_save_model(model_desc, clf, data, unique_labels)
+    # note: in model_desc use 'p' instead of a '.' (for ex, 0p01 instead of 0.01) to avoid matplotlib figure save issue with periods
+    models = [("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA_on_features",
+               LinearSVC(C=1.0, loss='squared_hinge', penalty='l2', multi_class='ovr'),
+               data),
+              ("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA_on_features",
+               LinearSVC(C=0.01, loss='squared_hinge', penalty='l2', multi_class='ovr'),
+               data)]
 
-    print(metrics_for_model)
+    model_metrics = [fit_test_and_save_model(model_desc, model, data, unique_labels) for model_desc, model, data in models]
 
-    # fit_model(clf, X_train, y_train)
-    # test_model_and_output_stats(clf, X_test, y_test, unique_labels, model_desc)
+    model_metrics_df = pd.DataFrame(model_metrics, columns=['Desc', 'Accuracy', 'Overall time', 'Train time'])
+    print(section_print_delimiter)
+    print("Metrics")
+    print(model_metrics_df)
+    model_metrics_df.to_csv('model_metrics-{}.csv'.format(file_datetime_now()))
+
+
 
 
     # features_test = pd.read_csv('features_test.csv', header=None).values
