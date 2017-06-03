@@ -141,17 +141,17 @@ def train_models():
                 #               {'n_estimators': [70, 85, 100], 'max_depth': [7, 9, None], 'max_features': [30, 45, 60]}, cv=4),
                 #  data_pca_64),
 
-                ("Grid-ETC-est=85-130-md=None-mss=2-mf=30-100-no_PCA",
+                ("Grid-ETC-est=130-210-md=None-mss=2-mf=30-100-no_PCA",
                  GridSearchCV(ExtraTreesClassifier(min_samples_split=2, max_depth=None, n_jobs=-1),
-                              {'n_estimators': [85, 100, 115, 130], 'max_features': [30, 45, 60, 75, 100]}, cv=4),
+                              {'n_estimators': [130, 160, 180, 210], 'max_features': [30, 45, 60, 75, 100]}, cv=4),
                  data),
-                ("Grid-ETC-est=85-130-md=None-mss=2-mf=30-64-PCA_64",
+                ("Grid-ETC-est=130-210-md=None-mss=2-mf=30-64-PCA_64",
                  GridSearchCV(ExtraTreesClassifier(min_samples_split=2, max_depth=None, n_jobs=-1),
-                              {'n_estimators': [85, 100, 115, 130], 'max_features': [30, 45, 64]}, cv=4),
+                              {'n_estimators': [130, 160, 180, 210], 'max_features': [30, 45, 64]}, cv=4),
                  data_pca_64),
-                ("Grid-ETC-est=85-130-md=None-mss=2-mf=30-100-PCA_256",
+                ("Grid-ETC-est=130-210-md=None-mss=2-mf=30-100-PCA_256",
                  GridSearchCV(ExtraTreesClassifier(min_samples_split=2, max_depth=None, n_jobs=-1),
-                              {'n_estimators': [85, 100, 115, 130], 'max_features': [30, 45, 60, 75, 100]}, cv=4),
+                              {'n_estimators': [130, 160, 180, 210], 'max_features': [30, 45, 60, 75, 100]}, cv=4),
                  data_pca_256),
 
         #keep
