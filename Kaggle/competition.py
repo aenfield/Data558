@@ -5,7 +5,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pickle
 import datetime
-plt.rcParams["figure.figsize"] = (20,20)
+figsize = (25,23)
+plt.rcParams["figure.figsize"] = figsize
 
 from sklearn import model_selection
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
@@ -13,7 +14,9 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.svm import LinearSVC, SVC
 from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import ExtraTreesClassifier, GradientBoostingClassifier, RandomForestClassifier
 from sklearn.multiclass import OneVsRestClassifier, OneVsOneClassifier
+from sklearn.model_selection import GridSearchCV
 
 import finalproj as fp
 
@@ -27,6 +30,7 @@ def fit_test_and_save_model(model_desc, model, data, unique_labels):
     print(section_print_delimiter)
     print("Processing '{}'.".format(model_desc))
     start_overall = output_text_with_time("Started at {}.")
+    model_notes = ""
 
     X_train, X_test, y_train, y_test = data
 
@@ -34,26 +38,35 @@ def fit_test_and_save_model(model_desc, model, data, unique_labels):
     model.fit(X_train, y_train)
     end_fit = output_text_with_time("Finished model fit at {}.")
 
-    output_text_with_time("Starting prediction at {}...")
+    # for base estimators we just use them as is, but to use the best estimator from a GridSearchCV instance
+    # we need to pull it out; we also want to log the characteristics of the estimator
+    if isinstance(model, GridSearchCV):
+        # output description of the best classifier as a text file, save it too for the spreadsheet
+        estimator_desc = str(model.best_estimator_)
+        open("{}-{}-best_estimator.txt".format(model_desc, file_datetime_now()), 'w').write(estimator_desc)
+        model_notes += estimator_desc + "\n"
+        # we overwrite the GridSearchCV instance now that we're done with it (ok?)
+        # this lets us avoid changing the pickle code below, but means we don't get back the whole CV instance; we
+        # just get the best model, which I think I'll go with for now
+        model = model.best_estimator_
+
     y_pred = model.predict(X_test)
-    output_text_with_time("Finished prediction at {}.")
 
     accuracy = accuracy_score(y_test, y_pred)
     print("Misclassification error: {0:.1%}.".format(1 - accuracy))
     fp.plot_multiclass_confusion_matrix(confusion_matrix(y_test, y_pred), unique_labels,
-                                        show_annot=False, filename="{}-{}-cm".format(model_desc, file_datetime_now()))
+                                        show_annot=False, filename="{}-{}-cm.png".format(model_desc, file_datetime_now()))
     open("{}-{}-report.txt".format(model_desc, file_datetime_now()), 'w').write(classification_report(y_test, y_pred))
 
-    output_text_with_time("Starting model save at {}...")
     pickle.dump(model, open('{}-{}-model.pickle'.format(model_desc, file_datetime_now()), 'wb'))
-    output_text_with_time("Finished model save at {}.")
 
     end_overall = output_text_with_time("Finished at {}.")
 
     metrics = {'Desc': model_desc,
                'Accuracy': "{0:.1%}".format(accuracy),
                'Train time': get_formatted_time_difference(start_fit, end_fit),
-               'Overall time': get_formatted_time_difference(start_overall, end_overall)
+               'Overall time': get_formatted_time_difference(start_overall, end_overall),
+               'Notes': model_notes
                }
 
     return metrics
@@ -119,25 +132,37 @@ def train_models():
     # note: in model_desc use 'p' instead of a '.' (for ex, 0p01 instead of 0.01) to avoid matplotlib figure save issue with periods
     models = [#("MyLogisticRegression-C=1-max_iter=100-OvR-PCA_64", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=100)), data_pca_64),
               #("MyLogisticRegression-C=1-max_iter=100-OvR-PCA_256", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=100)), data_pca_256),
-              ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(fit_intercept=False), data),
-              ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-CS-no_PCA", LinearSVC(fit_intercept=False, multi_class='crammer_singer'), data),
+              ("Grid-RFC-est=50-70-md=2-9None-mss=2-mf=45-no_PCA",
+               GridSearchCV(RandomForestClassifier(min_samples_split=2, n_jobs=-1),
+                           #{'max_depth': [2,4]}, cv=3),
+                           {'n_estimators': [50,60,70], 'max_depth': [7,9,None], 'max_features': [30,45,60]}, cv=5),
+               data),
+
+              #keep
+              ("LogisticRegression-C=1-L2_regularization-multinomial-PCA_256", LogisticRegression(fit_intercept=False, multi_class='multinomial', solver='newton-cg'), data_pca_256)
+              # ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(fit_intercept=False), data),
+
               #("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(C=0.01), data),
               #("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-PCA_256", LinearSVC(), data_pca_256)
-              ("LogisticRegression-C=1-L2_regularization-OvR-no_PCA", LogisticRegression(fit_intercept=False), data)
-              ("LogisticRegression-C=1-L2_regularization-OvR-PCA_256", LogisticRegression(fit_intercept=False), data_pca_256)
-              ("LogisticRegression-C=1-L2_regularization-multinomial-no_PCA", LogisticRegression(fit_intercept=False, multi_class='multinomial', solver='newton-cg'), data)
-              ("LogisticRegression-C=1-L2_regularization-multinomial-PCA_256", LogisticRegression(fit_intercept=False, multi_class='multinomial', solver='newton-cg'), data_pca_256)
-              ("SVC-C=1-poly_kernel-degree=3-no_PCA", SVC(kernel='poly', degree=3), data),
-              ("SVC-C=1-poly_kernel-degree=3-PCA_256", SVC(kernel='poly', degree=3), data_pca_256),
-              ("SVC-C=1-rbf_kernel-degree=2-no_PCA", SVC(kernel='rbf', degree=2), data),
-              ("SVC-C=1-rbf_kernel-degree=3-no_PCA", SVC(kernel='rbf', degree=3), data),
-              ("SVC-C=1-rbf_kernel-degree=4-no_PCA", SVC(kernel='rbf', degree=4), data),
-              ("SVC-C=1-rbf_kernel-degree=5-no_PCA", SVC(kernel='rbf', degree=5), data),
-              ]
+
+              #keep
+              # ("LogisticRegression-C=1-L2_regularization-multinomial-no_PCA", LogisticRegression(fit_intercept=False, multi_class='multinomial', solver='newton-cg'), data),
+              # ("SVC-C=1-poly_kernel-degree=3-PCA_256", SVC(kernel='poly', degree=3), data_pca_256),
+
+              #("RFC-25_est-mss=2-md=None-mf=45-nj=-1-no_PCA", RandomForestClassifier(n_estimators=25, max_depth=None, min_samples_split=2, max_features=45, n_jobs=-1), data),
+              #("RFC-25_est-mss=2-md=None-mf=8-nj=-1-PCA_64", RandomForestClassifier(n_estimators=25, max_depth=None, min_samples_split=2, max_features=8, n_jobs=-1), data_pca_64),
+              #("RFC-25_est-mss=2-md=None-mf=16-nj=-1-PCA_256", RandomForestClassifier(n_estimators=25, max_depth=None, min_samples_split=2, max_features=16, n_jobs=-1), data_pca_256),
+
+              # keep until we get a grid search for these
+              # ("ETC-25_est-mss=2-md=None-mf=45-nj=-1-no_PCA", ExtraTreesClassifier(n_estimators=25, max_depth=None, min_samples_split=2, max_features=45, n_jobs=-1), data),
+              # ("ETC-25_est-mss=2-md=None-mf=8-nj=-1-PCA_64", ExtraTreesClassifier(n_estimators=25, max_depth=None, min_samples_split=2, max_features=8, n_jobs=-1), data_pca_64),
+              # ("ETC-25_est-mss=2-md=None-mf=16-nj=-1-PCA_256", ExtraTreesClassifier(n_estimators=25, max_depth=None, min_samples_split=2, max_features=16, n_jobs=-1), data_pca_256)
+    ]
 
     # add these back for a final/complete run - removing now because they're less good than (or duplicative
     # compared to) others, or they take a long while to run - DO add them back because we want to for ex be able to
     # talk about our impl w/o PCA data, and C=2
+    #("LinearSVC-C=1-squared_hinge_loss-L2_regularization-CS-no_PCA", LinearSVC(fit_intercept=False, multi_class='crammer_singer'), data),
     #("MyLogisticRegression-C=1-max_iter=300-OvR-PCA_256", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=300)), data_pca_256),
     #("MyLogisticRegression-C=1-max_iter=100-OvR-no_PCA", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=100)), data),
     #("LinearSVC-C=2-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(C=2.0), data),
@@ -147,18 +172,42 @@ def train_models():
 
     # saving but likely not worth adding back at the end as they're duplicative
     #("MyLogisticRegression-C=1-max_iter=300-OvR-PCA_64", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=300)), data_pca_64),
+    # ("LogisticRegression-C=1-L2_regularization-OvR-no_PCA", LogisticRegression(fit_intercept=False), data),
+    # ("LogisticRegression-C=1-L2_regularization-OvR-PCA_256", LogisticRegression(fit_intercept=False), data_pca_256),
 
     # this takes ~3-5m to train and gives 1% accuracy - something's wrong, I wont' run it for now
     # ("MyLogisticRegression-C=1-max_iter=100-OvO-PCA", OneVsOneClassifier(fp.MyLogisticRegression(max_iter=100), n_jobs=-1), data_pca),
 
     # RBF worked well - it looked great in the CM, but with either PCA I got one class that was totally wrong - just a line up and down
     # this was most pronounced with 64 components, still there but less with 256, and not there at all from what i could tell with
-    # no PCA. So I'll just use no_PCA for the radial kernel
+    # no PCA. So I'll just use no_PCA for the radial kernel. Later on an automated run, I saw great results w/ 256 and less so w/ others. Hm.
     # ("SVC-C=1-rbf_kernel-degree=3-PCA_256", SVC(kernel='rbf', degree=3), data_pca_256),
+    # ("SVC-C=1-poly_kernel-degree=3-no_PCA", SVC(kernel='poly', degree=3), data),
+    # ("SVC-C=1-poly_kernel-degree=3-PCA_64", SVC(kernel='poly', degree=3), data_pca_64),
+    # ("SVC-C=1-rbf_kernel-degree=2-no_PCA", SVC(kernel='rbf', degree=2), data),
+    # ("SVC-C=1-rbf_kernel-degree=2-PCA_64", SVC(kernel='rbf', degree=2), data_pca_64),
+    # ("SVC-C=1-rbf_kernel-degree=2-PCA_256", SVC(kernel='rbf', degree=2), data_pca_256),
+    # ("SVC-C=1-rbf_kernel-degree=3-no_PCA", SVC(kernel='rbf', degree=3), data),
+    # ("SVC-C=1-rbf_kernel-degree=3-PCA_64", SVC(kernel='rbf', degree=3), data_pca_64),
+    # ("SVC-C=1-rbf_kernel-degree=3-PCA_256", SVC(kernel='rbf', degree=3), data_pca_256),
+    # ("SVC-C=1-rbf_kernel-degree=4-no_PCA", SVC(kernel='rbf', degree=4), data),
+    # ("SVC-C=1-rbf_kernel-degree=4-PCA_64", SVC(kernel='rbf', degree=4), data_pca_64),
+    # ("SVC-C=1-rbf_kernel-degree=4-PCA_256", SVC(kernel='rbf', degree=4), data_pca_256),
+    # ("SVC-C=1-rbf_kernel-degree=5-no_PCA", SVC(kernel='rbf', degree=5), data),
+    # ("SVC-C=1-rbf_kernel-degree=5-PCA_64", SVC(kernel='rbf', degree=5), data_pca_64),
+    # ("SVC-C=1-rbf_kernel-degree=5-PCA_256", SVC(kernel='rbf', degree=5), data_pca_256)
+
+    # GBC did very poorly - something's either totally wrong w/ my params for this data (likely) or somewhere else
+    # ("GBC-25_est-lr=1-md=1-mf=45-no_PCA",
+    #  GradientBoostingClassifier(n_estimators=25, learning_rate=1.0, max_depth=1, max_features=45), data),
+    # ("GBC-25_est-lr=1-md=1-mf=8-PCA_64",
+    #  GradientBoostingClassifier(n_estimators=25, learning_rate=1.0, max_depth=1, max_features=8), data_pca_64),
+    # ("GBC-25_est-lr=1-md=1-mf=16-PCA_256",
+    #  GradientBoostingClassifier(n_estimators=25, learning_rate=1.0, max_depth=1, max_features=16), data_pca_256),
 
     model_metrics = [fit_test_and_save_model(model_desc, model, data, unique_labels) for model_desc, model, data in models]
 
-    model_metrics_df = pd.DataFrame(model_metrics, columns=['Desc', 'Accuracy', 'Overall time', 'Train time'])
+    model_metrics_df = pd.DataFrame(model_metrics, columns=['Desc', 'Accuracy', 'Overall time', 'Train time', 'Notes'])
     print(section_print_delimiter)
     print("Metrics")
     print(model_metrics_df)

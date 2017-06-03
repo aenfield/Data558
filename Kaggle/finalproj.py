@@ -4,6 +4,7 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.model_selection import KFold
 
 import matplotlib.pyplot as plt
+figsize = (25,23)
 import seaborn as sns
 
 t_init = 0.01
@@ -157,10 +158,13 @@ def plot_misclassification_errors_by_iteration(results_df, X_train, X_test, y_tr
     ax.set_title('Misclassification error by iteration')
 
 def plot_multiclass_confusion_matrix(cm, classifier_labels, show_annot=True, filename=None):
-    ax = sns.heatmap(cm, annot=show_annot, xticklabels=classifier_labels, yticklabels=classifier_labels)
+    plt.figure(figsize=figsize) # workaround for matplotlib not honoring default/global sizes
+    ax = sns.heatmap(cm, annot=show_annot, xticklabels=classifier_labels, yticklabels=classifier_labels, linewidth=1)
     ax.set_xlabel('Predicted')
     ax.set_ylabel('Actual')
     save_file_if_specified(filename)
+    ax.cla() # try this since close seems to not work given the follow-on plots are sometimes screwed up
+    plt.close() # and just in case
 
 
 
