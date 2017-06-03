@@ -66,7 +66,9 @@ def fit_test_and_save_model(model_desc, model, data, unique_labels):
     # size issue is because ETC models w/ large values of n_estimator have giant sizes (one was 16gb+ before it crashed
     # the process)
     #if not isinstance(model, GridSearchCV):
-    pickle.dump(model, open('{}-{}-model.pickle'.format(model_desc, file_datetime_now()), 'wb'))
+    model_filename = '{}-{}-model.pickle'.format(model_desc, file_datetime_now())
+    print("Pickling {}.".format(model_filename))
+    pickle.dump(model, open(model_filename, 'wb'))
 
     end_overall = output_text_with_time("Finished at {}.")
 
@@ -275,8 +277,8 @@ def generate_kaggle_predictions():
     print("Loaded {} features and {} labels at {}.".format(features_test.shape, labels_test.shape, datetime.datetime.now()))
 
     # For each run, update with pickle filenames, so we transform using the same rules as we used w/ the training set
-    pca_64_filename = 'pca_transform_64_components-20170602-134251.pickle'
-    pca_256_filename = 'pca_transform_256_components-20170602-134253.pickle'
+    pca_64_filename = 'pca_transform_64_components-20170603-203014.pickle'
+    pca_256_filename = 'pca_transform_256_components-20170603-203015.pickle'
     pca_64 = pickle.load(open(pca_64_filename, 'rb'))
     pca_256 = pickle.load(open(pca_256_filename, 'rb'))
 
@@ -286,10 +288,30 @@ def generate_kaggle_predictions():
     X_scaled_256 = pca_256.transform(X_scaled)
 
     # Specify the models to use, and the corresponding data
-    model_files = [('MyLogisticRegression-C=1-max_iter=100-OvR-PCA_256-20170602-134355-model.pickle', X_scaled_256),
-                   ('LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA-20170602-134714-model.pickle', X_scaled),
-                   ('LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA-20170602-134620-model.pickle', X_scaled)]
+    model_files = [
+        ('ETC-md=None-mf=75-mss=2-210_est-no_PCA-20170603-203022-model.pickle', X_scaled),
+        ('LogisticRegression-C=1-L2_regularization-OvR-no_PCA-20170603-203903-model.pickle', X_scaled),
+        ('LogisticRegression-C=1-L2_regularization-multinomial-no_PCA-20170603-203951-model.pickle', X_scaled),
+        ('RF-md=None-mf=60-mss=2-150_est-no_PCA-20170603-204010-model.pickle', X_scaled),
+        ('LinearSVC-C=1-squared_hinge_loss-L2_regularization-CS-no_PCA-20170603-204322-model.pickle', X_scaled),
+        ('LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA-20170603-204511-model.pickle', X_scaled),
+        ('LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA-20170603-204557-model.pickle', X_scaled),
+        ('ETC-md=None-mf=30-mss=2-210_est-PCA_256-20170603-204602-model.pickle', X_scaled_256),
+        ('MyLogisticRegression-C=1-max_iter=300-OvR-PCA_256-20170603-204708-model.pickle', X_scaled_256),
+        ('LogisticRegression-C=1-L2_regularization-multinomial-PCA_256-20170603-204732-model.pickle', X_scaled_256),
+        ('RF-md=None-mf=30-mss=2-150_est-PCA_256-20170603-204743-model.pickle', X_scaled_256),
+        ('LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-PCA_256-20170603-204839-model.pickle', X_scaled_256),
+        ('LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-PCA_256-20170603-204956-model.pickle', X_scaled_256),
+        ('SVC-C=1-poly_kernel-degree=3-PCA_256-20170603-205025-model.pickle', X_scaled_256),
+        ('SVC-C=1-rbf_kernel-degree=2-PCA_256-20170603-205107-model.pickle', X_scaled_256),
+        ('SVC-C=1-rbf_kernel-degree=3-PCA_256-20170603-205148-model.pickle', X_scaled_256),
+        ('SVC-C=1-rbf_kernel-degree=4-PCA_256-20170603-205230-model.pickle', X_scaled_256),
+        ('SVC-C=1-rbf_kernel-degree=5-PCA_256-20170603-205311-model.pickle', X_scaled_256)
+    ]
 
+        # ('MyLogisticRegression-C=1-max_iter=100-OvR-PCA_256-20170602-134355-model.pickle', X_scaled_256),
+        #            ('LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA-20170602-134714-model.pickle', X_scaled),
+        #            ('LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA-20170602-134620-model.pickle', X_scaled)]
 
     for model_file, X in model_files:
         model_desc = model_file.rstrip('-model.pickle')
@@ -331,8 +353,8 @@ def main():
     # extending to respond to command line args) since I'll only be running the predict a few times and since
     # i'll already need to modify the source to specify which models I'm using to do the predictions
 
-    train_models()
-    #generate_kaggle_predictions()
+    #train_models()
+    generate_kaggle_predictions()
 
 
 if __name__ == '__main__':

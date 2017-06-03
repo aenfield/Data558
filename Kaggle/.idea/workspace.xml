@@ -62,8 +62,8 @@
       <file leaf-file-name="competition.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/competition.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2062">
-              <caret line="152" column="114" lean-forward="false" selection-start-line="152" selection-start-column="114" selection-end-line="152" selection-end-column="114" />
+            <state relative-caret-position="-403">
+              <caret line="298" column="54" lean-forward="true" selection-start-line="298" selection-start-column="54" selection-end-line="298" selection-end-column="54" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -1013,8 +1013,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/competition.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2062">
-          <caret line="152" column="114" lean-forward="false" selection-start-line="152" selection-start-column="114" selection-end-line="152" selection-end-column="114" />
+        <state relative-caret-position="-403">
+          <caret line="298" column="54" lean-forward="true" selection-start-line="298" selection-start-column="54" selection-end-line="298" selection-end-column="54" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
