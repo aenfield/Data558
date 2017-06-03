@@ -41,10 +41,6 @@ def fit_test_and_save_model(model_desc, model, data, unique_labels):
     # for base estimators we just use them as is, but to use the best estimator from a GridSearchCV instance
     # we need to pull it out; we also want to log the characteristics of the estimator
     if isinstance(model, GridSearchCV):
-        # output description of the best classifier as a text file, save it too for the spreadsheet
-        estimator_desc = str(model.best_estimator_)
-        open("{}-{}-best_estimator.txt".format(model_desc, file_datetime_now()), 'w').write(estimator_desc)
-        model_notes += estimator_desc + "\n"
         # we overwrite the GridSearchCV instance now that we're done with it (ok?)
         # this lets us avoid changing the pickle code below, but means we don't get back the whole CV instance; we
         # just get the best model, which I think I'll go with for now
@@ -57,6 +53,10 @@ def fit_test_and_save_model(model_desc, model, data, unique_labels):
     fp.plot_multiclass_confusion_matrix(confusion_matrix(y_test, y_pred), unique_labels,
                                         show_annot=False, filename="{}-{}-cm.png".format(model_desc, file_datetime_now()))
     open("{}-{}-report.txt".format(model_desc, file_datetime_now()), 'w').write(classification_report(y_test, y_pred))
+    # output description of the classifier as a text file, save it too for the spreadsheet
+    estimator_desc = str(model)
+    open("{}-{}-estimator_desc.txt".format(model_desc, file_datetime_now()), 'w').write(estimator_desc)
+    model_notes += estimator_desc
 
     pickle.dump(model, open('{}-{}-model.pickle'.format(model_desc, file_datetime_now()), 'wb'))
 
@@ -132,13 +132,29 @@ def train_models():
     # note: in model_desc use 'p' instead of a '.' (for ex, 0p01 instead of 0.01) to avoid matplotlib figure save issue with periods
     models = [#("MyLogisticRegression-C=1-max_iter=100-OvR-PCA_64", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=100)), data_pca_64),
               #("MyLogisticRegression-C=1-max_iter=100-OvR-PCA_256", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=100)), data_pca_256),
-              ("Grid-RFC-est=50-70-md=2-9None-mss=2-mf=45-no_PCA",
-               GridSearchCV(RandomForestClassifier(min_samples_split=2, n_jobs=-1),
-                           #{'max_depth': [2,4]}, cv=3),
-                           {'n_estimators': [50,60,70], 'max_depth': [7,9,None], 'max_features': [30,45,60]}, cv=5),
-               data),
+                # ("Grid-RFC-est=70-100-md=7-9None-mss=2-mf=30-60-no_PCA",
+                #  GridSearchCV(RandomForestClassifier(min_samples_split=2, n_jobs=-1),
+                #              {'n_estimators': [70,85,100], 'max_depth': [7,9,None], 'max_features': [30,45,60]}, cv=4),
+                #  data),
+                # ("Grid-RFC-est=70-100-md=7-9None-mss=2-mf=30-60-PCA_64",
+                #  GridSearchCV(RandomForestClassifier(min_samples_split=2, n_jobs=-1),
+                #               {'n_estimators': [70, 85, 100], 'max_depth': [7, 9, None], 'max_features': [30, 45, 60]}, cv=4),
+                #  data_pca_64),
 
-              #keep
+                ("Grid-ETC-est=85-130-md=None-mss=2-mf=30-100-no_PCA",
+                 GridSearchCV(ExtraTreesClassifier(min_samples_split=2, max_depth=None, n_jobs=-1),
+                              {'n_estimators': [85, 100, 115, 130], 'max_features': [30, 45, 60, 75, 100]}, cv=4),
+                 data),
+                ("Grid-ETC-est=85-130-md=None-mss=2-mf=30-64-PCA_64",
+                 GridSearchCV(ExtraTreesClassifier(min_samples_split=2, max_depth=None, n_jobs=-1),
+                              {'n_estimators': [85, 100, 115, 130], 'max_features': [30, 45, 64]}, cv=4),
+                 data_pca_64),
+                ("Grid-ETC-est=85-130-md=None-mss=2-mf=30-100-PCA_256",
+                 GridSearchCV(ExtraTreesClassifier(min_samples_split=2, max_depth=None, n_jobs=-1),
+                              {'n_estimators': [85, 100, 115, 130], 'max_features': [30, 45, 60, 75, 100]}, cv=4),
+                 data_pca_256),
+
+        #keep
               ("LogisticRegression-C=1-L2_regularization-multinomial-PCA_256", LogisticRegression(fit_intercept=False, multi_class='multinomial', solver='newton-cg'), data_pca_256)
               # ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(fit_intercept=False), data),
 
