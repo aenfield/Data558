@@ -132,6 +132,8 @@ def train_models():
     data_pca_256 = get_pca_data_and_save_transformer(X_train_scaled, X_test_scaled, y_train, y_test, num_components=256)
 
     # note: in model_desc use 'p' instead of a '.' (for ex, 0p01 instead of 0.01) to avoid matplotlib figure save issue with periods
+    # Some of these are commented out as the last thing I did was generate two voting classifiers using a subset
+    # This list is the upshot of a 100+ runs with different algorithms, data, and parameters
     models = [("ETC-md=None-mf=75-mss=2-210_est-no_PCA", ExtraTreesClassifier(max_depth=None, max_features=75, min_samples_split=2, n_estimators=210, n_jobs=-1), data),
               #("LogisticRegression-C=1-L2_regularization-OvR-no_PCA", LogisticRegression(fit_intercept=False), data),
               ("LogisticRegression-C=1-L2_regularization-multinomial-no_PCA", LogisticRegression(fit_intercept=False, multi_class='multinomial', solver='newton-cg'), data),
@@ -163,7 +165,7 @@ def train_models():
         voting_models_256 = [('ETC', models[5][1]), ('RF', models[7][1]), ('SVC-poly', models[9][1]),
                              ('LR-multinomial', models[6][1]), ('LinearSVC', models[8][1])]
         model_metrics.append(fit_test_and_save_model('Voting-256-hard', VotingClassifier(voting_models_256, voting='hard'), data_pca_256, unique_labels))
-        model_metrics.append(fit_test_and_save_model('Voting-256-all', VotingClassifier(voting_models_all, voting='hard'), data, unique_labels))
+        model_metrics.append(fit_test_and_save_model('Voting-all-hard', VotingClassifier(voting_models_all, voting='hard'), data, unique_labels))
 
         # can't do voting=soft w/ LinearSVC - oh well, I could drop the model but I like it - i'll just do hard
         #model_metrics.append(fit_test_and_save_model('Voting-256-soft', VotingClassifier(voting_models_256, voting='soft'), data_pca_256, unique_labels))
