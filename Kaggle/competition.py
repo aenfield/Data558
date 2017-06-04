@@ -203,25 +203,29 @@ def generate_kaggle_predictions():
     X_scaled_256 = pca_256.transform(X_scaled)
 
     # Specify the models to use, and the corresponding data
+    # like above, the last run I did was w/ just the voting classifiers, which is why the rest are commented out
     model_files = [
-        ('ETC-md=None-mf=75-mss=2-210_est-no_PCA-20170603-203022-model.pickle', X_scaled),
-        ('LogisticRegression-C=1-L2_regularization-OvR-no_PCA-20170603-203903-model.pickle', X_scaled),
-        ('LogisticRegression-C=1-L2_regularization-multinomial-no_PCA-20170603-203951-model.pickle', X_scaled),
-        ('RF-md=None-mf=60-mss=2-150_est-no_PCA-20170603-204010-model.pickle', X_scaled),
-        ('LinearSVC-C=1-squared_hinge_loss-L2_regularization-CS-no_PCA-20170603-204322-model.pickle', X_scaled),
-        ('LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA-20170603-204511-model.pickle', X_scaled),
-        ('LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA-20170603-204557-model.pickle', X_scaled),
-        ('ETC-md=None-mf=30-mss=2-210_est-PCA_256-20170603-204602-model.pickle', X_scaled_256),
-        ('MyLogisticRegression-C=1-max_iter=300-OvR-PCA_256-20170603-204708-model.pickle', X_scaled_256),
-        ('LogisticRegression-C=1-L2_regularization-multinomial-PCA_256-20170603-204732-model.pickle', X_scaled_256),
-        ('RF-md=None-mf=30-mss=2-150_est-PCA_256-20170603-204743-model.pickle', X_scaled_256),
-        ('LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-PCA_256-20170603-204839-model.pickle', X_scaled_256),
-        ('LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-PCA_256-20170603-204956-model.pickle', X_scaled_256),
-        ('SVC-C=1-poly_kernel-degree=3-PCA_256-20170603-205025-model.pickle', X_scaled_256),
-        ('SVC-C=1-rbf_kernel-degree=2-PCA_256-20170603-205107-model.pickle', X_scaled_256),
-        ('SVC-C=1-rbf_kernel-degree=3-PCA_256-20170603-205148-model.pickle', X_scaled_256),
-        ('SVC-C=1-rbf_kernel-degree=4-PCA_256-20170603-205230-model.pickle', X_scaled_256),
-        ('SVC-C=1-rbf_kernel-degree=5-PCA_256-20170603-205311-model.pickle', X_scaled_256)
+        ('Voting-all-hard-20170604-162450-model.pickle', X_scaled),
+        ('Voting-256-hard-20170604-161810-model.pickle', X_scaled_256),
+
+        # ('ETC-md=None-mf=75-mss=2-210_est-no_PCA-20170603-203022-model.pickle', X_scaled),
+        # ('LogisticRegression-C=1-L2_regularization-OvR-no_PCA-20170603-203903-model.pickle', X_scaled),
+        # ('LogisticRegression-C=1-L2_regularization-multinomial-no_PCA-20170603-203951-model.pickle', X_scaled),
+        # ('RF-md=None-mf=60-mss=2-150_est-no_PCA-20170603-204010-model.pickle', X_scaled),
+        # ('LinearSVC-C=1-squared_hinge_loss-L2_regularization-CS-no_PCA-20170603-204322-model.pickle', X_scaled),
+        # ('LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA-20170603-204511-model.pickle', X_scaled),
+        # ('LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA-20170603-204557-model.pickle', X_scaled),
+        # ('ETC-md=None-mf=30-mss=2-210_est-PCA_256-20170603-204602-model.pickle', X_scaled_256),
+        # ('MyLogisticRegression-C=1-max_iter=300-OvR-PCA_256-20170603-204708-model.pickle', X_scaled_256),
+        # ('LogisticRegression-C=1-L2_regularization-multinomial-PCA_256-20170603-204732-model.pickle', X_scaled_256),
+        # ('RF-md=None-mf=30-mss=2-150_est-PCA_256-20170603-204743-model.pickle', X_scaled_256),
+        # ('LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-PCA_256-20170603-204839-model.pickle', X_scaled_256),
+        # ('LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-PCA_256-20170603-204956-model.pickle', X_scaled_256),
+        # ('SVC-C=1-poly_kernel-degree=3-PCA_256-20170603-205025-model.pickle', X_scaled_256),
+        # ('SVC-C=1-rbf_kernel-degree=2-PCA_256-20170603-205107-model.pickle', X_scaled_256),
+        # ('SVC-C=1-rbf_kernel-degree=3-PCA_256-20170603-205148-model.pickle', X_scaled_256),
+        # ('SVC-C=1-rbf_kernel-degree=4-PCA_256-20170603-205230-model.pickle', X_scaled_256),
+        # ('SVC-C=1-rbf_kernel-degree=5-PCA_256-20170603-205311-model.pickle', X_scaled_256)
     ]
 
     for model_file, X in model_files:
@@ -264,8 +268,8 @@ def main():
     # extending to respond to command line args) since I'll only be running the predict a few times and since
     # i'll already need to modify the source to specify which models I'm using to do the predictions
 
-    train_models()
-    #generate_kaggle_predictions()
+    #train_models()
+    generate_kaggle_predictions()
 
 
 if __name__ == '__main__':
