@@ -14,7 +14,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.svm import LinearSVC, SVC
 from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import ExtraTreesClassifier, GradientBoostingClassifier, RandomForestClassifier
+from sklearn.ensemble import ExtraTreesClassifier, GradientBoostingClassifier, RandomForestClassifier, VotingClassifier
 from sklearn.multiclass import OneVsRestClassifier, OneVsOneClassifier
 from sklearn.model_selection import GridSearchCV
 
@@ -58,14 +58,6 @@ def fit_test_and_save_model(model_desc, model, data, unique_labels):
     open("{}-{}-estimator_desc.txt".format(model_desc, file_datetime_now()), 'w').write(estimator_desc)
     model_notes += estimator_desc
 
-    # pickling grid classifiers takes too much space - for ex, one ETC classifier was more than 16gb when it crashed
-    # my code on EC2. further, we won't actually unpickle a grid instance - we'll instead create a separate
-    # model instance from the best estimator info, so a pickled grid instance isn't useful. bottom line: don't pickle
-    # grid instances.
-    # Actually, not needed because at this point the grid is gone and we're just persisting the best estimator - the
-    # size issue is because ETC models w/ large values of n_estimator have giant sizes (one was 16gb+ before it crashed
-    # the process)
-    #if not isinstance(model, GridSearchCV):
     model_filename = '{}-{}-model.pickle'.format(model_desc, file_datetime_now())
     print("Pickling {}.".format(model_filename))
     pickle.dump(model, open(model_filename, 'wb'))
@@ -140,121 +132,39 @@ def train_models():
     data_pca_256 = get_pca_data_and_save_transformer(X_train_scaled, X_test_scaled, y_train, y_test, num_components=256)
 
     # note: in model_desc use 'p' instead of a '.' (for ex, 0p01 instead of 0.01) to avoid matplotlib figure save issue with periods
-    models = [("ETC-md=None-mf=75-mss=2-210_est-no_PCA", ExtraTreesClassifier(max_depth=None, max_features=75, min_samples_split=2, n_estimators=210, n_jobs=-1), data),
-              ("LogisticRegression-C=1-L2_regularization-OvR-no_PCA", LogisticRegression(fit_intercept=False), data),
-              ("LogisticRegression-C=1-L2_regularization-multinomial-no_PCA", LogisticRegression(fit_intercept=False, multi_class='multinomial', solver='newton-cg'), data),
-              ("RF-md=None-mf=60-mss=2-150_est-no_PCA", RandomForestClassifier(max_depth=None, max_features=60, min_samples_split=2, n_estimators=150, n_jobs=-1), data),
-              ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-CS-no_PCA", LinearSVC(fit_intercept=False, multi_class='crammer_singer'), data),
-              ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(fit_intercept=False), data),
-              ("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(C=0.01), data),
+    models = [#("ETC-md=None-mf=75-mss=2-210_est-no_PCA", ExtraTreesClassifier(max_depth=None, max_features=75, min_samples_split=2, n_estimators=210, n_jobs=-1), data),
+              #("LogisticRegression-C=1-L2_regularization-OvR-no_PCA", LogisticRegression(fit_intercept=False), data),
+              #("LogisticRegression-C=1-L2_regularization-multinomial-no_PCA", LogisticRegression(fit_intercept=False, multi_class='multinomial', solver='newton-cg'), data),
+              #("RF-md=None-mf=60-mss=2-150_est-no_PCA", RandomForestClassifier(max_depth=None, max_features=60, min_samples_split=2, n_estimators=150, n_jobs=-1), data),
+              #("LinearSVC-C=1-squared_hinge_loss-L2_regularization-CS-no_PCA", LinearSVC(fit_intercept=False, multi_class='crammer_singer'), data),
+              #("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(fit_intercept=False), data),
+              #("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(C=0.01), data),
               ("ETC-md=None-mf=30-mss=2-210_est-PCA_256", ExtraTreesClassifier(max_depth=None, max_features=30, min_samples_split=2, n_estimators=210, n_jobs=-1), data_pca_256),
-              ("MyLogisticRegression-C=1-max_iter=300-OvR-PCA_256", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=300)), data_pca_256),
+              #("MyLogisticRegression-C=1-max_iter=300-OvR-PCA_256", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=300)), data_pca_256),
               ("LogisticRegression-C=1-L2_regularization-multinomial-PCA_256", LogisticRegression(fit_intercept=False, multi_class='multinomial', solver='newton-cg'), data_pca_256),
               ("RF-md=None-mf=30-mss=2-150_est-PCA_256", RandomForestClassifier(max_depth=None, max_features=30, min_samples_split=2, n_estimators=150, n_jobs=-1), data_pca_256),
               ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-PCA_256", LinearSVC(), data_pca_256),
-              ("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-PCA_256", LinearSVC(C=0.01), data_pca_256),
+              #("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-PCA_256", LinearSVC(C=0.01), data_pca_256),
               ("SVC-C=1-poly_kernel-degree=3-PCA_256", SVC(kernel='poly', degree=3), data_pca_256),
-              ("SVC-C=1-rbf_kernel-degree=2-PCA_256", SVC(kernel='rbf', degree=2), data_pca_256),
-              ("SVC-C=1-rbf_kernel-degree=3-PCA_256", SVC(kernel='rbf', degree=3), data_pca_256),
-              ("SVC-C=1-rbf_kernel-degree=4-PCA_256", SVC(kernel='rbf', degree=4), data_pca_256),
-              ("SVC-C=1-rbf_kernel-degree=5-PCA_256", SVC(kernel='rbf', degree=5), data_pca_256)
-
-        # ("MyLogisticRegression-C=1-max_iter=100-OvR-PCA_64", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=100)), data_pca_64),
-        #       ("MyLogisticRegression-C=1-max_iter=100-OvR-PCA_256", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=100)), data_pca_256),
-        #         ("Grid-RFC-est=70-150-md=None-mss=2-mf=30-60-no_PCA",
-        #          GridSearchCV(RandomForestClassifier(min_samples_split=2, max_depth=None, n_jobs=-1),
-        #                      {'n_estimators': [70,110,150], 'max_features': [30,45,60]}, cv=4),
-        #          data),
-        #         ("Grid-RFC-est=70-100-md=None-mss=2-mf=30-60-PCA_64",
-        #          GridSearchCV(RandomForestClassifier(min_samples_split=2, n_jobs=-1),
-        #                       {'n_estimators': [70,110,150], 'max_features': [30, 45, 60]}, cv=4),
-        #          data_pca_64),
-        #         ("Grid-RFC-est=70-100-md=None-mss=2-mf=30-60-PCA_256",
-        #          GridSearchCV(RandomForestClassifier(min_samples_split=2, n_jobs=-1),
-        #                       {'n_estimators': [70,110,150], 'max_features': [30, 45, 60]}, cv=4),
-        #          data_pca_256),
-
-        # ("Grid-ETC-est=210-400-md=None-mss=2-mf=30-100-no_PCA",
-                #  GridSearchCV(ExtraTreesClassifier(min_samples_split=2, max_depth=None, n_jobs=-1),
-                #               {'n_estimators': [210, 250, 290, 340, 400], 'max_features': [30, 45, 60, 75, 100]}, cv=4),
-                #  data),
-                # ("Grid-ETC-est=210-400-md=None-mss=2-mf=30-64-PCA_64",
-                #  GridSearchCV(ExtraTreesClassifier(min_samples_split=2, max_depth=None, n_jobs=-1),
-                #               {'n_estimators': [210, 250, 290, 340, 400], 'max_features': [30, 45, 64]}, cv=4),
-                #  data_pca_64),
-                # ("Grid-ETC-est=210-400-md=None-mss=2-mf=30-100-PCA_256",
-                #  GridSearchCV(ExtraTreesClassifier(min_samples_split=2, max_depth=None, n_jobs=-1),
-                #               {'n_estimators': [210, 250, 290, 340, 400], 'max_features': [30, 45, 60, 75, 100]}, cv=4),
-                #  data_pca_256),
-
-        #keep
-               # ("LogisticRegression-C=1-L2_regularization-multinomial-PCA_256", LogisticRegression(fit_intercept=False, multi_class='multinomial', solver='newton-cg'), data_pca_256)
-              # ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(fit_intercept=False), data),
-
-              #("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(C=0.01), data),
-              #("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-PCA_256", LinearSVC(), data_pca_256)
-
-              #keep
-              # ("LogisticRegression-C=1-L2_regularization-multinomial-no_PCA", LogisticRegression(fit_intercept=False, multi_class='multinomial', solver='newton-cg'), data),
-              # ("SVC-C=1-poly_kernel-degree=3-PCA_256", SVC(kernel='poly', degree=3), data_pca_256),
-
-              #("RFC-25_est-mss=2-md=None-mf=45-nj=-1-no_PCA", RandomForestClassifier(n_estimators=25, max_depth=None, min_samples_split=2, max_features=45, n_jobs=-1), data),
-              #("RFC-25_est-mss=2-md=None-mf=8-nj=-1-PCA_64", RandomForestClassifier(n_estimators=25, max_depth=None, min_samples_split=2, max_features=8, n_jobs=-1), data_pca_64),
-              #("RFC-25_est-mss=2-md=None-mf=16-nj=-1-PCA_256", RandomForestClassifier(n_estimators=25, max_depth=None, min_samples_split=2, max_features=16, n_jobs=-1), data_pca_256),
-
-              # keep until we get a grid search for these
-              # ("ETC-25_est-mss=2-md=None-mf=45-nj=-1-no_PCA", ExtraTreesClassifier(n_estimators=25, max_depth=None, min_samples_split=2, max_features=45, n_jobs=-1), data),
-              # ("ETC-25_est-mss=2-md=None-mf=8-nj=-1-PCA_64", ExtraTreesClassifier(n_estimators=25, max_depth=None, min_samples_split=2, max_features=8, n_jobs=-1), data_pca_64),
-              # ("ETC-25_est-mss=2-md=None-mf=16-nj=-1-PCA_256", ExtraTreesClassifier(n_estimators=25, max_depth=None, min_samples_split=2, max_features=16, n_jobs=-1), data_pca_256)
+              #("SVC-C=1-rbf_kernel-degree=2-PCA_256", SVC(kernel='rbf', degree=2), data_pca_256),
+              #("SVC-C=1-rbf_kernel-degree=3-PCA_256", SVC(kernel='rbf', degree=3), data_pca_256),
+              #("SVC-C=1-rbf_kernel-degree=4-PCA_256", SVC(kernel='rbf', degree=4), data_pca_256),
+              #("SVC-C=1-rbf_kernel-degree=5-PCA_256", SVC(kernel='rbf', degree=5), data_pca_256)
     ]
 
-    # add these back for a final/complete run - removing now because they're less good than (or duplicative
-    # compared to) others, or they take a long while to run - DO add them back because we want to for ex be able to
-    # talk about our impl w/o PCA data, and C=2
-    #("LinearSVC-C=1-squared_hinge_loss-L2_regularization-CS-no_PCA", LinearSVC(fit_intercept=False, multi_class='crammer_singer'), data),
-    #("MyLogisticRegression-C=1-max_iter=300-OvR-PCA_256", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=300)), data_pca_256),
-    #("MyLogisticRegression-C=1-max_iter=100-OvR-no_PCA", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=100)), data),
-    #("LinearSVC-C=2-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(C=2.0), data),
-    #("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-PCA_64", LinearSVC(), data_pca_64),
-    #("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-PCA_64", LinearSVC(C=0.01), data_pca_64),
-    #("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-PCA_256", LinearSVC(C=0.01), data_pca_256)
-
-    # saving but likely not worth adding back at the end as they're duplicative
-    #("MyLogisticRegression-C=1-max_iter=300-OvR-PCA_64", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=300)), data_pca_64),
-    # ("LogisticRegression-C=1-L2_regularization-OvR-no_PCA", LogisticRegression(fit_intercept=False), data),
-    # ("LogisticRegression-C=1-L2_regularization-OvR-PCA_256", LogisticRegression(fit_intercept=False), data_pca_256),
-
-    # this takes ~3-5m to train and gives 1% accuracy - something's wrong, I wont' run it for now
-    # ("MyLogisticRegression-C=1-max_iter=100-OvO-PCA", OneVsOneClassifier(fp.MyLogisticRegression(max_iter=100), n_jobs=-1), data_pca),
-
-    # RBF worked well - it looked great in the CM, but with either PCA I got one class that was totally wrong - just a line up and down
-    # this was most pronounced with 64 components, still there but less with 256, and not there at all from what i could tell with
-    # no PCA. So I'll just use no_PCA for the radial kernel. Later on an automated run, I saw great results w/ 256 and less so w/ others. Hm.
-    # ("SVC-C=1-rbf_kernel-degree=3-PCA_256", SVC(kernel='rbf', degree=3), data_pca_256),
-    # ("SVC-C=1-poly_kernel-degree=3-no_PCA", SVC(kernel='poly', degree=3), data),
-    # ("SVC-C=1-poly_kernel-degree=3-PCA_64", SVC(kernel='poly', degree=3), data_pca_64),
-    # ("SVC-C=1-rbf_kernel-degree=2-no_PCA", SVC(kernel='rbf', degree=2), data),
-    # ("SVC-C=1-rbf_kernel-degree=2-PCA_64", SVC(kernel='rbf', degree=2), data_pca_64),
-    # ("SVC-C=1-rbf_kernel-degree=2-PCA_256", SVC(kernel='rbf', degree=2), data_pca_256),
-    # ("SVC-C=1-rbf_kernel-degree=3-no_PCA", SVC(kernel='rbf', degree=3), data),
-    # ("SVC-C=1-rbf_kernel-degree=3-PCA_64", SVC(kernel='rbf', degree=3), data_pca_64),
-    # ("SVC-C=1-rbf_kernel-degree=3-PCA_256", SVC(kernel='rbf', degree=3), data_pca_256),
-    # ("SVC-C=1-rbf_kernel-degree=4-no_PCA", SVC(kernel='rbf', degree=4), data),
-    # ("SVC-C=1-rbf_kernel-degree=4-PCA_64", SVC(kernel='rbf', degree=4), data_pca_64),
-    # ("SVC-C=1-rbf_kernel-degree=4-PCA_256", SVC(kernel='rbf', degree=4), data_pca_256),
-    # ("SVC-C=1-rbf_kernel-degree=5-no_PCA", SVC(kernel='rbf', degree=5), data),
-    # ("SVC-C=1-rbf_kernel-degree=5-PCA_64", SVC(kernel='rbf', degree=5), data_pca_64),
-    # ("SVC-C=1-rbf_kernel-degree=5-PCA_256", SVC(kernel='rbf', degree=5), data_pca_256)
-
-    # GBC did very poorly - something's either totally wrong w/ my params for this data (likely) or somewhere else
-    # ("GBC-25_est-lr=1-md=1-mf=45-no_PCA",
-    #  GradientBoostingClassifier(n_estimators=25, learning_rate=1.0, max_depth=1, max_features=45), data),
-    # ("GBC-25_est-lr=1-md=1-mf=8-PCA_64",
-    #  GradientBoostingClassifier(n_estimators=25, learning_rate=1.0, max_depth=1, max_features=8), data_pca_64),
-    # ("GBC-25_est-lr=1-md=1-mf=16-PCA_256",
-    #  GradientBoostingClassifier(n_estimators=25, learning_rate=1.0, max_depth=1, max_features=16), data_pca_256),
-
     model_metrics = [fit_test_and_save_model(model_desc, model, data, unique_labels) for model_desc, model, data in models]
+
+    # quick and dirty addition to try voting models - i should implement this better/reduce duplication if i use it again
+    do_voting_classifier = True
+    if do_voting_classifier:
+        # using the indexing created by the final set of models above
+        # voting_models_256 = [('ETC', models[7]), ('RF', models[10]), ('SVC-poly', models[13]),
+        #                      ('LR-multinomial', models[9]), ('LinearSVC', models[11]), ]
+        voting_models_256 = [('ETC', models[0]), ('RF', models[2]), ('SVC-poly', models[4]),
+                             ('LR-multinomial', models[1]), ('LinearSVC', models[3]), ]
+        model_metrics.append(fit_test_and_save_model('Voting-256-hard', VotingClassifier(voting_models_256, voting='hard')))
+        model_metrics.append(fit_test_and_save_model('Voting-256-soft', VotingClassifier(voting_models_256, voting='soft')))
+
 
     model_metrics_df = pd.DataFrame(model_metrics, columns=['Desc', 'Accuracy', 'Overall time', 'Train time', 'Notes'])
     print(section_print_delimiter)
@@ -309,10 +219,6 @@ def generate_kaggle_predictions():
         ('SVC-C=1-rbf_kernel-degree=5-PCA_256-20170603-205311-model.pickle', X_scaled_256)
     ]
 
-        # ('MyLogisticRegression-C=1-max_iter=100-OvR-PCA_256-20170602-134355-model.pickle', X_scaled_256),
-        #            ('LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA-20170602-134714-model.pickle', X_scaled),
-        #            ('LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA-20170602-134620-model.pickle', X_scaled)]
-
     for model_file, X in model_files:
         model_desc = model_file.rstrip('-model.pickle')
 
@@ -353,8 +259,8 @@ def main():
     # extending to respond to command line args) since I'll only be running the predict a few times and since
     # i'll already need to modify the source to specify which models I'm using to do the predictions
 
-    #train_models()
-    generate_kaggle_predictions()
+    train_models()
+    #generate_kaggle_predictions()
 
 
 if __name__ == '__main__':
