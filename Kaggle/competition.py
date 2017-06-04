@@ -145,7 +145,7 @@ def train_models():
               ("RF-md=None-mf=30-mss=2-150_est-PCA_256", RandomForestClassifier(max_depth=None, max_features=30, min_samples_split=2, n_estimators=150, n_jobs=-1), data_pca_256),
               ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-PCA_256", LinearSVC(), data_pca_256),
               #("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-PCA_256", LinearSVC(C=0.01), data_pca_256),
-              ("SVC-C=1-poly_kernel-degree=3-PCA_256", SVC(kernel='poly', degree=3), data_pca_256),
+              ("SVC-C=1-poly_kernel-degree=3-PCA_256", SVC(kernel='poly', degree=3, probability=True), data_pca_256),  # prob True to support voting soft
               #("SVC-C=1-rbf_kernel-degree=2-PCA_256", SVC(kernel='rbf', degree=2), data_pca_256),
               #("SVC-C=1-rbf_kernel-degree=3-PCA_256", SVC(kernel='rbf', degree=3), data_pca_256),
               #("SVC-C=1-rbf_kernel-degree=4-PCA_256", SVC(kernel='rbf', degree=4), data_pca_256),
