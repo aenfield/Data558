@@ -132,12 +132,12 @@ def train_models():
     data_pca_256 = get_pca_data_and_save_transformer(X_train_scaled, X_test_scaled, y_train, y_test, num_components=256)
 
     # note: in model_desc use 'p' instead of a '.' (for ex, 0p01 instead of 0.01) to avoid matplotlib figure save issue with periods
-    models = [#("ETC-md=None-mf=75-mss=2-210_est-no_PCA", ExtraTreesClassifier(max_depth=None, max_features=75, min_samples_split=2, n_estimators=210, n_jobs=-1), data),
+    models = [("ETC-md=None-mf=75-mss=2-210_est-no_PCA", ExtraTreesClassifier(max_depth=None, max_features=75, min_samples_split=2, n_estimators=210, n_jobs=-1), data),
               #("LogisticRegression-C=1-L2_regularization-OvR-no_PCA", LogisticRegression(fit_intercept=False), data),
-              #("LogisticRegression-C=1-L2_regularization-multinomial-no_PCA", LogisticRegression(fit_intercept=False, multi_class='multinomial', solver='newton-cg'), data),
-              #("RF-md=None-mf=60-mss=2-150_est-no_PCA", RandomForestClassifier(max_depth=None, max_features=60, min_samples_split=2, n_estimators=150, n_jobs=-1), data),
-              #("LinearSVC-C=1-squared_hinge_loss-L2_regularization-CS-no_PCA", LinearSVC(fit_intercept=False, multi_class='crammer_singer'), data),
-              #("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(fit_intercept=False), data),
+              ("LogisticRegression-C=1-L2_regularization-multinomial-no_PCA", LogisticRegression(fit_intercept=False, multi_class='multinomial', solver='newton-cg'), data),
+              ("RF-md=None-mf=60-mss=2-150_est-no_PCA", RandomForestClassifier(max_depth=None, max_features=60, min_samples_split=2, n_estimators=150, n_jobs=-1), data),
+              ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-CS-no_PCA", LinearSVC(fit_intercept=False, multi_class='crammer_singer'), data),
+              ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(fit_intercept=False), data),
               #("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(C=0.01), data),
               ("ETC-md=None-mf=30-mss=2-210_est-PCA_256", ExtraTreesClassifier(max_depth=None, max_features=30, min_samples_split=2, n_estimators=210, n_jobs=-1), data_pca_256),
               #("MyLogisticRegression-C=1-max_iter=300-OvR-PCA_256", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=300)), data_pca_256),
@@ -158,11 +158,12 @@ def train_models():
     do_voting_classifier = True
     if do_voting_classifier:
         # using the indexing created by the final set of models above
-        # voting_models_256 = [('ETC', models[7]), ('RF', models[10]), ('SVC-poly', models[13]),
-        #                      ('LR-multinomial', models[9]), ('LinearSVC', models[11]), ]
-        voting_models_256 = [('ETC', models[0][1]), ('RF', models[2][1]), ('SVC-poly', models[4][1]),
-                             ('LR-multinomial', models[1][1]), ('LinearSVC', models[3][1]), ]
+        voting_models_all = [('ETC', models[0][1]), ('LR-multinomial', models[1][1]), ('RF', models[2][1]),
+                             ('LinearSVC-CS', models[3][1]), ('LinearSVC-OvR', models[4][1])]
+        voting_models_256 = [('ETC', models[5][1]), ('RF', models[7][1]), ('SVC-poly', models[9][1]),
+                             ('LR-multinomial', models[6][1]), ('LinearSVC', models[8][1])]
         model_metrics.append(fit_test_and_save_model('Voting-256-hard', VotingClassifier(voting_models_256, voting='hard'), data_pca_256, unique_labels))
+        model_metrics.append(fit_test_and_save_model('Voting-256-all', VotingClassifier(voting_models_all, voting='hard'), data, unique_labels))
 
         # can't do voting=soft w/ LinearSVC - oh well, I could drop the model but I like it - i'll just do hard
         #model_metrics.append(fit_test_and_save_model('Voting-256-soft', VotingClassifier(voting_models_256, voting='soft'), data_pca_256, unique_labels))
