@@ -163,7 +163,9 @@ def train_models():
         voting_models_256 = [('ETC', models[0][1]), ('RF', models[2][1]), ('SVC-poly', models[4][1]),
                              ('LR-multinomial', models[1][1]), ('LinearSVC', models[3][1]), ]
         model_metrics.append(fit_test_and_save_model('Voting-256-hard', VotingClassifier(voting_models_256, voting='hard'), data_pca_256, unique_labels))
-        model_metrics.append(fit_test_and_save_model('Voting-256-soft', VotingClassifier(voting_models_256, voting='soft'), data_pca_256, unique_labels))
+
+        # can't do voting=soft w/ LinearSVC - oh well, I could drop the model but I like it - i'll just do hard
+        #model_metrics.append(fit_test_and_save_model('Voting-256-soft', VotingClassifier(voting_models_256, voting='soft'), data_pca_256, unique_labels))
 
 
     model_metrics_df = pd.DataFrame(model_metrics, columns=['Desc', 'Accuracy', 'Overall time', 'Train time', 'Notes'])
