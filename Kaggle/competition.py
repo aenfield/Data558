@@ -192,8 +192,8 @@ def generate_kaggle_predictions():
     print("Loaded {} features and {} labels at {}.".format(features_test.shape, labels_test.shape, datetime.datetime.now()))
 
     # For each run, update with pickle filenames, so we transform using the same rules as we used w/ the training set
-    pca_64_filename = 'pca_transform_64_components-20170603-203014.pickle'
-    pca_256_filename = 'pca_transform_256_components-20170603-203015.pickle'
+    pca_64_filename = 'pca_transform_64_components-20170604-160359.pickle'
+    pca_256_filename = 'pca_transform_256_components-20170604-160401.pickle'
     pca_64 = pickle.load(open(pca_64_filename, 'rb'))
     pca_256 = pickle.load(open(pca_256_filename, 'rb'))
 
