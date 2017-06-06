@@ -1,0 +1,1 @@
+print("To train models or generate Kaggle submissions, run the competition.py file.")
