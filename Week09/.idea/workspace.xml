@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4881192-7fdf-4ed0-82cf-afcc19260554" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Kaggle/model_summaries_allup.xlsx" afterPath="$PROJECT_DIR$/../Kaggle/model_summaries_allup.xlsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Kaggle/.gitignore" afterPath="$PROJECT_DIR$/../Kaggle/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Kaggle/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Kaggle/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Kaggle/HWExerciseExploratory.ipynb" afterPath="$PROJECT_DIR$/../Kaggle/HWExerciseExploratory.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Kaggle/competition.py" afterPath="$PROJECT_DIR$/../Kaggle/competition.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Kaggle/finalproj.py" afterPath="$PROJECT_DIR$/../Kaggle/finalproj.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EnfieldAndrew-HW8.ipynb" afterPath="$PROJECT_DIR$/EnfieldAndrew-HW8.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kernelsvm.py" afterPath="$PROJECT_DIR$/kernelsvm.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kernelsvm-test.py" afterPath="$PROJECT_DIR$/kernelsvm-test.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,11 +23,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="kernelsvm.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="kernelsvm.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/kernelsvm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1224">
-              <caret line="86" column="31" lean-forward="false" selection-start-line="86" selection-start-column="4" selection-end-line="86" selection-end-column="31" />
+            <state relative-caret-position="1365">
+              <caret line="91" column="32" lean-forward="true" selection-start-line="91" selection-start-column="32" selection-end-line="91" selection-end-column="32" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -34,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="kernelsvm-test.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="kernelsvm-test.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/kernelsvm-test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1035">
-              <caret line="69" column="63" lean-forward="false" selection-start-line="69" selection-start-column="63" selection-end-line="69" selection-end-column="63" />
+            <state relative-caret-position="-192">
+              <caret line="15" column="34" lean-forward="false" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -69,8 +70,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/kernelsvm-test.py" />
         <option value="$PROJECT_DIR$/kernelsvm.py" />
+        <option value="$PROJECT_DIR$/kernelsvm-test.py" />
       </list>
     </option>
   </component>
@@ -391,13 +392,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/kernelsvm-test.py</url>
-          <line>69</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="8" />
     </breakpoint-manager>
     <watches-manager />
@@ -454,16 +448,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="151">
           <caret line="600" column="0" lean-forward="false" selection-start-line="600" selection-start-column="0" selection-end-line="600" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kernelsvm-test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1035">
-          <caret line="69" column="63" lean-forward="false" selection-start-line="69" selection-start-column="63" selection-end-line="69" selection-end-column="63" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -484,10 +469,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/kernelsvm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1224">
-          <caret line="86" column="31" lean-forward="false" selection-start-line="86" selection-start-column="4" selection-end-line="86" selection-end-column="31" />
+        <state relative-caret-position="1365">
+          <caret line="91" column="32" lean-forward="true" selection-start-line="91" selection-start-column="32" selection-end-line="91" selection-end-column="32" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kernelsvm-test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-192">
+          <caret line="15" column="34" lean-forward="false" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>

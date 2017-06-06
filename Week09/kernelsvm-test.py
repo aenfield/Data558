@@ -12,6 +12,9 @@ from sklearn.model_selection import train_test_split
 x_simple = np.array([3,2,0,1,-1,-2]).reshape(3,2)
 y_simple = np.array([1,1,-1])
 
+# Updated status: I need to turn this in even though I haven't been able to finish all of the TODOs - I made progress
+# but haven't completed this 100%.
+
 # TODOs
 # 1a. Figure out what's going on when I call fastgradalgo with my two functions (w/ and w/o backtracking?). Based on
 # one quick check it seems like it runs - very slowly, takes noticeable time even with just 10 iterations and no
