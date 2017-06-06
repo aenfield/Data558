@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.model_selection import KFold
+from sklearn.base import BaseEstimator, ClassifierMixin
 
 import matplotlib.pyplot as plt
 figsize = (25,23)
@@ -86,13 +87,11 @@ def backtracking(coefs, x, y, grad_func, obj_func, t=1, alpha=0.5, beta=0.5, max
 
 # ---
 # Wrap fastgradalgo and obj/grad functions in a class w/ fit and predict methods
-# ? Will this work ? (No tests, for now :-( )
+# (No tests, for now :-( )
 # ---
 
 # i implemented fit and predict and it didn't work, so I added a bit from
 # http://danielhnyk.cz/creating-your-own-estimator-scikit-learn/
-
-from sklearn.base import BaseEstimator, ClassifierMixin
 
 class MyLogisticRegression(BaseEstimator, ClassifierMixin):
     default_max_iters = 300

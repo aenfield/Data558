@@ -128,36 +128,40 @@ def train_models():
     X_train_scaled = scaler.transform(X_train)
     X_test_scaled = scaler.transform(X_test)
 
-    data_pca_64 = get_pca_data_and_save_transformer(X_train_scaled, X_test_scaled, y_train, y_test, num_components=64)
+    # I only ended up using 256 component PCA, so don't need data_pca_64
+    #data_pca_64 = get_pca_data_and_save_transformer(X_train_scaled, X_test_scaled, y_train, y_test, num_components=64)
     data_pca_256 = get_pca_data_and_save_transformer(X_train_scaled, X_test_scaled, y_train, y_test, num_components=256)
 
     # note: in model_desc use 'p' instead of a '.' (for ex, 0p01 instead of 0.01) to avoid matplotlib figure save issue with periods
-    # Some of these are commented out as the last thing I did was generate two voting classifiers using a subset
-    # This list is the upshot of a 100+ runs with different algorithms, data, and parameters
+    # This list is the upshot of a 100+ runs with different algorithms, data, and parameters. FOr example, I ran
+    # many models using GridSearchCV to find the best parameters for algorithms including the decision tree-based
+    # ExtraTreesClassifier and RandomForestClassifier models. THen I created specific model instances using these
+    # best parameter values, below.
     models = [("ETC-md=None-mf=75-mss=2-210_est-no_PCA", ExtraTreesClassifier(max_depth=None, max_features=75, min_samples_split=2, n_estimators=210, n_jobs=-1), data),
-              #("LogisticRegression-C=1-L2_regularization-OvR-no_PCA", LogisticRegression(fit_intercept=False), data),
+              ("LogisticRegression-C=1-L2_regularization-OvR-no_PCA", LogisticRegression(fit_intercept=False), data),
               ("LogisticRegression-C=1-L2_regularization-multinomial-no_PCA", LogisticRegression(fit_intercept=False, multi_class='multinomial', solver='newton-cg'), data),
               ("RF-md=None-mf=60-mss=2-150_est-no_PCA", RandomForestClassifier(max_depth=None, max_features=60, min_samples_split=2, n_estimators=150, n_jobs=-1), data),
               ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-CS-no_PCA", LinearSVC(fit_intercept=False, multi_class='crammer_singer'), data),
               ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(fit_intercept=False), data),
-              #("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(C=0.01), data),
+              ("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(C=0.01), data),
               ("ETC-md=None-mf=30-mss=2-210_est-PCA_256", ExtraTreesClassifier(max_depth=None, max_features=30, min_samples_split=2, n_estimators=210, n_jobs=-1), data_pca_256),
-              #("MyLogisticRegression-C=1-max_iter=300-OvR-PCA_256", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=300)), data_pca_256),
+              ("MyLogisticRegression-C=1-max_iter=300-OvR-PCA_256", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=300)), data_pca_256),
               ("LogisticRegression-C=1-L2_regularization-multinomial-PCA_256", LogisticRegression(fit_intercept=False, multi_class='multinomial', solver='newton-cg'), data_pca_256),
               ("RF-md=None-mf=30-mss=2-150_est-PCA_256", RandomForestClassifier(max_depth=None, max_features=30, min_samples_split=2, n_estimators=150, n_jobs=-1), data_pca_256),
               ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-PCA_256", LinearSVC(), data_pca_256),
-              #("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-PCA_256", LinearSVC(C=0.01), data_pca_256),
+              ("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-PCA_256", LinearSVC(C=0.01), data_pca_256),
               ("SVC-C=1-poly_kernel-degree=3-PCA_256", SVC(kernel='poly', degree=3, probability=True), data_pca_256),  # prob True to support voting soft
-              #("SVC-C=1-rbf_kernel-degree=2-PCA_256", SVC(kernel='rbf', degree=2), data_pca_256),
-              #("SVC-C=1-rbf_kernel-degree=3-PCA_256", SVC(kernel='rbf', degree=3), data_pca_256),
-              #("SVC-C=1-rbf_kernel-degree=4-PCA_256", SVC(kernel='rbf', degree=4), data_pca_256),
-              #("SVC-C=1-rbf_kernel-degree=5-PCA_256", SVC(kernel='rbf', degree=5), data_pca_256)
+              ("SVC-C=1-rbf_kernel-degree=2-PCA_256", SVC(kernel='rbf', degree=2), data_pca_256),
+              ("SVC-C=1-rbf_kernel-degree=3-PCA_256", SVC(kernel='rbf', degree=3), data_pca_256),
+              ("SVC-C=1-rbf_kernel-degree=4-PCA_256", SVC(kernel='rbf', degree=4), data_pca_256),
+              ("SVC-C=1-rbf_kernel-degree=5-PCA_256", SVC(kernel='rbf', degree=5), data_pca_256)
     ]
 
     model_metrics = [fit_test_and_save_model(model_desc, model, data, unique_labels) for model_desc, model, data in models]
 
     # quick and dirty addition to try voting models - i should implement this better/reduce duplication if i use it again
-    do_voting_classifier = True
+    # I've turned this off now
+    do_voting_classifier = False
     if do_voting_classifier:
         # using the indexing created by the final set of models above
         voting_models_all = [('ETC', models[0][1]), ('LR-multinomial', models[1][1]), ('RF', models[2][1]),
@@ -203,29 +207,29 @@ def generate_kaggle_predictions():
     X_scaled_256 = pca_256.transform(X_scaled)
 
     # Specify the models to use, and the corresponding data
-    # like above, the last run I did was w/ just the voting classifiers, which is why the rest are commented out
     model_files = [
-        ('Voting-all-hard-20170604-162450-model.pickle', X_scaled),
-        ('Voting-256-hard-20170604-161810-model.pickle', X_scaled_256),
+        ('ETC-md=None-mf=75-mss=2-210_est-no_PCA-20170603-203022-model.pickle', X_scaled),
+        ('LogisticRegression-C=1-L2_regularization-OvR-no_PCA-20170603-203903-model.pickle', X_scaled),
+        ('LogisticRegression-C=1-L2_regularization-multinomial-no_PCA-20170603-203951-model.pickle', X_scaled),
+        ('RF-md=None-mf=60-mss=2-150_est-no_PCA-20170603-204010-model.pickle', X_scaled),
+        ('LinearSVC-C=1-squared_hinge_loss-L2_regularization-CS-no_PCA-20170603-204322-model.pickle', X_scaled),
+        ('LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA-20170603-204511-model.pickle', X_scaled),
+        ('LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA-20170603-204557-model.pickle', X_scaled),
+        ('ETC-md=None-mf=30-mss=2-210_est-PCA_256-20170603-204602-model.pickle', X_scaled_256),
+        ('MyLogisticRegression-C=1-max_iter=300-OvR-PCA_256-20170603-204708-model.pickle', X_scaled_256),
+        ('LogisticRegression-C=1-L2_regularization-multinomial-PCA_256-20170603-204732-model.pickle', X_scaled_256),
+        ('RF-md=None-mf=30-mss=2-150_est-PCA_256-20170603-204743-model.pickle', X_scaled_256),
+        ('LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-PCA_256-20170603-204839-model.pickle', X_scaled_256),
+        ('LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-PCA_256-20170603-204956-model.pickle', X_scaled_256),
+        ('SVC-C=1-poly_kernel-degree=3-PCA_256-20170603-205025-model.pickle', X_scaled_256),
+        ('SVC-C=1-rbf_kernel-degree=2-PCA_256-20170603-205107-model.pickle', X_scaled_256),
+        ('SVC-C=1-rbf_kernel-degree=3-PCA_256-20170603-205148-model.pickle', X_scaled_256),
+        ('SVC-C=1-rbf_kernel-degree=4-PCA_256-20170603-205230-model.pickle', X_scaled_256),
+        ('SVC-C=1-rbf_kernel-degree=5-PCA_256-20170603-205311-model.pickle', X_scaled_256),
 
-        # ('ETC-md=None-mf=75-mss=2-210_est-no_PCA-20170603-203022-model.pickle', X_scaled),
-        # ('LogisticRegression-C=1-L2_regularization-OvR-no_PCA-20170603-203903-model.pickle', X_scaled),
-        # ('LogisticRegression-C=1-L2_regularization-multinomial-no_PCA-20170603-203951-model.pickle', X_scaled),
-        # ('RF-md=None-mf=60-mss=2-150_est-no_PCA-20170603-204010-model.pickle', X_scaled),
-        # ('LinearSVC-C=1-squared_hinge_loss-L2_regularization-CS-no_PCA-20170603-204322-model.pickle', X_scaled),
-        # ('LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA-20170603-204511-model.pickle', X_scaled),
-        # ('LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA-20170603-204557-model.pickle', X_scaled),
-        # ('ETC-md=None-mf=30-mss=2-210_est-PCA_256-20170603-204602-model.pickle', X_scaled_256),
-        # ('MyLogisticRegression-C=1-max_iter=300-OvR-PCA_256-20170603-204708-model.pickle', X_scaled_256),
-        # ('LogisticRegression-C=1-L2_regularization-multinomial-PCA_256-20170603-204732-model.pickle', X_scaled_256),
-        # ('RF-md=None-mf=30-mss=2-150_est-PCA_256-20170603-204743-model.pickle', X_scaled_256),
-        # ('LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-PCA_256-20170603-204839-model.pickle', X_scaled_256),
-        # ('LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-PCA_256-20170603-204956-model.pickle', X_scaled_256),
-        # ('SVC-C=1-poly_kernel-degree=3-PCA_256-20170603-205025-model.pickle', X_scaled_256),
-        # ('SVC-C=1-rbf_kernel-degree=2-PCA_256-20170603-205107-model.pickle', X_scaled_256),
-        # ('SVC-C=1-rbf_kernel-degree=3-PCA_256-20170603-205148-model.pickle', X_scaled_256),
-        # ('SVC-C=1-rbf_kernel-degree=4-PCA_256-20170603-205230-model.pickle', X_scaled_256),
-        # ('SVC-C=1-rbf_kernel-degree=5-PCA_256-20170603-205311-model.pickle', X_scaled_256)
+        # turned the ensemble voting classifiers off for now
+        # ('Voting-all-hard-20170604-162450-model.pickle', X_scaled),
+        # ('Voting-256-hard-20170604-161810-model.pickle', X_scaled_256),
     ]
 
     for model_file, X in model_files:
@@ -268,8 +272,8 @@ def main():
     # extending to respond to command line args) since I'll only be running the predict a few times and since
     # i'll already need to modify the source to specify which models I'm using to do the predictions
 
-    #train_models()
-    generate_kaggle_predictions()
+    train_models()
+    #generate_kaggle_predictions()
 
 
 if __name__ == '__main__':
