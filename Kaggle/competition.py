@@ -137,14 +137,12 @@ def train_models():
     # many models using GridSearchCV to find the best parameters for algorithms including the decision tree-based
     # ExtraTreesClassifier and RandomForestClassifier models. THen I created specific model instances using these
     # best parameter values, below.
-    models = [("ETC-md=None-mf=75-mss=2-210_est-no_PCA", ExtraTreesClassifier(max_depth=None, max_features=75, min_samples_split=2, n_estimators=210, n_jobs=-1), data),
-              ("LogisticRegression-C=1-L2_regularization-OvR-no_PCA", LogisticRegression(fit_intercept=False), data),
+    models = [("LogisticRegression-C=1-L2_regularization-OvR-no_PCA", LogisticRegression(fit_intercept=False), data),
               ("LogisticRegression-C=1-L2_regularization-multinomial-no_PCA", LogisticRegression(fit_intercept=False, multi_class='multinomial', solver='newton-cg'), data),
               ("RF-md=None-mf=60-mss=2-150_est-no_PCA", RandomForestClassifier(max_depth=None, max_features=60, min_samples_split=2, n_estimators=150, n_jobs=-1), data),
               ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-CS-no_PCA", LinearSVC(fit_intercept=False, multi_class='crammer_singer'), data),
               ("LinearSVC-C=1-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(fit_intercept=False), data),
               ("LinearSVC-C=0p01-squared_hinge_loss-L2_regularization-OvR-no_PCA", LinearSVC(C=0.01), data),
-              ("ETC-md=None-mf=30-mss=2-210_est-PCA_256", ExtraTreesClassifier(max_depth=None, max_features=30, min_samples_split=2, n_estimators=210, n_jobs=-1), data_pca_256),
               ("MyLogisticRegression-C=1-max_iter=300-OvR-PCA_256", OneVsRestClassifier(fp.MyLogisticRegression(max_iter=300)), data_pca_256),
               ("LogisticRegression-C=1-L2_regularization-multinomial-PCA_256", LogisticRegression(fit_intercept=False, multi_class='multinomial', solver='newton-cg'), data_pca_256),
               ("RF-md=None-mf=30-mss=2-150_est-PCA_256", RandomForestClassifier(max_depth=None, max_features=30, min_samples_split=2, n_estimators=150, n_jobs=-1), data_pca_256),
@@ -155,7 +153,13 @@ def train_models():
               ("SVC-C=1-rbf_kernel-degree=3-PCA_256", SVC(kernel='rbf', degree=3), data_pca_256),
               ("SVC-C=1-rbf_kernel-degree=4-PCA_256", SVC(kernel='rbf', degree=4), data_pca_256),
               ("SVC-C=1-rbf_kernel-degree=5-PCA_256", SVC(kernel='rbf', degree=5), data_pca_256)
-    ]
+
+              # On Ubuntu the following works fine, on OS X for some reason pickling gives an OS error, even though
+              # the two filenames are like all of the others that do work - I used Ubuntu to generate my data, and for
+              # for now I'll just not run on OS X
+              # ("ETC-md=None-mf=75-mss=2-210_est-no_PCA", ExtraTreesClassifier(max_depth=None, max_features=75, min_samples_split=2, n_estimators=210, n_jobs=-1), data),
+              # ("ETC-md=None-mf=30-mss=2-210_est-PCA_256", ExtraTreesClassifier(max_depth=None, max_features=30, min_samples_split=2, n_estimators=210, n_jobs=-1), data_pca_256),
+              ]
 
     model_metrics = [fit_test_and_save_model(model_desc, model, data, unique_labels) for model_desc, model, data in models]
 

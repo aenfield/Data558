@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="626a0728-2d4d-4224-8fbe-94b688cbf7a9" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model_summaries_allup.xlsx" afterPath="$PROJECT_DIR$/model_summaries_allup.xlsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HWExerciseExploratory.ipynb" afterPath="$PROJECT_DIR$/HWExerciseExploratory.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/competition.py" afterPath="$PROJECT_DIR$/competition.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/finalproj.py" afterPath="$PROJECT_DIR$/finalproj.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Week09/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Week09/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Week09/EnfieldAndrew-HW8.ipynb" afterPath="$PROJECT_DIR$/../Week09/EnfieldAndrew-HW8.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Week09/kernelsvm.py" afterPath="$PROJECT_DIR$/../Week09/kernelsvm.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -76,8 +74,8 @@
       <file leaf-file-name="finalproj.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/finalproj.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="416">
-              <caret line="122" column="25" lean-forward="false" selection-start-line="122" selection-start-column="8" selection-end-line="122" selection-end-column="25" />
+            <state relative-caret-position="100">
+              <caret line="209" column="33" lean-forward="true" selection-start-line="209" selection-start-column="33" selection-end-line="209" selection-end-column="33" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -88,11 +86,21 @@
       <file leaf-file-name="competition.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/competition.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="170" column="69" lean-forward="false" selection-start-line="170" selection-start-column="65" selection-end-line="170" selection-end-column="69" />
+            <state relative-caret-position="383">
+              <caret line="155" column="0" lean-forward="true" selection-start-line="155" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="start.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/start.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="83" lean-forward="false" selection-start-line="0" selection-start-column="83" selection-end-line="0" selection-end-column="83" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -108,9 +116,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>balan</find>
-      <find>random</find>
-      <find>get_classifier</find>
       <find>heatmap</find>
       <find>split</find>
       <find>images_train_dir</find>
@@ -138,6 +143,9 @@
       <find>LogisticRegression</find>
       <find>ovr-PCA_256</find>
       <find>rbf</find>
+      <find>hard</find>
+      <find>job</find>
+      <find>future</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -157,6 +165,7 @@
         <option value="$PROJECT_DIR$/competition-gen-test-csv.py" />
         <option value="$PROJECT_DIR$/competition-train.py" />
         <option value="$PROJECT_DIR$/finalproj.py" />
+        <option value="$PROJECT_DIR$/start.py" />
         <option value="$PROJECT_DIR$/competition.py" />
       </list>
     </option>
@@ -589,16 +598,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/images_to_features.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="46" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pickled_files_to_csv.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -990,10 +989,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/start.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="83" lean-forward="false" selection-start-line="0" selection-start-column="83" selection-end-line="0" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/finalproj.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="122" column="25" lean-forward="false" selection-start-line="122" selection-start-column="8" selection-end-line="122" selection-end-column="25" />
+        <state relative-caret-position="100">
+          <caret line="209" column="33" lean-forward="true" selection-start-line="209" selection-start-column="33" selection-end-line="209" selection-end-column="33" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -1002,8 +1009,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/competition.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="170" column="69" lean-forward="false" selection-start-line="170" selection-start-column="65" selection-end-line="170" selection-end-column="69" />
+        <state relative-caret-position="383">
+          <caret line="155" column="0" lean-forward="true" selection-start-line="155" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
