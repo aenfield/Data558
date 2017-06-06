@@ -103,5 +103,29 @@ def fastgradalgo(x, y, t_init, grad_func, obj_func,
     return beta_vals
 
 # my implementation from homework three
+def graddescent(beta_init, x, y, t_init, grad_func, obj_func,
+                max_iter=100, lam=5, t_func=None):
+    """
+    Implement gradient descent. Uses t_func to determine t, or
+    uses a fixed size of t_init if t_func is None. That is, pass
+    in a function like 'backtracking' to do a line search.
+    """
+    t = t_init
+    beta = beta_init
+    grad_beta = grad_func(beta, x, y, lam)
+    beta_vals = pd.DataFrame(beta_init[np.newaxis, :])
+    for i in range(1, max_iter):  # start at 1 because we've
+        # already done one iteration above
+        if t_func:
+            t = t_func(beta, x, y, grad_func, obj_func, t_init)
+
+        beta = beta - t * grad_beta
+        beta_vals = beta_vals.append(pd.DataFrame(beta[np.newaxis]),
+                                     ignore_index=True)
+        grad_beta = grad_func(beta, x, y, lam)
+
+    return beta_vals
+
+# my implementation from homework three
 def get_final_coefs(beta_vals):
     return beta_vals[-1:].values
