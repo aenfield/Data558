@@ -1,5 +1,4 @@
-# Implements logistic regression, per guidance given in class, using either a standard (slow) gradient
-# descent algorithm or a (theoretically faster) fast gradient descent algorithm.
+# Implements L2-regularized logistic regression using the fast gradient descent algorithm.
 
 import numpy as np
 import pandas as pd
@@ -15,7 +14,7 @@ from sklearn.base import BaseEstimator, ClassifierMixin
 
 def compute_gradient_logistic_regression(beta, X, y, lam=1):
     """
-    Evaluates the gradient of the logistic regression objective function with L2 regularization.
+    Evaluates the gradient of the L2-regularized logistic regression objective function.
 
     :param beta: a vector of coefficients, one per predictor
     :param X: a matrix with the predictor data, of size number of observations by number of predictors
@@ -55,12 +54,12 @@ def fastgradalgo(X, y, t_init, grad_func, obj_func, iter=100, lam=1, t_func=None
 
     :param X: a matrix with the predictor data, of size number of observations by number of predictors
     :param y: a vector of the actual values, one per observation
-    :param t_init: initial step size (if no function is passed as t_func, this is the step size used throughout)
+    :param t_init: initial step size (if no function is passed as t_func, this step size is used throughout)
     :param grad_func: a reference to the function that calculates the gradient vector
     :param obj_func: a reference to the function that calculates the objective value
     :param iter: number of iterations to run before returning all coefficients
     :param lam: a scalar controlling the degree of regularization
-    :param t_func: if set, calls this function to determine the step size dynamically on each iteration
+    :param t_func: if set, called to determine the step size dynamically on each iteration
     :return: a matrix of coefficient values, one row per iteration and one column per feature in the passed X data
     """
     beta = np.zeros(X.shape[1])  # shape[1] is the number of columns
@@ -159,10 +158,10 @@ def get_y_pred(coefs, X, prob_threshold=0.5):
 # ---
 
 def objective_plot(all_coefs, X, y,
-                      obj_func = compute_objective_logistic_regression,
-                      lam=1):
+                   obj_func = compute_objective_logistic_regression,
+                   lam=1):
     """
-    Plots the value of the objective function per iteration
+    Plots the value of the objective function per iteration.
 
     :param all_coefs: a matrix of coefficient values, one row per iteration and one column per feature in the passed X data
     :param X: a matrix with the predictor data, of size number of observations by number of predictors
